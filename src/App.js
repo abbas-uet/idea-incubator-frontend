@@ -1,7 +1,12 @@
 import "./App.css";
+import PrimarySearchAppBar from "./Components/Student/Navbar";
 
 function App() {
-  return <h1>Our Final Year Project</h1>;
+  return (
+    <div>
+      <PrimarySearchAppBar />
+    </div>
+  );
 }
 
 export default App;
