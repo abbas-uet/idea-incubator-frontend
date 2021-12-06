@@ -40,10 +40,9 @@ const ResponsiveAppBar = (props) => {
 
   return (
 
-    <Paper elevation={5}>
+    <Paper elevation={2} >
       <AppBar position="fixed" color='secondary'>
-        <Container maxWidth="xl">
-
+      <Container maxWidth="100%">
           <Toolbar disableGutters>
             <Link to="/*" style={{ textDecoration: 'none', color: 'white' }}>
               <Typography

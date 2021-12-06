@@ -8,7 +8,7 @@ import Industry from "./components/Industry/Industry.jsx";
 import Mentors from "./components/Mentors/Mentors.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import StudentAccountSetting from "./components/Profile Setting/Account Setting/StudentAccountSetting.jsx";
-import StudentProfileSetting from "./components/Profile Setting/Student Profile/StudentProfileSetting.jsx";
+import StudentProfileSetting from "./components/Profile Setting/Profile/StudentProfileSetting.jsx";
 import TalentPool from "./components/TalentPool/TalentPool.jsx";
 import Grid from '@mui/material/Grid';
 function App() {

@@ -4,7 +4,7 @@ import StepperCard from './StepperCard.jsx'
 import TaturialList from './TaturialsList.jsx'
 import VisionCard from './VisionCard.jsx'
 import CalenderCard from './CalenderCard.jsx'
-import NotificationList from './NotificationFromus.jsx';
+import NotificationList from './NotificationFromus';
 import MeetingLinks from './MeetingLinks.jsx'
 
 export default function DashBoard() {
