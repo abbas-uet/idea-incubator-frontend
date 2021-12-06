@@ -45,56 +45,59 @@ export default function StepperCard() {
 
   return (
 
-    <Grid sx={{ maxWidth: 350, minWidth: 325 }} container direction="column" >
 
-      <Paper elevation={5} sx={{ m: 2 }}>
-        <Box sx={{ m: 2 }} textAlign='center'  >
-          <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((step, index) => (
-              <Step key={step.label}>
-                <StepLabel>
-                  {step.label}
-                </StepLabel>
-                <StepContent >
-                  <Typography>{step.description}</Typography>
-                  <Box sx={{ mb: 2 }}>
-                    <div>
-                      <Button
-                        variant="contained"
-                        onClick={handleNext}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        {index === steps.length - 1 ? 'Upgrade' : 'Check Next'}
-                      </Button>
-                      <Button
-                        disabled={index === 0}
-                        onClick={handleBack}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        Check Previous
-                      </Button>
-                    </div>
-                  </Box>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
-          {activeStep === steps.length && (
-            <Paper square elevation={0} sx={{ p: 3 }}>
-              <Typography>All MemberShips Viewed - you&apos;re finished</Typography>
-              <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                Check Again
-              </Button>
-            </Paper>
-          )}
-          <Box textAlign='center'>
-            <Button variant="contained" size='medium' color="secondary" onClick={handleUpgrade} sx={{ m: 2 }} >
-              Upgrade
+    <Paper elevation={5} sx={{ mt: 2, ml: 2, mb: 1, mr: 1 }}>
+      <Grid container>
+        <Grid item sx={{ m: 1 }}>
+          <Typography variant="h5" component="div">Memberships</Typography>
+        </Grid>
+      </Grid>
+      <Box sx={{ m: 2 }} textAlign='center'  >
+        <Stepper activeStep={activeStep} orientation="vertical">
+          {steps.map((step, index) => (
+            <Step key={step.label}>
+              <StepLabel>
+                {step.label}
+              </StepLabel>
+              <StepContent >
+                <Typography>{step.description}</Typography>
+                <Box sx={{ mb: 2 }}>
+                  <div>
+                    <Button
+                      variant="contained"
+                      onClick={handleNext}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      {index === steps.length - 1 ? 'Upgrade' : 'Check Next'}
+                    </Button>
+                    <Button
+                      disabled={index === 0}
+                      onClick={handleBack}
+                      sx={{ mt: 1, mr: 1 }}
+                    >
+                      Check Previous
+                    </Button>
+                  </div>
+                </Box>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+        {activeStep === steps.length && (
+          <Paper square elevation={0} sx={{ p: 3 }}>
+            <Typography>All MemberShips Viewed - you&apos;re finished</Typography>
+            <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+              Check Again
             </Button>
-          </Box>
+          </Paper>
+        )}
+        <Box textAlign='center'>
+          <Button variant="contained" size='medium' color="secondary" onClick={handleUpgrade} sx={{ m: 2 }} >
+            Upgrade
+          </Button>
         </Box>
-      </Paper>
-    </Grid>
+      </Box>
+    </Paper>
   );
 }
 

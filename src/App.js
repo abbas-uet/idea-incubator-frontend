@@ -10,13 +10,14 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import StudentAccountSetting from "./components/Profile Setting/Account Setting/StudentAccountSetting.jsx";
 import StudentProfileSetting from "./components/Profile Setting/Student Profile/StudentProfileSetting.jsx";
 import TalentPool from "./components/TalentPool/TalentPool.jsx";
-
+import Grid from '@mui/material/Grid';
 function App() {
   const pages = [['Home','/home'],['Mentors','/mentors'], ['Industry','/industry'], ['Assets','/assets'],['Idea Pool','/ideaPool'],['Talent Pool','/talentPool'],['Help','/help']];
   const settings = [['Profile','/studentProfileSettings'], ['Account','/studentAccountSettings']];
   return (
     <BrowserRouter>
       <Navbar settings={settings} pages={pages}/>
+      <Grid sx={{mt:8}}>
       <Routes>
         <Route path="home/*" element={<DashBoard/>}/>
         <Route path="mentors/*" element={<Mentors/>}/>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<DashBoard/>}/>
         <Route path="/*" element={<DashBoard/>}/>
       </Routes>
+      </Grid>
     </BrowserRouter>
   );
 }

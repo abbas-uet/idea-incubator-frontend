@@ -11,15 +11,14 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Paper } from '@mui/material';
 
 
 
 const ResponsiveAppBar = (props) => {
-  const settings=props.settings;
-  const pages=props.pages;
-  console.log(settings,pages);
+  const settings = props.settings;
+  const pages = props.pages;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -41,121 +40,121 @@ const ResponsiveAppBar = (props) => {
 
   return (
 
-    <Paper elevation={10}>
-      <AppBar position="static" color='secondary'>
-      <Container maxWidth="xl">
-        
-        <Toolbar disableGutters>
-          <Link to="/*" style={{textDecoration:'none',color:'white'}}>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-          >
-            Idea Incubator
-          </Typography>
-          </Link>
+    <Paper elevation={5}>
+      <AppBar position="fixed" color='secondary'>
+        <Container maxWidth="xl">
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <Link key={page[0]+'m'} to={page[1]} style={{textDecoration:'none',color:'#333'}}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page[0]}</Typography>
-                </MenuItem>
-                </Link>
-                
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
-            Idea Incubator
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                className='btnhover'
-                key={page[0]}
-                onClick={handleCloseNavMenu}
-                variant="primary"
-                sx={{ m: 1, color: 'white', display: 'block' }}
-                LinkComponent={Link} to={page[1]}
+          <Toolbar disableGutters>
+            <Link to="/*" style={{ textDecoration: 'none', color: 'white' }}>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
               >
-                {page[0]}
-              </Button>
-            ))}
-          </Box>
+                Idea Incubator
+              </Typography>
+            </Link>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map((page) => (
+                  <Link key={page[0] + 'm'} to={page[1]} style={{ textDecoration: 'none', color: '#333' }}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page[0]}</Typography>
+                    </MenuItem>
+                  </Link>
+
+                ))}
+              </Menu>
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
             >
-              {settings.map((setting) => (
-                <Link key={settings[0]}  to={setting[1]} style={{textDecoration:'none',color:'#333'}}>
-                <MenuItem  onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{setting[0]}</Typography>
-                </MenuItem>
-                </Link>
+              Idea Incubator
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              {pages.map((page) => (
+                <Button
+                  className='btnhover'
+                  key={page[0]}
+                  onClick={handleCloseNavMenu}
+                  variant="primary"
+                  sx={{ m: 1, color: 'white', display: 'block' }}
+                  LinkComponent={Link} to={page[1]}
+                >
+                  {page[0]}
+                </Button>
               ))}
-                
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            </Box>
+
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <Link key={setting[1]} to={setting[1]} style={{ textDecoration: 'none', color: '#333' }}>
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{setting[0]}</Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
     </Paper>
-    
+
   );
 };
 export default ResponsiveAppBar;
