@@ -13,7 +13,7 @@ import TalentPool from "./components/TalentPool/TalentPool.jsx";
 import Grid from '@mui/material/Grid';
 function App() {
   const pages = [['Home','/home'],['Mentors','/mentors'], ['Industry','/industry'], ['Assets','/assets'],['Idea Pool','/ideaPool'],['Talent Pool','/talentPool'],['Help','/help']];
-  const settings = [['Profile','/studentProfileSettings'], ['Account','/studentAccountSettings']];
+  const settings = [['Account Setting','/studentAccountSettings'],['Log Out','/studentProfileSettings'], ];
   return (
     <BrowserRouter>
       <Navbar settings={settings} pages={pages}/>

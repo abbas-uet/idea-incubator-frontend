@@ -100,10 +100,3 @@ export default function StepperCard() {
     </Paper>
   );
 }
-
-
-
-
-
-
-

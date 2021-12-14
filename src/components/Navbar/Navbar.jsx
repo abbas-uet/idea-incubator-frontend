@@ -13,7 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import { Paper } from '@mui/material';
-
+import ProfileCard from '../Utils/ProfileCard.jsx';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import ChatIcon from '@mui/icons-material/Chat';
 
 
 const ResponsiveAppBar = (props) => {
@@ -42,7 +45,7 @@ const ResponsiveAppBar = (props) => {
 
     <Paper elevation={2} >
       <AppBar position="fixed" color='secondary'>
-      <Container maxWidth="100%">
+        <Container maxWidth="100%">
           <Toolbar disableGutters>
             <Link to="/*" style={{ textDecoration: 'none', color: 'white' }}>
               <Typography
@@ -116,11 +119,10 @@ const ResponsiveAppBar = (props) => {
                 </Button>
               ))}
             </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
+            <Box sx={{ flexGrow: 0.1 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'white' }} >
+                  <ChatIcon fontSize='medium' />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -139,9 +141,77 @@ const ResponsiveAppBar = (props) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                <ProfileCard name={"Abbas Ali"} closeFunction={handleCloseUserMenu} />
                 {settings.map((setting) => (
                   <Link key={setting[1]} to={setting[1]} style={{ textDecoration: 'none', color: '#333' }}>
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting[0]}</Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+
+              </Menu>
+            </Box>
+            <Box sx={{ flexGrow: 0.1 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'white' }} >
+                  <NotificationsIcon fontSize='medium' />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <ProfileCard name={"Abbas Ali"} closeFunction={handleCloseUserMenu} />
+                {settings.map((setting) => (
+                  <Link key={setting[1]} to={setting[1]} style={{ textDecoration: 'none', color: '#333' }}>
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting[0]}</Typography>
+                    </MenuItem>
+                  </Link>
+                ))}
+
+              </Menu>
+            </Box>
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'white' }} >
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <ArrowDropDownIcon fontSize='large' />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <ProfileCard name={"Abbas Ali"} closeFunction={handleCloseUserMenu} />
+                {settings.map((setting) => (
+                  <Link key={setting[1]} to={setting[1]} style={{ textDecoration: 'none', color: '#333' }}>
+                    <MenuItem onClick={handleCloseUserMenu}>
                       <Typography textAlign="center">{setting[0]}</Typography>
                     </MenuItem>
                   </Link>
@@ -152,7 +222,7 @@ const ResponsiveAppBar = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
-    </Paper>
+    </Paper >
 
   );
 };

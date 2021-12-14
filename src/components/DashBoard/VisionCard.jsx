@@ -9,7 +9,6 @@ import image from "../../StaticAssets/visionCardImage.svg"
 
 export default function VisionCard() {
   return (
-
     <Paper elevation={5} sx={{ mt: 2, ml: 1, mb: 1, mr: 1 }}>
       <Card sx={{ display: 'flex', backgroundColor: '#fff', maxwidth: 400, minWidth: 200 }}>
         <Box sx={{ width: '70%' }}>
