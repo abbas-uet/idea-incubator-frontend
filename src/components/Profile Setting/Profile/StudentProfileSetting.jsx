@@ -22,8 +22,8 @@ export default function ProfileSetting() {
             <Grid container justifyContent='center' >
                 <Grid item xs={12} sm={10} className={classes.container} sx={{ margin: 2, backgroundColor: 'white' }} >
                     {/* <ForStudent /> */}
-                    {/* <ForIndustry /> */}
-                    <ForMentors />
+                    <ForIndustry />
+                    {/* <ForMentors /> */}
                 </Grid>
             </Grid>
         </Paper>

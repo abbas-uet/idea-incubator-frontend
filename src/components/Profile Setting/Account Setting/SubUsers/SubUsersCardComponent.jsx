@@ -40,11 +40,7 @@ export default function SubUsersCardComponent(props) {
                 title={<Typography variant='h6'>Shrimp and Chorizo Paella</Typography>}
                 subheader="Last Login: Sep 14, 2016"
             />
-<<<<<<< Updated upstream
             <Avatar sx={{ height: '150px', width: '150px', marginLeft: 5 }}>
-=======
-            <Avatar sx={{ height: '150px', width: '150px', marginLeft: 7 }}>
->>>>>>> Stashed changes
                 <CardMedia
                     component="img"
                     height="150"
