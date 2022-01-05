@@ -12,6 +12,8 @@ import ViewProfile from "./components/Profile Setting/Profile/ViewProfile.jsx";
 import StudentProfileSetting from "./components/Profile Setting/Profile/StudentProfileSetting.jsx";
 import TalentPool from "./components/TalentPool/TalentPool.jsx";
 import Grid from '@mui/material/Grid';
+
+
 function App() {
   const pages = [['Home','/home'],['Mentors','/mentors'], ['Industry','/industry'], ['Assest','/assest'],['Idea Pool','/ideaPool'],['Talent Pool','/talentPool'],['Help','/help']];
   const settings = [['Account Setting','/studentAccountSettings'],['Log Out','/studentProfileSettings'], ];

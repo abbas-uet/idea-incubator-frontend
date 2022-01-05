@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import { TextField, ListItemAvatar, styled, Badge} from "@mui/material";
+import { TextField, ListItemAvatar, styled, Badge, Paper } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from "@mui/icons-material/Edit";

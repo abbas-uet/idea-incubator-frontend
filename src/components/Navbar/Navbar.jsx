@@ -16,6 +16,7 @@ import { Paper } from '@mui/material';
 import ProfileCard from '../Utils/ProfileCard.jsx';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationSection from './NotificationSection/index.jsx';
 import ChatIcon from '@mui/icons-material/Chat';
 
 
@@ -152,39 +153,7 @@ const ResponsiveAppBar = (props) => {
 
               </Menu>
             </Box>
-            <Box sx={{ flexGrow: 0.1 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'white' }} >
-                  <NotificationsIcon fontSize='medium' />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <ProfileCard name={"Abbas Ali"} closeFunction={handleCloseUserMenu} />
-                {settings.map((setting) => (
-                  <Link key={setting[1]} to={setting[1]} style={{ textDecoration: 'none', color: '#333' }}>
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting[0]}</Typography>
-                    </MenuItem>
-                  </Link>
-                ))}
-
-              </Menu>
-            </Box>
+            <NotificationSection />
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'white' }} >
