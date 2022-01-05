@@ -1,6 +1,6 @@
 import { BrowserRouter ,Routes,Route} from "react-router-dom";
 import "./App.css";
-import AssetsModule from "./components/AssetsModule/AssetsModule.jsx";
+import Assest from "./components/Assest/Assest";
 import DashBoard from "./components/DashBoard/DashBoard.jsx";
 import Help from "./components/Help/Help.jsx";
 import IdeaPool from "./components/IdeaPool/IdeaPool.jsx";
@@ -13,7 +13,7 @@ import StudentProfileSetting from "./components/Profile Setting/Profile/StudentP
 import TalentPool from "./components/TalentPool/TalentPool.jsx";
 import Grid from '@mui/material/Grid';
 function App() {
-  const pages = [['Home','/home'],['Mentors','/mentors'], ['Industry','/industry'], ['Assets','/assets'],['Idea Pool','/ideaPool'],['Talent Pool','/talentPool'],['Help','/help']];
+  const pages = [['Home','/home'],['Mentors','/mentors'], ['Industry','/industry'], ['Assest','/assest'],['Idea Pool','/ideaPool'],['Talent Pool','/talentPool'],['Help','/help']];
   const settings = [['Account Setting','/studentAccountSettings'],['Log Out','/studentProfileSettings'], ];
   return (
     <BrowserRouter>
@@ -23,7 +23,7 @@ function App() {
         <Route path="home/*" element={<DashBoard/>}/>
         <Route path="mentors/*" element={<Mentors/>}/>
         <Route path="industry/*" element={<Industry/>}/>
-        <Route path="assets/*" element={<AssetsModule/>}/>
+        <Route path="assest/*" element={<Assest/>}/>
         <Route path="ideaPool/*" element={<IdeaPool/>}/>
         <Route path="talentPool/*" element={<TalentPool/>}/>
         <Route path="help/*" element={<Help/>}/>

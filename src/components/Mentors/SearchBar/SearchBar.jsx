@@ -10,7 +10,7 @@ const Search = styled('div')(({ theme }) => ({
   backgroundColor: '#1001',
   color:'#9c27b0',
   marginRight:theme.spacing(1),
-  marginLeft: 0,
+  marginLeft:0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(1),
@@ -52,7 +52,7 @@ export default function SearchBar(props) {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder={props.title}
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ 'aria-label': 'search by' }}
             />
           </Search>
   );

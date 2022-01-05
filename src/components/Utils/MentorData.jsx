@@ -1,31 +1,22 @@
-import React from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import React from 'react'
 import { Paper } from "@mui/material";
-import Stack from '@mui/material/Stack';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import {
   Grid,
-  Badge,
   Typography,
   Avatar,
   Card,
   CardContent,
-  CardMedia,
-  CardHeader,
   Checkbox,
   CardActions,
 } from "@mui/material";
-import Box from "@mui/material/Box";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
-import SearchBar from "../Mentors/SearchBar/SearchBar";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-
-export default function MentorIndustry() {
+export default function MentorData() {
     return (
-        <Paper>
+            <Paper>
           <Card>
             <Grid item container>
               <Grid item xs={9} md={9}>
@@ -49,14 +40,14 @@ export default function MentorIndustry() {
               component="div"
               variant="h6"
               >
-                Google
+                Sehar Asghar
               </Typography>
             
               <Typography
                             variant="subtitle2"
                             fontWeight={"fontWeightBold"}
                             >
-                            Lahore,Pakistan
+                            Computer Science Dept
                           </Typography>
                               <Grid item container direction="row" marginTop={0.5} spacing={1} >
             <Grid item md={1}>  <MiscellaneousServicesIcon/></Grid>   
@@ -65,7 +56,7 @@ export default function MentorIndustry() {
                               variant="body2"
                               component="div"
                               >
-                              Training |Funding| Equity
+                              PF |OOP| Data Structure
                             </Typography>
                             </Grid>
                             <Grid item md={6}>         <Button
@@ -82,7 +73,6 @@ export default function MentorIndustry() {
             <CardActions>
             </CardActions>
           </Card>
-                                </Paper>
-
+                                </Paper> 
     )
 }

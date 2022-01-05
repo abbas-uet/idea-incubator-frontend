@@ -1,27 +1,15 @@
 import React from "react";
-import { Paper, Typography } from "@mui/material";
+import {Typography } from "@mui/material";
 import Pagination from '@mui/material/Pagination';
 import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
 import SearchBar from "./SearchBar/SearchBar";
 import Slider from "@mui/material/Slider";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import { purple } from "@mui/material/colors";
-import { width } from "@mui/system";
-import MentorIndustry from "../Utils/MentorIndustry";
+import MentorData from "../Utils/MentorData";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 const mentorsProfilesData = [
@@ -95,14 +83,14 @@ export default function MentorPage() {
       <Grid container spacing={2}>
         <Grid item container xs={12} md={12}>
             <Grid item xs={12} md={6}>
-          <SearchBar />
+          <SearchBar title="Search by name"/>
         </Grid>
         <Grid item xs={12} md={5}>
-          <SearchBar />
+          <SearchBar title="Search by location" />
         </Grid>
         <Grid item xs={1} md={1}>
           <Button
-            sx={{m:1}}
+            sx={{mt:1,mb:1,ml:2}}
             variant="contained"
             color="secondary"
             disableElevation
@@ -147,23 +135,23 @@ export default function MentorPage() {
         </Grid>
         <Grid item container spacing={3} xs={12} >
           <Grid item xs={12} md={4}>
-          <MentorIndustry/>
+          <MentorData/>
         </Grid>
         <Grid item xs={12} md={4}>
-          <MentorIndustry/>
+          <MentorData/>
         </Grid>
         <Grid item xs={12} md={4}>
-          <MentorIndustry/>
+          <MentorData/>
         </Grid>
         
         <Grid item xs={12} md={4}>
-          <MentorIndustry/>
+          <MentorData/>
         </Grid>
         <Grid item xs={12} md={4}>
-          <MentorIndustry/>
+          <MentorData/>
         </Grid>
         <Grid item xs={12} md={4}>
-          <MentorIndustry/>
+          <MentorData/>
         </Grid>
             <Grid item container xs={12} justifyContent={'flex-end'}>
           <Pagination count={10} color="secondary"sx={{margin:2}} />
