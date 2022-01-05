@@ -4,6 +4,7 @@ import ForStudent from './ForStudent'
 import { makeStyles } from '@material-ui/core'
 import ForMentors from './ForMentors'
 import ForIndustry from './FarIndustry'
+import Paper from "@mui/material/Paper"
 
 const useStyle = makeStyles({
     container: {
@@ -16,15 +17,17 @@ export default function ProfileSetting() {
 
 
     return (
-        <Grid container>
-            <Grid item xs={0} sm={1}></Grid>
-            <Grid item xs={12} sm={10} className={classes.container} >
-                {/* <ForStudent /> */}
-                {/* <ForIndustry /> */}
-                <ForMentors />
+        <Paper elevation={22}>
+
+            <Grid container justifyContent='center' >
+                <Grid item xs={12} sm={10} className={classes.container} sx={{ margin: 2, backgroundColor: 'white' }} >
+                    {/* <ForStudent /> */}
+                    {/* <ForIndustry /> */}
+                    <ForMentors />
+                </Grid>
             </Grid>
-            <Grid item xs={0} sm={1}></Grid>
-        </Grid>
+        </Paper>
     )
 }
+
 

@@ -8,6 +8,7 @@ import Industry from "./components/Industry/Industry.jsx";
 import Mentors from "./components/Mentors/Mentors.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import StudentAccountSetting from "./components/Profile Setting/Account Setting/StudentAccountSetting.jsx";
+import ViewProfile from "./components/Profile Setting/Profile/ViewProfile.jsx";
 import StudentProfileSetting from "./components/Profile Setting/Profile/StudentProfileSetting.jsx";
 import TalentPool from "./components/TalentPool/TalentPool.jsx";
 import Grid from '@mui/material/Grid';
@@ -28,6 +29,7 @@ function App() {
         <Route path="help/*" element={<Help/>}/>
         <Route path="studentAccountSettings/*" element={<StudentAccountSetting/>}/>
         <Route path="studentProfileSettings/*" element={<StudentProfileSetting/>}/>
+        <Route path="viewProfile/*" element={<ViewProfile/>}/>
         <Route path="/" element={<DashBoard/>}/>
         <Route path="/*" element={<DashBoard/>}/>
       </Routes>

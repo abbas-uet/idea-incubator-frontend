@@ -64,16 +64,16 @@ export default function SubUsersMain() {
                         Invite Sub Users
                     </Button>
                 </Grid>
-                <Grid item xs={4} md={4} sm={6}>
+                <Grid item xs={12} md={3} sm={6}>
                     <SubUsersCardComponent />
                 </Grid>
-                <Grid item xs={4} md={4} sm={6} >
+                <Grid item xs={12} md={3} sm={6} >
                     <SubUsersCardComponent />
                 </Grid>
-                <Grid item xs={4} md={4} sm={6} >
+                <Grid item xs={12} md={3} sm={6} >
                     <SubUsersCardComponent />
                 </Grid>
-                <Grid item xs={4} md={4} sm={6} >
+                <Grid item xs={12} md={3} sm={6} >
                     <SubUsersCardComponent />
                 </Grid>
             </Grid>

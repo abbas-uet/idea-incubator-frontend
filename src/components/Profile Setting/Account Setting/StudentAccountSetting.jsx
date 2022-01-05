@@ -14,6 +14,8 @@ import SubUsersMain from './SubUsers/SubUsersMain.jsx';
 import Grid from '@mui/material/Grid';
 import { purple } from '@mui/material/colors';
 import AccountPayment from './Account Payements/AccountPayment.jsx';
+import StudentProfileSetting from '../../Profile Setting/Profile/StudentProfileSetting.jsx'
+import NotificationSettings from './NotificationSettings/NotificationSettings.jsx';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -56,7 +58,7 @@ export default function StudentAccountSetting() {
         <Box
             sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', ml: 1, mt: 10 }}
         >
-            <Grid container spacing={1.5} direction={'row'} justifyContent={'space-around'}>
+            <Grid container spacing={1.5} justifyContent={'center'}>
                 <Grid item xs={2}>
                     <Paper elevation={2.5} sx={{ bgcolor: '#1001' }} m={4}>
                         <Tabs
@@ -72,11 +74,11 @@ export default function StudentAccountSetting() {
                         >
 
                             <Tab icon={<BadgeIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Account Details" labelStyle={{ float: 'left' }} {...a11yProps(0)} />
-                            <Tab icon={<GroupIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Sub Users" labelStyle={{ float: 'left' }}{...a11yProps(1)} />
-                            <Tab icon={<CreditCardIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Account Billing" {...a11yProps(2)} />
-                            <Tab icon={<EditNotificationsIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Notifications" {...a11yProps(3)} />
-                            <Tab icon={<HistoryIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Account History" {...a11yProps(4)} />
-                            <Tab icon={<BadgeIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Item Six" {...a11yProps(5)} />
+                            <Tab icon={<BadgeIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Profile Details" labelStyle={{ float: 'left' }} {...a11yProps(1)} />
+                            <Tab icon={<GroupIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Sub Users" labelStyle={{ float: 'left' }}{...a11yProps(2)} />
+                            <Tab icon={<CreditCardIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Account Billing" {...a11yProps(3)} />
+                            <Tab icon={<EditNotificationsIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Notifications" {...a11yProps(4)} />
+                            <Tab icon={<HistoryIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Account History" {...a11yProps(5)} />
                             <Tab icon={<BadgeIcon sx={{ mb: 0.5 }} />} iconPosition='start' sx={{ textTransform: "none", fontSize: 18, justifyContent: "flex-start" }} label="Item Seven" {...a11yProps(6)} />
                         </Tabs>
                     </Paper>
@@ -89,19 +91,19 @@ export default function StudentAccountSetting() {
                             Item One
                         </TabPanel>
                         <TabPanel value={value} index={1}>
-                            <SubUsersMain />
+                            <StudentProfileSetting />
                         </TabPanel>
                         <TabPanel value={value} index={2}>
-                            <AccountPayment />
+                            <SubUsersMain />
                         </TabPanel>
                         <TabPanel value={value} index={3}>
-                            Item Four
+                            <AccountPayment />
                         </TabPanel>
                         <TabPanel value={value} index={4}>
-                            Item Five
+                            <NotificationSettings />
                         </TabPanel>
                         <TabPanel value={value} index={5}>
-                            Item Six
+                            Item Five
                         </TabPanel>
                         <TabPanel value={value} index={6}>
                             Item Seven

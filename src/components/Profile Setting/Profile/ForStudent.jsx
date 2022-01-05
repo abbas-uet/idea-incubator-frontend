@@ -17,41 +17,40 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 }))
 export default function ForStudent() {
   return (
-    <Paper elevation={22}>
-      <Grid container justify="center" alignItems="center">
-        <Grid item md={3} justifyContent='center'>
-          <Box display="flex" alignItems="center" marginLeft={7} marginBottom={12} >
-            <Badge overlap="circular"
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-              badgeContent={<SmallAvatar>
-                <EditIcon /></SmallAvatar>}
-            >
-              <Avatar sx={{ width: 200, height: 200 }}>
-                <PersonIcon sx={{ fontSize: '50rem' }} />
-              </Avatar>
-            </Badge>
-          </Box>
-        </Grid>
-        <Grid item md={9}>
-          <Box textAlign="left" marginTop={2} padding={3}>
-            <Grid container spacing="3">
-              <Grid item xs={12} md={3}><TextField id="outlined-basic" label="First Name" variant="outlined" fullWidth /></Grid>
-              <Grid item xs={12} md={3}><TextField id="outlined-basic" label="Last Name" variant="outlined" fullWidth /></Grid>
-              <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Headline" variant="outlined" fullWidth /></Grid>
-              <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Current Location" variant="outlined" fullWidth /></Grid>
-              <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Email" variant="outlined" fullWidth /></Grid>
-              <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Project Name" variant="outlined" fullWidth /></Grid>
-              <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Technology and tools" variant="outlined" multiline maxRows={4} fullWidth /></Grid>
-              <Grid item xs={12} md={12}><TextField id="outlined-multiline-static" label="Project Description" variant="outlined" multiline maxRows={8} fullWidth /></Grid>
-              <Grid item xs={12} md={12}><Typography variant="body2">Attach a Document in which detail of your Project is mentioned</Typography></Grid>
-              <Grid item xs={12} md={12}><Button variant="contained" component="label">Attach File
-                <input type="file" hidden size="large" /></Button></Grid>
-            </Grid>
-          </Box>
-          <Box textAlign="right" marginBottom={3} paddingRight={3}><Button color="secondary" startIcon={<SaveIcon />} variant="contained" size="large">Save
-          </Button></Box>
-        </Grid>
+
+    <Grid container justify="center" alignItems="center">
+      <Grid item md={3} justifyContent='center'>
+        <Box display="flex" alignItems="center" marginBottom={12} >
+          <Badge overlap="circular"
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            badgeContent={<SmallAvatar>
+              <EditIcon /></SmallAvatar>}
+          >
+            <Avatar sx={{ width: 200, height: 200 }}>
+              <PersonIcon sx={{ fontSize: '50rem' }} />
+            </Avatar>
+          </Badge>
+        </Box>
       </Grid>
-    </Paper>
+      <Grid item md={9}>
+        <Box textAlign="left" marginTop={2} padding={3}>
+          <Grid container spacing="3">
+            <Grid item xs={12} md={3}><TextField id="outlined-basic" label="First Name" variant="outlined" fullWidth /></Grid>
+            <Grid item xs={12} md={3}><TextField id="outlined-basic" label="Last Name" variant="outlined" fullWidth /></Grid>
+            <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Headline" variant="outlined" fullWidth /></Grid>
+            <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Current Location" variant="outlined" fullWidth /></Grid>
+            <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Email" variant="outlined" fullWidth /></Grid>
+            <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Project Name" variant="outlined" fullWidth /></Grid>
+            <Grid item xs={12} md={6}><TextField id="outlined-basic" label="Technology and tools" variant="outlined" multiline maxRows={4} fullWidth /></Grid>
+            <Grid item xs={12} md={12}><TextField id="outlined-multiline-static" label="Project Description" variant="outlined" multiline maxRows={8} fullWidth /></Grid>
+            <Grid item xs={12} md={12}><Typography variant="body2">Attach a Document in which detail of your Project is mentioned</Typography></Grid>
+            <Grid item xs={12} md={12}><Button variant="contained" component="label">Attach File
+              <input type="file" hidden size="large" /></Button></Grid>
+          </Grid>
+        </Box>
+        <Box textAlign="right" marginBottom={3} paddingRight={3}><Button color="secondary" startIcon={<SaveIcon />} variant="contained" size="large">Save
+        </Button></Box>
+      </Grid>
+    </Grid>
   );
 }

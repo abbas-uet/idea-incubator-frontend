@@ -20,7 +20,7 @@ export default function ProfileCard(props) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button variant='outlined' sx={{ borderRadius: 5, }} size="small" color="primary" fullWidth={true} LinkComponent={Link} to={"/studentProfileSettings"} onClick={props.closeFunction} >
+                <Button variant='outlined' sx={{ borderRadius: 5, }} size="small" color="primary" fullWidth={true} LinkComponent={Link} to={"/viewProfile"} onClick={props.closeFunction} >
                     View Profile
                 </Button>
             </CardActions>

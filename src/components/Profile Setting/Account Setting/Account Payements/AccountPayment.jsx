@@ -8,6 +8,7 @@ import Pricing from './PricingPage/Pricing.jsx';
 import Grid from '@mui/material/Grid';
 import PaymentInformationForm from './AccountPaymentInformation/PaymentInformationForm.jsx';
 import InvoiceHistory from './Invoice History/InvoiceHistory.jsx';
+import DeleteAccountStepper from './DeleteAccount/DeleteAccountStepper.jsx';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -55,7 +56,7 @@ export default function AccountPayment() {
                         <Tab label="Subscription Plan" {...a11yProps(0)} sx={{ textTransform: "none" }} />
                         <Tab label="Payment Information" {...a11yProps(1)} sx={{ textTransform: "none" }} />
                         <Tab label="Invoice History" {...a11yProps(2)} sx={{ textTransform: "none" }} />
-                        <Tab label="Account Cancel" {...a11yProps(3)} sx={{ textTransform: "none" }} />
+                        <Tab label="Delete Account" {...a11yProps(3)} sx={{ textTransform: "none" }} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -68,7 +69,7 @@ export default function AccountPayment() {
                     <InvoiceHistory />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    Item Three
+                    <DeleteAccountStepper />
                 </TabPanel>
             </Box>
         </Grid>
