@@ -32,7 +32,6 @@ export default function SubUsersCardComponent(props) {
 
     return (
         <Card >
-
             <CardHeader
                 action={
                     <Badge badgeContent={"Owner"} color="primary" sx={{ marginRight: 2.5 }}>
@@ -41,10 +40,10 @@ export default function SubUsersCardComponent(props) {
                 title={<Typography variant='h6'>Shrimp and Chorizo Paella</Typography>}
                 subheader="Last Login: Sep 14, 2016"
             />
-            <Avatar sx={{ height: '250px', width: '250px', marginLeft: 5 }}>
+            <Avatar sx={{ height: '150px', width: '150px', marginLeft: 5 }}>
                 <CardMedia
                     component="img"
-                    height="250"
+                    height="150"
                     image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                     alt="Paella dish"
                 />

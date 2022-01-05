@@ -23,6 +23,8 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "custom-react-accordion": "^1.0.4",
+    "material-ui-flags": "^1.2.4",
+    "material-ui-image": "^3.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-profile-card": "^0.1.4",
