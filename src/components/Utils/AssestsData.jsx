@@ -15,7 +15,7 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
 export default function AssestsData() {
   return (
-    <Paper>
+    <Paper elevation={5} sx={{ ml: 1.2, mr: 0.7 }}>
       <Card>
         <Grid item container>
           <Grid item xs={9} md={9}>
