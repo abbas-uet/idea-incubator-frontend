@@ -16,6 +16,7 @@ import { purple } from '@mui/material/colors';
 import AccountPayment from './Account Payements/AccountPayment.jsx';
 import StudentProfileSetting from '../../Profile Setting/Profile/StudentProfileSetting.jsx'
 import NotificationSettings from './NotificationSettings/NotificationSettings.jsx';
+import SubUsersList from './AccountDetails/SubUsersList.jsx'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -88,7 +89,7 @@ export default function StudentAccountSetting() {
                     <Paper elevation={2.5} sx={{ backgroundColor: purple[50] }}>
 
                         <TabPanel value={value} index={0}>
-                            Item One
+                            <SubUsersList />
                         </TabPanel>
                         <TabPanel value={value} index={1}>
                             <StudentProfileSetting />

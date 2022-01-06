@@ -30,7 +30,8 @@ import MainCard from '../../Utils/MainCard.jsx'
 import NotificationList from './NotificationList';
 
 // assets
-import { IconBell } from '@tabler/icons';
+import { IconBell, IconMessage } from '@tabler/icons';
+import MessageNotificationList from './MessageNotificationList.jsx';
 
 // notification status options
 const status = [
@@ -54,7 +55,7 @@ const status = [
 
 // ==============================|| NOTIFICATION ||============================== //
 
-const NotificationSection = () => {
+const NotificationSection = (props) => {
     const theme = useTheme();
     const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -92,13 +93,14 @@ const NotificationSection = () => {
         <>
             <Box
                 sx={{
-                    ml: 2,
+
                     mr: 3,
                     [theme.breakpoints.down('md')]: {
                         mr: 2
                     }
                 }}
             >
+
                 <ButtonBase sx={{ borderRadius: '12px' }}>
                     <Avatar
                         variant="rounded"
@@ -106,11 +108,11 @@ const NotificationSection = () => {
                             ...theme.typography.commonAvatar,
                             ...theme.typography.mediumAvatar,
                             transition: 'all .2s ease-in-out',
-                            background: theme.palette.grey[200],
-                            color: theme.palette.primary,
+                            background: theme.palette.primary,
+                            color: theme.palette.secondary,
                             '&[aria-controls="menu-list-grow"],&:hover': {
-                                background: theme.palette.secondary.light,
-                                color: theme.palette.secondary.dark,
+                                background: theme.palette.secondary,
+                                color: theme.palette.primary,
                             }
                         }}
                         ref={anchorRef}
@@ -119,9 +121,13 @@ const NotificationSection = () => {
                         onClick={handleToggle}
                         color="inherit"
                     >
-                        <IconBell stroke={1.5} size="1.3rem" />
+                        {props.type === 'Notifications' ?
+                            <IconBell stroke={1.5} size="1.3rem" />
+                            :
+                            <IconMessage stroke={1.5} size="1.3rem" />}
                     </Avatar>
                 </ButtonBase>
+
             </Box>
             <Popper
                 placement={matchesXs ? 'bottom' : 'bottom-end'}
@@ -143,8 +149,6 @@ const NotificationSection = () => {
             >
                 {({ TransitionProps }) => (
                     <Transitions position={matchesXs ? 'top' : 'top-right'} in={open} {...TransitionProps}>
-
-
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
                                 <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
@@ -153,7 +157,7 @@ const NotificationSection = () => {
                                             <Grid container alignItems="center" justifyContent="space-between" sx={{ pt: 2, px: 2 }}>
                                                 <Grid item>
                                                     <Stack direction="row" spacing={2}>
-                                                        <Typography variant="subtitle1">All Notification</Typography>
+                                                        <Typography variant="subtitle1">{props.type}</Typography>
                                                         <Chip
                                                             size="small"
                                                             label="01"
@@ -179,7 +183,8 @@ const NotificationSection = () => {
                                                     <Grid item xs={12}>
                                                         <Box sx={{ px: 2, pt: 0.25, mt: 2 }}>
                                                             <TextField
-                                                                id="outlined-select-currency-native"
+                                                                variant='outlined'
+                                                                label='Filter'
                                                                 select
                                                                 fullWidth
                                                                 value={value}
@@ -200,7 +205,9 @@ const NotificationSection = () => {
                                                         <Divider sx={{ my: 0 }} />
                                                     </Grid>
                                                 </Grid>
-                                                <NotificationList />
+                                                {props.type === 'Notifications' ?
+                                                    <NotificationList />
+                                                    : <MessageNotificationList />}
                                             </PerfectScrollbar>
                                         </Grid>
                                     </Grid>
