@@ -27,18 +27,20 @@ function App() {
       <Navbar settings={settings} pages={pages}/>
       <Grid sx={{mt:8}}>
       <Routes>
+      <Routes >
+        <Route path="/" element={<DashBoard/>}/>
         <Route path="home" element={<DashBoard/>}/>
+        <Route index element={<DashBoard/>}/>
         <Route path="mentors" element={<Mentors/>}/>
         <Route path="industry" element={<Industry/>}/>
         <Route path="assest" element={<Assest/>}/>
+        <Route path="assest/viewAssest" element={<AssestDetail/>}/>
         <Route path="ideaPool" element={<IdeaPool/>}/>
         <Route path="talentPool" element={<TalentPool/>}/>
         <Route path="help" element={<Help/>}/>
         <Route path="studentAccountSettings" element={<StudentAccountSetting/>}/>
         <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
         <Route path="viewProfile" element={<ViewProfile/>}/>
-        <Route exact path="viewAssest" element={<AssestDetail/>}/>
-        <Route path="/" element={<DashBoard/>}/>
       </Routes>
       </Grid>
     </BrowserRouter>

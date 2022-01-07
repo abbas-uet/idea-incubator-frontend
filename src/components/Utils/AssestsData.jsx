@@ -59,22 +59,19 @@ export default function AssestsData() {
               </Typography>
             </Grid>
             <Grid item md={6}>
-              {" "}
-              
               <Button
                 sx={{ ml: 3, mr: 1 }}
                 color="secondary"
                 variant="outlined"
                 size="small"
                 LinkComponent={Link} to="viewAssest"
-               >
+              >
                 Learn More
               </Button>
-             
+
             </Grid>
           </Grid>
         </CardContent>
-        <CardActions></CardActions>
       </Card>
     </Paper>
   );

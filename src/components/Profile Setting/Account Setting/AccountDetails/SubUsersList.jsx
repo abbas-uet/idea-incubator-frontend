@@ -113,46 +113,16 @@ const rows = [
     },
 ];
 
-export default function DataGridDemo() {
+export default function SubUsersList() {
     return (
-        <Paper elevation={5} sx={{ height: 500, width: 1070, p: 2 }}>
-            <Grid conainer spacing={2}>
-                <Grid item xs={12} md={12}>
-                    <Typography variant="h4" >
-                        Account Details
-                    </Typography>
-                </Grid>
-                <Grid item xs={6} md={6} lg={6}>
-                    <Avatar
-                        alt="Remy Sharp"
-                        src="/static/images/avatar/1.jpg"
-                        sx={{ width: 150, height: 150 }}
-                    />
-                </Grid>
-                <Grid item xs={6} md={6}>
-                    <Typography variant="h6" >
-                        Sub Users Details
-                    </Typography>
-
-                </Grid>
-                <Divider />
-                <Grid item xs={12} md={12}>
-                    <Typography variant="h6" >
-                        Sub Users Details
-                    </Typography>
-                    <DataGrid
-                        sx={{ height: 400 }}
-                        rows={rows}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        checkboxSelection
-                        disableSelectionOnClick
-                    />
-                </Grid>
-
-
-            </Grid>
-        </Paper>
+        <DataGrid
+            sx={{ height: 400 }}
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+            disableSelectionOnClick
+        />
     );
 }

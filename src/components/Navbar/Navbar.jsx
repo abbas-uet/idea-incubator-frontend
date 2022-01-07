@@ -48,7 +48,7 @@ const ResponsiveAppBar = (props) => {
       <AppBar position="fixed" color='secondary'>
         <Container maxWidth="100%">
           <Toolbar disableGutters>
-            <Link to="/*" style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'white', backgroundImage: '' }}>
               <Typography
                 variant="h6"
                 noWrap
