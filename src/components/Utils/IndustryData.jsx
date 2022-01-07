@@ -18,7 +18,7 @@ import Button from "@mui/material/Button";
 
 export default function IndustryData() {
   return (
-    <Paper elevation={5} sx={{ ml: 1.2, mr: 1.5 }}>
+    <Paper sx={{ ml: 1.2, mr: 1.5 }}>
 
       <Card >
         <Grid item container>
@@ -63,7 +63,7 @@ export default function IndustryData() {
             </Typography>
             </Grid>
             <Grid item md={6}>         <Button
-              sx={{ ml: 3, mr: 1 }}
+              sx={{ ml: 3, mr: 1, pl:1 }}
               color="secondary"
               variant="outlined"
               size="small"

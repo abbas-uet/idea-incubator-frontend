@@ -23,7 +23,7 @@ export default function IndustryPage() {
         </Grid>
         <Grid item xs={1} md={1}>
           <Button
-            sx={{ m: 1 }}
+            sx={{ m: 1}}
             variant="contained"
             color="secondary"
             disableElevation

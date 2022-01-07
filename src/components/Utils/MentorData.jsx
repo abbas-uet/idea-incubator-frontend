@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 
 export default function MentorData() {
   return (
-    <Paper elevation={5} sx={{ ml: 1.2, mr: 1.2 }}>
+    <Paper sx={{ ml: 1.2, mr: 1.2 }}>
       <Card>
         <Grid item container>
           <Grid item xs={9} md={9}>

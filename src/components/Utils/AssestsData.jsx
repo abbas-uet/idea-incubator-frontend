@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Paper } from "@mui/material";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
 import {
@@ -15,7 +16,7 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
 export default function AssestsData() {
   return (
-    <Paper elevation={5} sx={{ ml: 1.2, mr: 0.7 }}>
+    <Paper sx={{ ml: 1.2, mr: 0.7 }}>
       <Card>
         <Grid item container>
           <Grid item xs={9} md={9}>
@@ -59,14 +60,17 @@ export default function AssestsData() {
             </Grid>
             <Grid item md={6}>
               {" "}
+              
               <Button
                 sx={{ ml: 3, mr: 1 }}
                 color="secondary"
                 variant="outlined"
                 size="small"
-              >
+                LinkComponent={Link} to="viewAssest"
+               >
                 Learn More
               </Button>
+             
             </Grid>
           </Grid>
         </CardContent>
