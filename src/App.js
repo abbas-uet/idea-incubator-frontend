@@ -26,7 +26,6 @@ function App() {
     <BrowserRouter>
       <Navbar settings={settings} pages={pages}/>
       <Grid sx={{mt:8}}>
-      <Routes>
       <Routes >
         <Route path="/" element={<DashBoard/>}/>
         <Route path="home" element={<DashBoard/>}/>
