@@ -11,12 +11,10 @@ const useStyle = makeStyles({
 export default function Assest() {
     const classes = useStyle()
     return (
-        <Grid container>
-        <Grid item xs={0} sm={1}></Grid>
+        <Grid container justifyContent={'space-around'}>
         <Grid item xs={12} sm={10} className={classes.container} >
          <AssestPage/>
         </Grid>
-        <Grid item xs={0} sm={1}></Grid>
     </Grid>
     )
 }
