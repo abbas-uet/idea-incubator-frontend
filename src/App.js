@@ -1,49 +1,67 @@
-import { BrowserRouter ,Routes,Route} from "react-router-dom";
 import "./App.css";
-import DateFnsAdapter from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import Assest from "./components/Assest/Assest";
-import DashBoard from "./components/DashBoard/DashBoard.jsx";
-import Help from "./components/Help/Help.jsx";
-import IdeaPool from "./components/IdeaPool/IdeaPool.jsx";
-import Industry from "./components/Industry/Industry.jsx";
-import Mentors from "./components/Mentors/Mentors.jsx";
-import Navbar from "./components/Navbar/Navbar.jsx";
-import StudentAccountSetting from "./components/Profile Setting/Account Setting/StudentAccountSetting.jsx";
-import AssestDetail from "./components/Utils/AssestDetail";
-import ViewProfile from "./components/Profile Setting/Profile/ViewProfile.jsx";
-import StudentProfileSetting from "./components/Profile Setting/Profile/StudentProfileSetting.jsx";
-import TalentPool from "./components/TalentPool/TalentPool.jsx";
-import Grid from '@mui/material/Grid';
+import Login from './Authentication/Login'
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import UserIndex from './UserEnd/UserIndex';
+import React from "react";
+import DashBoard from "./UserEnd/components/DashBoard/DashBoard";
+import Mentors from "./UserEnd/components/Mentors/Mentors";
+import Industry from "./UserEnd/components/Industry/Industry";
+import Assest from "./UserEnd/components/Assest/Assest";
+import AssestDetail from "./UserEnd/components/Utils/AssestDetail";
+import IdeaPool from "./UserEnd/components/IdeaPool/IdeaPool";
+import TalentPool from "./UserEnd/components/TalentPool/TalentPool";
+import Help from "./UserEnd/components/Help/Help";
+import StudentAccountSetting from "./UserEnd/components/Profile Setting/Account Setting/StudentAccountSetting";
+import StudentProfileSetting from "./UserEnd/components/Profile Setting/Profile/StudentProfileSetting";
+import ViewProfile from "./UserEnd/components/Profile Setting/Profile/ViewProfile";
+import AdminIndex from './AdminEnd/AdminIndex';
+import DashboardLayout from "./AdminEnd/layouts/dashboard";
+import DashboardApp from "./AdminEnd/pages/DashboardApp";
+import User from "./AdminEnd/pages/User";
+import Products from "./AdminEnd/pages/Products";
+import Blog from "./AdminEnd/pages/Blog";
+import Register from "./AdminEnd/pages/Register";
+import NotFound from "./AdminEnd/pages/Page404";
+
 
 
 function App() {
-  const pages = [['Home','/home'],['Mentors','/mentors'], ['Industry','/industry'], ['Assest','/assest'],['Idea Pool','/ideaPool'],['Talent Pool','/talentPool'],['Help','/help']];
-  const settings = [['Account Setting','/studentAccountSettings'],['Log Out','/studentProfileSettings'], ];
   return (
-    <LocalizationProvider dateAdapter={DateFnsAdapter}>
-
-    <BrowserRouter>
-      <Navbar settings={settings} pages={pages}/>
-      <Grid sx={{mt:8}}>
-      <Routes >
-        <Route path="/" element={<DashBoard/>}/>
-        <Route path="home" element={<DashBoard/>}/>
-        <Route index element={<DashBoard/>}/>
-        <Route path="mentors" element={<Mentors/>}/>
-        <Route path="industry" element={<Industry/>}/>
-        <Route path="assest" element={<Assest/>}/>
-        <Route path="assest/viewAssest" element={<AssestDetail/>}/>
-        <Route path="ideaPool" element={<IdeaPool/>}/>
-        <Route path="talentPool" element={<TalentPool/>}/>
-        <Route path="help" element={<Help/>}/>
-        <Route path="studentAccountSettings" element={<StudentAccountSetting/>}/>
-        <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
-        <Route path="viewProfile" element={<ViewProfile/>}/>
-      </Routes>
-      </Grid>
-    </BrowserRouter>
-    </LocalizationProvider>
+      <BrowserRouter>
+        <Routes >
+          <Route path="/login" element={<Login/>}/>
+            <Route path={'user'} element={<UserIndex/>}>
+              <Route index element={<UserIndex/>}/>
+              <Route path="home" element={<DashBoard/>}/>
+              <Route path="mentors" element={<Mentors/>}/>
+              <Route path="industry" element={<Industry/>}/>
+              <Route path="assest" element={<Assest/>}/>
+              <Route path="assest/viewAssest" element={<AssestDetail/>}/>
+              <Route path="ideaPool" element={<IdeaPool/>}/>
+              <Route path="talentPool" element={<TalentPool/>}/>
+              <Route path="help" element={<Help/>}/>
+              <Route path="studentAccountSettings" element={<StudentAccountSetting/>}/>
+              <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
+              <Route path="viewProfile" element={<ViewProfile/>} />
+            </Route>
+          <Route path={'admin'} element={<AdminIndex/>}>
+            <Route path={'dashboard'} element={<DashboardLayout />}>
+                <Route element={<Navigate to="/dashboard/app" replace />}/>
+                <Route path={ 'app'} element={ <DashboardApp />}/>
+                <Route path={ 'user'} element={ <User /> }/>
+                <Route path={ 'products'} element={  <Products />}/>
+                <Route path={ 'blog'} element={ <Blog />}/>
+                <Route path={ 'login'} element={ <Login />}/>
+                <Route path={ 'register'} element={<Register />  }/>
+                <Route path={ '404'} element={ <NotFound />}/>
+                <Route path={ '*'} element={ <Navigate to="admin/404" />}/>
+            </Route>
+              <Route
+                  path={'*'} element= {<Navigate to="/404" replace />}
+              />
+          </Route>
+        </Routes>
+      </BrowserRouter>
   );
 }
 
