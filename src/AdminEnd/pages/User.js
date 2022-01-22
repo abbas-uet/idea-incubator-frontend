@@ -4,6 +4,8 @@ import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 import { Link as RouterLink } from 'react-router-dom';
+
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 // material
 import {
   Card,
@@ -18,7 +20,7 @@ import {
   Container,
   Typography,
   TableContainer,
-  TablePagination
+  TablePagination, Breadcrumbs
 } from '@mui/material';
 // components
 import Page from '../components/Page';
@@ -132,16 +134,25 @@ export default function User() {
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-    <Page title="User | Minimal-UI">
+    <Page title="User | Idea Incubator">
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+          <Stack direction="column" alignItems="center">
           <Typography variant="h4" gutterBottom>
             User
           </Typography>
+            <Breadcrumbs
+                separator={<NavigateNextIcon fontSize="small" />}
+                aria-label="breadcrumb"
+            >
+
+            </Breadcrumbs>
+          </Stack>
           <Button
             variant="contained"
             component={RouterLink}
             to="#"
+            color={'primary'}
             startIcon={<Icon icon={plusFill} />}
           >
             New User

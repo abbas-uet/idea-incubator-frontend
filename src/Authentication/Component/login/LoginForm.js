@@ -20,7 +20,6 @@ import { LoadingButton } from '@mui/lab';
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -37,7 +36,7 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: () => {
-      formik.values.email==='user123@gmail.com'?navigate(`/user/home`):navigate('/admin/dashboard/app');
+      formik.values.email.toString()==="user123@gmail.com"? navigate('/user/home', { replace: true }):navigate('/admin/dashboard/app', { replace: true });
     }
   });
 

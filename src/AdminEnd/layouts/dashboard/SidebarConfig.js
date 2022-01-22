@@ -23,28 +23,28 @@ const sidebarConfig = [
     icon: getIcon(peopleFill)
   },
   {
-    title: 'product',
-    path: '/admin/dashboard/products',
+    title: 'ideas',
+    path: '/admin/dashboard/ideas',
     icon: getIcon(shoppingBagFill)
   },
   {
-    title: 'blog',
-    path: '/admin/dashboard/blog',
+    title: 'assets',
+    path: '/admin/dashboard/assets',
     icon: getIcon(fileTextFill)
   },
   {
-    title: 'login',
-    path: '/admin/login',
+    title: 'talent',
+    path: '/admin/dashboard/talent',
     icon: getIcon(lockFill)
   },
   {
-    title: 'register',
-    path: '/admin/register',
+    title: 'industry',
+    path: '/admin/dashboard/industry',
     icon: getIcon(personAddFill)
   },
   {
-    title: 'Not found',
-    path: '/admin/register',
+    title: 'mentors',
+    path: '/admin/dashboard/mentors',
     icon: getIcon(alertTriangleFill)
   }
 ];

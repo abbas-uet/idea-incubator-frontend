@@ -4,8 +4,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 // components
-import Logo from './Logo';
+import Logo from '../../AdminEnd/components/Logo';
 //
+import { MHidden } from '../../AdminEnd/components/@material-extend';
 
 // ----------------------------------------------------------------------
 
@@ -38,6 +39,7 @@ export default function AuthLayout({ children }) {
         <Logo />
       </RouterLink>
 
+      <MHidden width="smDown">
         <Typography
           variant="body2"
           sx={{
@@ -46,6 +48,7 @@ export default function AuthLayout({ children }) {
         >
           {children}
         </Typography>
+      </MHidden>
     </HeaderStyle>
   );
 }

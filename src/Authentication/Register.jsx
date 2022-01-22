@@ -5,9 +5,11 @@ import { Box, Card, Link, Container, Typography } from '@mui/material';
 // layouts
 import AuthLayout from './Component/AuthLayout';
 // components
-import Page from './component/Page';
+import Page from '../AdminEnd/components/Page';
+import { MHidden } from '../AdminEnd/components/@material-extend';
 import { RegisterForm } from './Component/register';
 import AuthSocial from './Component/AuthSocial';
+import ilustration_register from '../Utils/static/illustrations/illustration_register.png';
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +42,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Register() {
     return (
-        <RootStyle title="Register">
+        <RootStyle title="Register | Idea Incubator">
             <AuthLayout>
                 Already have an account? &nbsp;
                 <Link underline="none" variant="subtitle2" component={RouterLink} to="/login">
@@ -48,13 +50,14 @@ export default function Register() {
                 </Link>
             </AuthLayout>
 
+            <MHidden width="mdDown">
                 <SectionStyle>
                     <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
                         Manage the job more effectively with Minimal
                     </Typography>
-                    <img alt="register" src="/static/illustrations/illustration_register.png" />
+                    <img alt="register" src={ilustration_register} />
                 </SectionStyle>
-
+            </MHidden>
 
             <Container>
                 <ContentStyle>
@@ -83,12 +86,14 @@ export default function Register() {
                         .
                     </Typography>
 
+                    <MHidden width="smUp">
                         <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
                             Already have an account?&nbsp;
                             <Link to="/login" component={RouterLink}>
                                 Login
                             </Link>
                         </Typography>
+                    </MHidden>
                 </ContentStyle>
             </Container>
         </RootStyle>

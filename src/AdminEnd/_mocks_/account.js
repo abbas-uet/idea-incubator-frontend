@@ -1,9 +1,9 @@
 // ----------------------------------------------------------------------
-
+import photoUrl from '../../Utils/static/mock-images/avatars/avatar_default.jpg';
 const account = {
   displayName: 'Jaydon Frankie',
   email: 'demo@minimals.cc',
-  photoURL: '/static/mock-images/avatars/avatar_default.jpg'
+  photoURL: photoUrl,
 };
 
 export default account;

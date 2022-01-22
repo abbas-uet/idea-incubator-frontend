@@ -4,6 +4,9 @@ import { alpha } from '@mui/material/styles';
 import { Box, MenuItem, ListItemIcon, ListItemText, IconButton } from '@mui/material';
 // components
 import MenuPopover from '../../components/MenuPopover';
+import en_flag from '../../../Utils/static/icons/ic_flag_en.svg';
+import de_flag from '../../../Utils/static/icons/ic_flag_de.svg';
+import fr_flag from '../../../Utils/static/icons/ic_flag_fr.svg';
 
 // ----------------------------------------------------------------------
 
@@ -11,17 +14,17 @@ const LANGS = [
   {
     value: 'en',
     label: 'English',
-    icon: 'src/AdminEnd/static/icons/ic_flag_en.svg'
+    icon: en_flag
   },
   {
     value: 'de',
     label: 'German',
-    icon: '/src/AdminEnd/static/icons/ic_flag_de.svg'
+    icon: de_flag
   },
   {
     value: 'fr',
     label: 'French',
-    icon: '/src/AdminEnd/static/icons/ic_flag_fr.svg'
+    icon: fr_flag
   }
 ];
 

@@ -1,5 +1,4 @@
 import "./App.css";
-import Login from './Authentication/Login'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import UserIndex from './UserEnd/UserIndex';
 import React from "react";
@@ -20,18 +19,27 @@ import DashboardApp from "./AdminEnd/pages/DashboardApp";
 import User from "./AdminEnd/pages/User";
 import Products from "./AdminEnd/pages/Products";
 import Blog from "./AdminEnd/pages/Blog";
-import Register from "./AdminEnd/pages/Register";
 import NotFound from "./AdminEnd/pages/Page404";
+import Login from './Authentication/Login';
+import Register from './Authentication/Register';
+import GlobalStyles from "./theme/globalStyles";
+import {BaseOptionChartStyle} from "./AdminEnd/components/charts/BaseOptionChart";
+import ThemeConfig from "./theme";
 
 
 
 function App() {
   return (
+      <ThemeConfig>
+          <GlobalStyles />
+          <BaseOptionChartStyle />
       <BrowserRouter>
         <Routes >
-          <Route path="/login" element={<Login/>}/>
+
+            <Route path="/" element={<Navigate to="login" replace />}/>
+            <Route path={'login'} element={<Login/>}/>
+            <Route path={ 'register'} element={<Register />  }/>
             <Route path={'user'} element={<UserIndex/>}>
-              <Route index element={<UserIndex/>}/>
               <Route path="home" element={<DashBoard/>}/>
               <Route path="mentors" element={<Mentors/>}/>
               <Route path="industry" element={<Industry/>}/>
@@ -46,15 +54,14 @@ function App() {
             </Route>
           <Route path={'admin'} element={<AdminIndex/>}>
             <Route path={'dashboard'} element={<DashboardLayout />}>
-                <Route element={<Navigate to="/dashboard/app" replace />}/>
+                <Route element={<Navigate to="dashboard/app" replace />}/>
                 <Route path={ 'app'} element={ <DashboardApp />}/>
                 <Route path={ 'user'} element={ <User /> }/>
-                <Route path={ 'products'} element={  <Products />}/>
-                <Route path={ 'blog'} element={ <Blog />}/>
-                <Route path={ 'login'} element={ <Login />}/>
-                <Route path={ 'register'} element={<Register />  }/>
-                <Route path={ '404'} element={ <NotFound />}/>
-                <Route path={ '*'} element={ <Navigate to="admin/404" />}/>
+                <Route path={ 'ideas'} element={  <Products />}/>
+                <Route path={ 'assets'} element={ <Blog />}/>
+                <Route path={ 'talent'} element={ <NotFound />}/>
+                <Route path={ 'industry'} element={  <NotFound />}/>
+                <Route path={ 'mentors'} element={  <NotFound />}/>
             </Route>
               <Route
                   path={'*'} element= {<Navigate to="/404" replace />}
@@ -62,6 +69,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </ThemeConfig>
   );
 }
 

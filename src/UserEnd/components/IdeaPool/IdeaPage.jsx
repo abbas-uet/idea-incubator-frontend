@@ -73,7 +73,7 @@ export default function IdeaPage() {
                     <Divider/>
                     <List
                     >
-                        { array.slice((page - 1) * itemsPerPage, page * itemsPerPage).map(
+                        { array.slice((page - 1) * itemsPerPage, page * itemsPerPage).map(e=>
                             <ListItem
                                 secondaryAction={
                                     <Typography  variant='body2'>
