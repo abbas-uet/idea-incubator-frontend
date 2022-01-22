@@ -5,13 +5,14 @@ import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
+import { Stack } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   textAlign: 'center',
-  padding: theme.spacing(5, 0),
+  padding: theme.spacing(2, 0),
   color: theme.palette.warning.darker,
   backgroundColor: theme.palette.warning.lighter
 }));
@@ -34,18 +35,20 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 1723315;
+const TOTAL = 172334;
 
 export default function AppItemOrders() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={windowsFilled} width={24} height={24} />
+        <Icon icon={windowsFilled} width={30} height={30} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Item Orders
+      
+      <Typography variant="h6" sx={{ opacity: 0.72 }}>
+        Assests
       </Typography>
+      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      
     </RootStyle>
   );
 }

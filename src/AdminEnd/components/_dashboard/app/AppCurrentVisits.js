@@ -10,12 +10,12 @@ import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
-const CHART_HEIGHT = 372;
-const LEGEND_HEIGHT = 72;
+const CHART_HEIGHT = 315;
+const LEGEND_HEIGHT = 50;
 
 const ChartWrapperStyle = styled('div')(({ theme }) => ({
   height: CHART_HEIGHT,
-  marginTop: theme.spacing(5),
+  marginTop: theme.spacing(3),
   '& .apexcharts-canvas svg': { height: CHART_HEIGHT },
   '& .apexcharts-canvas svg,.apexcharts-canvas foreignObject': {
     overflow: 'visible'
@@ -31,19 +31,18 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [4344, 5435, 1443, 4443];
+const CHART_DATA = [6743, 4135];
 
 export default function AppCurrentVisits() {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
     colors: [
-      theme.palette.primary.main,
-      theme.palette.info.main,
       theme.palette.warning.main,
       theme.palette.error.main
     ],
-    labels: ['America', 'Asia', 'Europe', 'Africa'],
+    labels: ['Men', 'Women'],
+    label:'lines',
     stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
     dataLabels: { enabled: true, dropShadow: { enabled: false } },
@@ -63,9 +62,9 @@ export default function AppCurrentVisits() {
 
   return (
     <Card>
-      <CardHeader title="Current Visits" />
+      <CardHeader title="Users" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="pie" series={CHART_DATA} options={chartOptions} height={280} />
+        <ReactApexChart type="donut"  series={CHART_DATA} options={chartOptions} height={280} />
       </ChartWrapperStyle>
     </Card>
   );

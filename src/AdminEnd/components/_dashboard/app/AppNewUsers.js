@@ -5,13 +5,14 @@ import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
+import { Grid } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   textAlign: 'center',
-  padding: theme.spacing(5, 0),
+  padding: theme.spacing(2, 0),
   color: theme.palette.info.darker,
   backgroundColor: theme.palette.info.lighter
 }));
@@ -34,7 +35,8 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 1352831;
+const Approved = 13528;
+const Pending= 1500;
 
 export default function AppNewUsers() {
   return (
@@ -42,10 +44,26 @@ export default function AppNewUsers() {
       <IconWrapperStyle>
         <Icon icon={appleFilled} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        New Users
+      <Grid container direction="row" justifyContent="center" alignItems="center" >
+      <Grid item md={6}>
+        <Typography variant="h6" sx={{ opacity: 0.72 }}>
+        Pending Ideas
       </Typography>
+        </Grid>
+        <Grid item md={6}>
+      <Typography variant="h6" sx={{ opacity: 0.72 }}>
+        Approved Ideas
+      </Typography>
+        </Grid>
+      </Grid>
+       <Grid container direction="row" justifyContent="center" alignItems="center" >
+      <Grid item md={6}>
+      <Typography variant="h3">{fShortenNumber(Pending)}</Typography>
+      </Grid>
+        <Grid item md={6}>
+      <Typography variant="h3">{fShortenNumber(Approved)}</Typography>
+        </Grid>
+        </Grid>
     </RootStyle>
   );
 }

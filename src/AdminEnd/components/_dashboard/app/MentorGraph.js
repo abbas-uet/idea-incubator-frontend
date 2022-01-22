@@ -3,20 +3,20 @@ import ReactApexChart from 'react-apexcharts';
 // material
 import { useTheme, styled } from '@mui/material/styles';
 import { Card, CardHeader } from '@mui/material';
+// utils
+import { fNumber } from '../../../utils/formatNumber';
 //
 import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
-const CHART_HEIGHT = 323;
-const LEGEND_HEIGHT = 52;
+const CHART_HEIGHT = 315;
+const LEGEND_HEIGHT = 50;
 
 const ChartWrapperStyle = styled('div')(({ theme }) => ({
   height: CHART_HEIGHT,
-  marginTop: theme.spacing(2),
-  '& .apexcharts-canvas svg': {
-    height: CHART_HEIGHT
-  },
+  marginTop: theme.spacing(3),
+  '& .apexcharts-canvas svg': { height: CHART_HEIGHT },
   '& .apexcharts-canvas svg,.apexcharts-canvas foreignObject': {
     overflow: 'visible'
   },
@@ -31,39 +31,41 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const CHART_DATA = [
-  { name: 'Student:', data: [360, 550, 800, 650] },
+const CHART_DATA = [800, 430];
 
-];
-
-export default function AppCurrentSubject() {
+export default function MentorGraph() {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
-    stroke: { width: 2 },
-    fill: { opacity: 1 },
+    colors: [
+
+      theme.palette.info.main,
+      theme.palette.primary.light
+    ],
+    labels: ['Men', 'Women'],
+    label:'lines',
+    stroke: { colors: [theme.palette.background.paper] },
     legend: { floating: true, horizontalAlign: 'center' },
-    xaxis: {
-      categories: ['2018', '2019', '2020', '2021'],
-    },
-    yaxis:{
-      min:0,
-    max:1000,
-    tickAmount:4
-  },
-    plotOptions: {
-      bar: {
-        distributed: true
+    dataLabels: { enabled: true, dropShadow: { enabled: false } },
+    tooltip: {
+      fillSeriesColor: false,
+      y: {
+        formatter: (seriesName) => fNumber(seriesName),
+        title: {
+          formatter: (seriesName) => `#${seriesName}`
+        }
       }
-    } 
+    },
+    plotOptions: {
+      pie: { donut: { labels: { show: false } } }
+    }
   });
-   
 
   return (
     <Card>
-      <CardHeader title="Talent" />
+      <CardHeader title="Mentors" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={270}/>
+        <ReactApexChart type="donut"  series={CHART_DATA} options={chartOptions} height={280} />
       </ChartWrapperStyle>
     </Card>
   );
