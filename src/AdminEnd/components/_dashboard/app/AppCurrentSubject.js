@@ -8,12 +8,12 @@ import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
-const CHART_HEIGHT = 323;
-const LEGEND_HEIGHT = 52;
+const CHART_HEIGHT = 280;
+const LEGEND_HEIGHT = 40;
 
 const ChartWrapperStyle = styled('div')(({ theme }) => ({
   height: CHART_HEIGHT,
-  marginTop: theme.spacing(2),
+  marginTop: theme.spacing(0),
   '& .apexcharts-canvas svg': {
     height: CHART_HEIGHT
   },
@@ -63,7 +63,7 @@ export default function AppCurrentSubject() {
     <Card>
       <CardHeader title="Talent" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={270}/>
+        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={240}/>
       </ChartWrapperStyle>
     </Card>
   );
