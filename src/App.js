@@ -27,7 +27,6 @@ import {BaseOptionChartStyle} from "./AdminEnd/components/charts/BaseOptionChart
 import ThemeConfig from "./theme";
 
 
-
 function App() {
   return (
       <ThemeConfig>
@@ -56,12 +55,12 @@ function App() {
             <Route path={'dashboard'} element={<DashboardLayout />}>
                 <Route element={<Navigate to="dashboard/app" replace />}/>
                 <Route path={ 'app'} element={ <DashboardApp />}/>
-                <Route path={ 'user'} element={ <User /> }/>
-                <Route path={ 'ideas'} element={  <Products />}/>
-                <Route path={ 'assets'} element={ <Blog />}/>
-                <Route path={ 'talent'} element={ <NotFound />}/>
-                <Route path={ 'industry'} element={  <NotFound />}/>
-                <Route path={ 'mentors'} element={  <NotFound />}/>
+                <Route path={ 'user'} element={ <User pageName={'User'}/> }/>
+                <Route path={ 'ideas'} element={<User pageName={'Ideas'}/> /*<Products />*/}/>
+                <Route path={ 'assets'} element={<User pageName={'Assets'}/>/*<Blog />*/}/>
+                <Route path={ 'talent'} element={<User pageName={'Talent'}/>}/>
+                <Route path={ 'industry'} element={<User pageName={'Industry'}/> /* <NotFound />*/}/>
+                <Route path={ 'mentors'} element={<User pageName={'Mentors'}/>}/>
             </Route>
               <Route
                   path={'*'} element= {<Navigate to="/404" replace />}

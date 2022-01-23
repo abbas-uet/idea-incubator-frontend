@@ -3,7 +3,6 @@ import {Icon} from '@iconify/react';
 import {sentenceCase} from 'change-case';
 import React, {useRef, useState} from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
-import {Link as RouterLink} from 'react-router-dom';
 
 // material
 import {
@@ -35,8 +34,8 @@ import {UserListHead, UserListToolbar, UserMoreMenu} from '../components/_dashbo
 //
 import USERLIST from '../_mocks_/user';
 import BreadCrumb from "../components/_dashboard/BreadCrumb";
-import {UserChart} from "../components/_dashboard/user/UserChart";
-import NewUser from "../components/_dashboard/user/NewUser";
+import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
+import AddNew from "../components/_dashboard/Create New/AddNew";
 import MenuPopover from "../components/MenuPopover";
 
 // ----------------------------------------------------------------------
@@ -81,7 +80,7 @@ function applySortFilter(array, comparator, query) {
     return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function User({pageName}) {
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
@@ -152,14 +151,14 @@ export default function User() {
     const isUserNotFound = filteredUsers.length === 0;
 
     return (
-        <Page title="User | Idea Incubator">
+        <Page title={pageName+" | Idea Incubator"}>
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
                     <Stack direction="column">
                         <Typography variant="h4">
-                            User
+                            {pageName}
                         </Typography>
-                        <BreadCrumb linkArr={['Dashboard', 'User']}/>
+                        <BreadCrumb linkArr={['Dashboard', pageName]}/>
                     </Stack>
                     <Button
                         variant="contained"
@@ -168,35 +167,43 @@ export default function User() {
                         startIcon={<Icon icon={plusFill}
                         />}
                     >
-                        New User
+                        Add {pageName}
                     </Button>
                 </Stack>
 
-
-                <Grid container spacing={2} justifyContent="space-between" mb={2}>
-                    <Grid item lg={4}
-                          md={3}
-                          xl={6}
-                          xs={12}>
-                        <UserChart title={'TOTAL COSTUMER'} color={'primary'} value={'16k'}/>
+                {pageName === 'User' || pageName === 'Mentor' || pageName === 'Talent' ?
+                    <Grid container spacing={2} justifyContent="space-between" mb={2}>
+                        <Grid item lg={4}
+                              md={3}
+                              xl={6}
+                              xs={12}>
+                            <DashBoardCharts title={'TOTAL ' + pageName} color={'primary'} value={'16k'}/>
+                        </Grid>
+                        <Grid item lg={4}
+                              md={3}
+                              xl={6}
+                              xs={12}>
+                            <DashBoardCharts title={'MALE'} color={'warning'} value={'8k'}/>
+                        </Grid>
+                        <Grid item lg={4}
+                              md={3}
+                              xl={6}
+                              xs={12}>
+                            <DashBoardCharts title={'FEMALE'} color={'info'} value={'8k'}/>
+                        </Grid>
+                    </Grid>: <Grid container spacing={2} justifyContent="space-between" mb={2}>
+                        <Grid item lg={4}
+                              md={12}
+                              xl={12}
+                              xs={12}>
+                            <DashBoardCharts title={'TOTAL ' + pageName} color={'primary'} value={'16k'}/>
+                        </Grid>
                     </Grid>
-                    <Grid item lg={4}
-                          md={3}
-                          xl={6}
-                          xs={12}>
-                        <UserChart title={'MALE'} color={'warning'} value={'8k'}/>
-                    </Grid>
-                    <Grid item lg={4}
-                          md={3}
-                          xl={6}
-                          xs={12}>
-                        <UserChart title={'FEMALE'} color={'info'} value={'8k'}/>
-                    </Grid>
-                </Grid>
-
+                }
 
                 <Card>
                     <UserListToolbar
+                        pageName={pageName}
                         numSelected={selected.length}
                         filterName={filterName}
                         onFilterName={handleFilterByName}
@@ -242,6 +249,7 @@ export default function User() {
                                                                 {name}
                                                             </Typography>
                                                         </Stack>
+
                                                     </TableCell>
                                                     <TableCell align="left">{company}</TableCell>
                                                     <TableCell align="left">{role}</TableCell>
@@ -291,7 +299,7 @@ export default function User() {
                     />
                 </Card>
             </Container>
-            <NewUser open={open} handleClose={handleClose}/>
+            <AddNew open={open} handleClose={handleClose} pageName={pageName}/>
         </Page>
     );
 }

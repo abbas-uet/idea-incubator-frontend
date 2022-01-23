@@ -45,7 +45,7 @@ UserListToolbar.propTypes = {
   onFilterName: PropTypes.func
 };
 
-export default function UserListToolbar({ numSelected, filterName, onFilterName }) {
+export default function UserListToolbar({ numSelected, filterName, onFilterName,pageName }) {
   return (
     <RootStyle
       sx={{
@@ -65,7 +65,7 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName 
           onChange={onFilterName}
           label=''
 
-          placeholder="Search user..."
+          placeholder={'Search ' + pageName + '...'}
           startAdornment={
             <InputAdornment position="start">
               <Box component={Icon} icon={searchFill} sx={{ color: 'text.disabled' }} />
