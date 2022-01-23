@@ -22,10 +22,10 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   borderRadius: '50%',
   alignItems: 'center',
-  width: theme.spacing(8),
-  height: theme.spacing(8),
+  width: theme.spacing(6),
+  height: theme.spacing(6),
   justifyContent: 'center',
-  marginBottom: theme.spacing(3),
+  marginBottom: theme.spacing(1),
   color: theme.palette.warning.dark,
   backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.warning.dark, 0)} 0%, ${alpha(
     theme.palette.warning.dark,
@@ -41,13 +41,13 @@ export default function AppItemOrders() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={windowsFilled} width={30} height={30} />
+        <Icon icon={windowsFilled} width={20} height={20} />
       </IconWrapperStyle>
       
-      <Typography variant="h6" sx={{ opacity: 0.72 }}>
+      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Assests
       </Typography>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h5">{fShortenNumber(TOTAL)}</Typography>
       
     </RootStyle>
   );

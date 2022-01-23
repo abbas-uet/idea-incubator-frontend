@@ -9,7 +9,7 @@ import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 
 // ----------------------------------------------------------------------
 
-const getIcon = (name) => <Icon icon={name} width={22} height={22} />;
+const getIcon = (name) => <Icon icon={name} width={25} height={25} />;
 
 const sidebarConfig = [
   {

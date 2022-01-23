@@ -22,10 +22,10 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   display: 'flex',
   borderRadius: '50%',
   alignItems: 'center',
-  width: theme.spacing(8),
-  height: theme.spacing(8),
+  width: theme.spacing(6),
+  height: theme.spacing(6),
   justifyContent: 'center',
-  marginBottom: theme.spacing(3),
+  marginBottom: theme.spacing(1),
   color: theme.palette.info.dark,
   backgroundImage: `linear-gradient(135deg, ${alpha(theme.palette.info.dark, 0)} 0%, ${alpha(
     theme.palette.info.dark,
@@ -42,26 +42,26 @@ export default function AppNewUsers() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={appleFilled} width={24} height={24} />
+        <Icon icon={appleFilled} width={20} height={20} />
       </IconWrapperStyle>
       <Grid container direction="row" justifyContent="center" alignItems="center" >
       <Grid item md={6}>
-        <Typography variant="h6" sx={{ opacity: 0.72 }}>
+        <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Pending Ideas
       </Typography>
         </Grid>
         <Grid item md={6}>
-      <Typography variant="h6" sx={{ opacity: 0.72 }}>
+      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Approved Ideas
       </Typography>
         </Grid>
       </Grid>
        <Grid container direction="row" justifyContent="center" alignItems="center" >
       <Grid item md={6}>
-      <Typography variant="h3">{fShortenNumber(Pending)}</Typography>
+      <Typography variant="h5">{fShortenNumber(Pending)}</Typography>
       </Grid>
         <Grid item md={6}>
-      <Typography variant="h3">{fShortenNumber(Approved)}</Typography>
+      <Typography variant="h5">{fShortenNumber(Approved)}</Typography>
         </Grid>
         </Grid>
     </RootStyle>

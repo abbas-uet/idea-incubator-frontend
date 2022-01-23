@@ -4,6 +4,7 @@ const account = {
   displayName: 'Jaydon Frankie',
   email: 'demo@minimals.cc',
   photoURL: photoUrl,
+  role:'Admin'
 };
 
 export default account;

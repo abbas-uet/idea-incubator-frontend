@@ -10,12 +10,12 @@ import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
-const CHART_HEIGHT = 315;
-const LEGEND_HEIGHT = 50;
+const CHART_HEIGHT = 280;
+const LEGEND_HEIGHT = 40;
 
 const ChartWrapperStyle = styled('div')(({ theme }) => ({
   height: CHART_HEIGHT,
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(0),
   '& .apexcharts-canvas svg': { height: CHART_HEIGHT },
   '& .apexcharts-canvas svg,.apexcharts-canvas foreignObject': {
     overflow: 'visible'
@@ -65,7 +65,7 @@ export default function MentorGraph() {
     <Card>
       <CardHeader title="Mentors" />
       <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="donut"  series={CHART_DATA} options={chartOptions} height={280} />
+        <ReactApexChart type="donut"  series={CHART_DATA} options={chartOptions} height={260} />
       </ChartWrapperStyle>
     </Card>
   );

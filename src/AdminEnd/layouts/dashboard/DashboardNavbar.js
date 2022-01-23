@@ -7,7 +7,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 // components
 import { MHidden } from '../../components/@material-extend';
 //
-import Searchbar from './Searchbar';
+import SearchBar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
@@ -16,7 +16,7 @@ import NotificationsPopover from './NotificationsPopover';
 
 const DRAWER_WIDTH = 280;
 const APPBAR_MOBILE = 64;
-const APPBAR_DESKTOP = 92;
+const APPBAR_DESKTOP = 70;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
@@ -52,7 +52,7 @@ export default function DashboardNavbar({ onOpenSidebar }) {
           </IconButton>
         </MHidden>
 
-        <Searchbar />
+        <SearchBar />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
