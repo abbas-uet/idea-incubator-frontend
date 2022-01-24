@@ -19,7 +19,7 @@ const SORT_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function Blog() {
+export default function TableItemDetails() {
     return (
         <Page title="Dashboard: Blog | Minimal-UI">
             <Container>

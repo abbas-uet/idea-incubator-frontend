@@ -33,7 +33,7 @@
     "chart.js": "^3.5.1",
     "custom-react-accordion": "^1.0.4",
     "date-fns": "^2.28.0",
-    "faker": "^6.6.6",
+    "faker": "^4.1.0",
     "formik": "^2.1.5",
     "framer-motion": "^4.1.17",
     "history": "^5.0.0",

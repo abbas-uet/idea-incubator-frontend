@@ -26,50 +26,70 @@ import GlobalStyles from "./theme/globalStyles";
 import {BaseOptionChartStyle} from "./AdminEnd/components/charts/BaseOptionChart";
 import ThemeConfig from "./theme";
 
+const cardObj = [
+    [{
+        totalLabelValue: '5k',
+        firstLabel: 'Male',
+        firstLabelValue: '2K',
+        secondLabel: 'Female',
+        secondLabelValue: '3k',
+    }],
+    [{
+        totalLabelValue: '50',
+        firstLabel: 'Pending',
+        firstLabelValue: '20',
+        secondLabel: 'Approved',
+        secondLabelValue: '10'
+    }]
+]
+
 
 function App() {
-  return (
-      <ThemeConfig>
-          <GlobalStyles />
-          <BaseOptionChartStyle />
-      <BrowserRouter>
-        <Routes >
+    return (
+        <ThemeConfig>
+            <GlobalStyles/>
+            <BaseOptionChartStyle/>
+            <BrowserRouter>
+                <Routes>
 
-            <Route path="/" element={<Navigate to="login" replace />}/>
-            <Route path={'login'} element={<Login/>}/>
-            <Route path={ 'register'} element={<Register />  }/>
-            <Route path={'user'} element={<UserIndex/>}>
-              <Route path="home" element={<DashBoard/>}/>
-              <Route path="mentors" element={<Mentors/>}/>
-              <Route path="industry" element={<Industry/>}/>
-              <Route path="assest" element={<Assest/>}/>
-              <Route path="assest/viewAssest" element={<AssestDetail/>}/>
-              <Route path="ideaPool" element={<IdeaPool/>}/>
-              <Route path="talentPool" element={<TalentPool/>}/>
-              <Route path="help" element={<Help/>}/>
-              <Route path="studentAccountSettings" element={<StudentAccountSetting/>}/>
-              <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
-              <Route path="viewProfile" element={<ViewProfile/>} />
-            </Route>
-          <Route path={'admin'} element={<AdminIndex/>}>
-            <Route path={'dashboard'} element={<DashboardLayout />}>
-                <Route element={<Navigate to="dashboard/app" replace />}/>
-                <Route path={ 'app'} element={ <DashboardApp />}/>
-                <Route path={ 'user'} element={ <User pageName={'User'}/> }/>
-                <Route path={ 'ideas'} element={<User pageName={'Ideas'}/> /*<Products />*/}/>
-                <Route path={ 'assets'} element={<User pageName={'Assets'}/>/*<Blog />*/}/>
-                <Route path={ 'talent'} element={<User pageName={'Talent'}/>}/>
-                <Route path={ 'industry'} element={<User pageName={'Industry'}/> /* <NotFound />*/}/>
-                <Route path={ 'mentors'} element={<User pageName={'Mentors'}/>}/>
-            </Route>
-              <Route
-                  path={'*'} element= {<Navigate to="/404" replace />}
-              />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-      </ThemeConfig>
-  );
+                    <Route path="/" element={<Navigate to="login" replace/>}/>
+                    <Route path={'login'} element={<Login/>}/>
+                    <Route path={'register'} element={<Register/>}/>
+                    <Route path={'user'} element={<UserIndex/>}>
+                        <Route path="home" element={<DashBoard/>}/>
+                        <Route path="mentors" element={<Mentors/>}/>
+                        <Route path="industry" element={<Industry/>}/>
+                        <Route path="assest" element={<Assest/>}/>
+                        <Route path="assest/viewAssest" element={<AssestDetail/>}/>
+                        <Route path="ideaPool" element={<IdeaPool/>}/>
+                        <Route path="talentPool" element={<TalentPool/>}/>
+                        <Route path="help" element={<Help/>}/>
+                        <Route path="studentAccountSettings" element={<StudentAccountSetting/>}/>
+                        <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
+                        <Route path="viewProfile" element={<ViewProfile/>}/>
+                    </Route>
+                    <Route path={'admin'} element={<AdminIndex/>}>
+                        <Route path={'dashboard'} element={<DashboardLayout/>}>
+                            <Route element={<Navigate to="dashboard/app" replace/>}/>
+                            <Route path={'app'} element={<DashboardApp/>}/>
+                            <Route path={'user'} element={<User pageName={'User'} cardObj={cardObj[0][0]}/>}/>
+                            <Route path={'ideas'}
+                                   element={<User pageName={'Ideas'} cardObj={cardObj[1][0]}/> /*<Products />*/}/>
+                            <Route path={'assets'}
+                                   element={<User pageName={'Assets'} cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
+                            <Route path={'talent'} element={<User pageName={'Talent'} cardObj={cardObj[0][0]}/>}/>
+                            <Route path={'industry'}
+                                   element={<User pageName={'Industry'} cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
+                            <Route path={'mentors'} element={<User pageName={'Mentors'} cardObj={cardObj[0][0]}/>}/>
+                        </Route>
+                        <Route
+                            path={'*'} element={<Navigate to="/404" replace/>}
+                        />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </ThemeConfig>
+    );
 }
 
 export default App;
