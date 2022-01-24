@@ -12,9 +12,10 @@ import {
 } from "@mui/material";
 import NewUser from "./New User/NewUser";
 import NewMentor from "./New Mentor/NewMentor";
+import NewAssest from './New Assest/NewAssest';
 
 function DialogContents(pageName) {
-    return pageName==='User'?<NewUser/>: pageName === 'Ideas' ? <NewUser/>: pageName === 'Assets' ? <NewUser/>:
+    return pageName==='User'?<NewUser/>: pageName === 'Ideas' ? <NewUser/>: pageName === 'Assets' ? <NewAssest/>:
         pageName === 'Talent' ? <NewUser/>: pageName === 'Industry' ? <NewUser/>:
             pageName === 'Mentors' ? <NewMentor/>:''
 }
@@ -27,7 +28,7 @@ function AddNew({open,handleClose,pageName}) {
             onClose={handleClose}
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
-            maxWidth={'md'}
+            maxWidth={'sm'}
         >
             <DialogTitle id="scroll-dialog-title">{"Add New "+pageName}</DialogTitle>
             <DialogContent dividers={true}>

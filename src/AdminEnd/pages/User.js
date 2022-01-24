@@ -152,14 +152,11 @@ export default function User({pageName}) {
 
     return (
         <Page title={pageName+" | Idea Incubator"}>
-            <Container>
+            <Container >
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-                    <Stack direction="column">
-                        <Typography variant="h4">
-                            {pageName}
-                        </Typography>
+                    
                         <BreadCrumb linkArr={['Dashboard', pageName]}/>
-                    </Stack>
+                    
                     <Button
                         variant="contained"
                         color={'inherit'}
@@ -201,7 +198,7 @@ export default function User({pageName}) {
                     </Grid>
                 }
 
-                <Card>
+                <Card sx={{mt:2}}>
                     <UserListToolbar
                         pageName={pageName}
                         numSelected={selected.length}

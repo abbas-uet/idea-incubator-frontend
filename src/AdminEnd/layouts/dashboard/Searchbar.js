@@ -7,8 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: '#1001',
-  color:'#9c27b0',
+  backgroundColor: '#FDFDFE',
+  color:'#808080',
   marginRight:theme.spacing(2),
   marginLeft:0,
   width: '100%',
@@ -51,7 +51,7 @@ export default function SearchBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder={'Search....'}
+              placeholder={'Find Something....'}
               inputProps={{ 'aria-label': 'search by' }}
             />
           </Search>
