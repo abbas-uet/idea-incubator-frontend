@@ -1,19 +1,19 @@
 import React from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle,} from "@mui/material";
-import NewUser from "./New User/NewUser";
+import NewComponent from "./New User/NewComponent";
 import NewAssest from './New Assest/NewAssest';
-import NewTalent from './New Talent/NewTalent';
+import NewTalent from "./New Talent/NewTalent";
 
 
 function DialogContents(pageName) {
-    return pageName === 'User' ? <NewUser/> : pageName === 'Ideas' ? <NewUser/> : pageName === 'Assets' ? <NewAssest/> :
-        pageName === 'Talent' ? <NewTalent/> : pageName === 'Industry' ? <NewUser/> :
-            pageName === 'Mentors' ? <NewUser/>: ''
-
+    return pageName === 'User' ? <NewComponent pageName={pageName}/> : pageName === 'Ideas' ?
+        <NewComponent pageName={pageName}/> : pageName === 'Assets' ? <NewAssest/> :
+            pageName === 'Talent' ? <NewTalent/> : pageName === 'Industry' ?
+                <NewComponent pageName={pageName}/> :
+                pageName === 'Mentors' ? <NewComponent pageName={pageName}/> : ''
 }
 
 function AddNew({open, handleClose, pageName}) {
-
     return (
         <Dialog
             open={open}

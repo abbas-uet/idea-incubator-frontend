@@ -9,7 +9,8 @@ import {Menu, MenuItem, IconButton, ListItemIcon, ListItemText} from '@mui/mater
 
 // ----------------------------------------------------------------------
 
-export default function UserMoreMenu() {
+export default function UserMoreMenu({pageName, id}) {
+
     const ref = useRef(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -29,7 +30,9 @@ export default function UserMoreMenu() {
                 anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 transformOrigin={{vertical: 'top', horizontal: 'right'}}
             >
-                <MenuItem component={RouterLink} to="#" sx={{color: 'text.secondary'}}>
+                <MenuItem component={RouterLink}
+                          to={"/admin/dashboard/" + pageName.toLowerCase() + "/details" + pageName + '/' + id}
+                          sx={{color: 'text.secondary'}}>
                     <ListItemIcon>
                         <Icon icon={'mdi:card-account-details-outline'} width={24} height={24}/>
                     </ListItemIcon>

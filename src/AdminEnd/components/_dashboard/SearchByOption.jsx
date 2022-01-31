@@ -7,7 +7,7 @@ import {Menu, Button, MenuItem, Typography} from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function SearchByOption({select, setselectSearchBy, SEARCH_BY_OPTIONS}) {
+export default function SearchByOption({select, setselectSearchBy, SEARCH_BY_OPTIONS, type}) {
 
     const [open, setOpen] = useState(null);
 
@@ -32,7 +32,7 @@ export default function SearchByOption({select, setselectSearchBy, SEARCH_BY_OPT
                 onClick={handleOpen}
                 endIcon={<Icon icon={open ? chevronUpFill : chevronDownFill}/>}
             >
-                Search By:&nbsp;
+                {type === 'filter' ? "Filter By" : "Search By"}:&nbsp;
                 <Typography component="span" variant="subtitle2" sx={{color: 'text.secondary'}}>
                     {select === 'id' ? SEARCH_BY_OPTIONS[0].label : SEARCH_BY_OPTIONS[1].label}
                 </Typography>

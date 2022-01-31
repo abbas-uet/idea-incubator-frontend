@@ -16,7 +16,7 @@ import ViewProfile from "./UserEnd/components/Profile Setting/Profile/ViewProfil
 import AdminIndex from './AdminEnd/AdminIndex';
 import DashboardLayout from "./AdminEnd/layouts/dashboard";
 import DashboardApp from "./AdminEnd/pages/DashboardApp";
-import User from "./AdminEnd/pages/User";
+import AdminOptions from "./AdminEnd/pages/AdminOptions";
 import Products from "./AdminEnd/pages/Products";
 import Blog from "./AdminEnd/pages/Blog";
 import NotFound from "./AdminEnd/pages/Page404";
@@ -25,6 +25,9 @@ import Register from './Authentication/Register';
 import GlobalStyles from "./theme/globalStyles";
 import {BaseOptionChartStyle} from "./AdminEnd/components/charts/BaseOptionChart";
 import ThemeConfig from "./theme";
+
+import UserDetails from './AdminEnd/components/_dashboard/Component Details/UserDetails';
+import {ListofTableContent} from "./AdminEnd/_mocks_/ListofTableContent";
 
 const cardObj = [
     [{
@@ -43,7 +46,6 @@ const cardObj = [
     }]
 ]
 
-
 function App() {
     return (
         <ThemeConfig>
@@ -55,6 +57,8 @@ function App() {
                     <Route path="/" element={<Navigate to="login" replace/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'register'} element={<Register/>}/>
+
+
                     <Route path={'user'} element={<UserIndex/>}>
                         <Route path="home" element={<DashBoard/>}/>
                         <Route path="mentors" element={<Mentors/>}/>
@@ -72,19 +76,30 @@ function App() {
                         <Route path={'dashboard'} element={<DashboardLayout/>}>
                             <Route element={<Navigate to="dashboard/app" replace/>}/>
                             <Route path={'app'} element={<DashboardApp/>}/>
-                            <Route path={'user'} element={<User pageName={'User'} cardObj={cardObj[0][0]}/>}/>
+                            <Route path={'user'}
+                                   element={<AdminOptions pageName={'User'} cardObj={cardObj[0][0]}/>}/>
+                            <Route path={'user/detailsUser/:id'}
+                                   element={<UserDetails pageName={'User'} LIST={ListofTableContent('User')}/>}/>
                             <Route path={'ideas'}
-                                   element={<User pageName={'Ideas'} cardObj={cardObj[1][0]}/> /*<Products />*/}/>
+                                   element={<AdminOptions pageName={'Ideas'}
+                                                          cardObj={cardObj[1][0]}/> /*<Products />*/}/>
+                            <Route path={'ideas/detailsIdeas/:id'} element={<UserDetails pageName={'Ideas'}/>}/>
                             <Route path={'assets'}
-                                   element={<User pageName={'Assets'} cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
-                            <Route path={'talent'} element={<User pageName={'Talent'} cardObj={cardObj[0][0]}/>}/>
+                                   element={<AdminOptions pageName={'Assets'} cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
+                            <Route path={'assets/detailsAssets'} element={<UserDetails pageName={'Assets'}/>}/>
+                            <Route path={'talent'}
+                                   element={<AdminOptions pageName={'Talent'} cardObj={cardObj[0][0]}/>}/>
+                            <Route path={'talent/detailsTalent'} element={<UserDetails pageName={'Talent'}/>}/>
                             <Route path={'industry'}
-                                   element={<User pageName={'Industry'} cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
-                            <Route path={'mentors'} element={<User pageName={'Mentors'} cardObj={cardObj[0][0]}/>}/>
+                                   element={<AdminOptions pageName={'Industry'}
+                                                          cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
+                            <Route path={'industry/detailsIndustry'} element={<UserDetails pageName={'Industry'}/>}/>
+                            <Route path={'mentors'}
+                                   element={<AdminOptions pageName={'Mentors'} cardObj={cardObj[0][0]}/>}/>
+                            <Route path={'mentors/detailsMentors'} element={<UserDetails pageName={'Mentors'}/>}/>
+
                         </Route>
-                        <Route
-                            path={'*'} element={<Navigate to="/404" replace/>}
-                        />
+
                     </Route>
                 </Routes>
             </BrowserRouter>

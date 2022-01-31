@@ -173,7 +173,7 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 </TableCell>
 
                 <TableCell align="right">
-                    <UserMoreMenu/>
+                    <UserMoreMenu pageName={pageName} id={id}/>
                 </TableCell>
             </TableRow>
         );
@@ -204,7 +204,7 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 </TableCell>
 
                 <TableCell align="right">
-                    <UserMoreMenu/>
+                    <UserMoreMenu pageName={pageName} id={id}/>
                 </TableCell>
             </TableRow>
         );
@@ -231,7 +231,7 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 <TableCell align="left">{description}</TableCell>
 
                 <TableCell align="right">
-                    <UserMoreMenu/>
+                    <UserMoreMenu pageName={pageName} id={id}/>
                 </TableCell>
             </TableRow>
         );
@@ -259,7 +259,7 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 <TableCell align="left">{skill}</TableCell>
                 <TableCell align="left">{session}</TableCell>
                 <TableCell align="right">
-                    <UserMoreMenu/>
+                    <UserMoreMenu pageName={pageName} id={id}/>
                 </TableCell>
             </TableRow>
         );
@@ -292,7 +292,7 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 </TableCell>
 
                 <TableCell align="right">
-                    <UserMoreMenu/>
+                    <UserMoreMenu pageName={pageName} id={id}/>
                 </TableCell>
             </TableRow>
         );
@@ -321,14 +321,17 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 <TableCell align="left">{field}</TableCell>
 
                 <TableCell align="right">
-                    <UserMoreMenu/>
+                    <UserMoreMenu pageName={pageName} id={id}/>
+
                 </TableCell>
             </TableRow>
         );
     }
 }
 
-export default function User({pageName, cardObj, pageChange}) {
+export default function AdminOptions({pageName, cardObj}) {
+
+
     const SEARCH_BY_OPTIONS = getSearchByOption(pageName);
     //LIST OF TABLE CONTENT
 

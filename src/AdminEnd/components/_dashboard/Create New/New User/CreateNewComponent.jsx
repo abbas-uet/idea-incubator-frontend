@@ -11,8 +11,7 @@ import {
 } from '@mui/material';
 
 
-
-export const CreateNewUser = (props) => {
+export const CreateNewComponent = (props) => {
     const [values, setValues] = useState({
         fullName: '',
         email: '',
@@ -99,7 +98,6 @@ export const CreateNewUser = (props) => {
                 <TextField
                     color={'grey'}
                     name="password"
-                    helperText={'week'}
                     onChange={handleChange}
                     type="password"
                     value={values.password}

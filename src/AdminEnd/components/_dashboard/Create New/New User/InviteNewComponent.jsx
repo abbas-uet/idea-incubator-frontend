@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Grid, TextField, Typography} from "@mui/material";
 
-function InviteNewUser(props) {
+function InviteNewComponent(props) {
     const [values, setValues] = useState({
         emails: '',
     });
@@ -50,4 +50,4 @@ function InviteNewUser(props) {
     );
 }
 
-export default InviteNewUser;
+export default InviteNewComponent;
