@@ -17,7 +17,7 @@ function BreadCrumb({linkArr}) {
         >
             {linkArr.map((e, idx, arr) => {
                 if (idx == arr.length - 1) {
-                    return (<Typography key="3" color="text.primary">
+                    return (<Typography key="3"  color={"darkgreen"}>
                         {e}
                     </Typography>)
                 } else {

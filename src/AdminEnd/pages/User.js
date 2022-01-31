@@ -411,12 +411,8 @@ export default function User({pageName, cardObj, pageChange}) {
         <Page title={pageName + " | Idea Incubator"}>
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-                    <Stack direction="column">
-                        <Typography variant="h4">
-                            {pageName}
-                        </Typography>
                         <BreadCrumb linkArr={['Dashboard', pageName]}/>
-                    </Stack>
+                 
                     <Button
                         variant="contained"
                         color={'inherit'}

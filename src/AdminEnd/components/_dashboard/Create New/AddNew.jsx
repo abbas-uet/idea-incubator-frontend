@@ -1,13 +1,14 @@
 import React from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle,} from "@mui/material";
 import NewUser from "./New User/NewUser";
-import NewMentor from "./New Mentor/NewMentor";
 import NewAssest from './New Assest/NewAssest';
+import NewTalent from './New Talent/NewTalent';
+
 
 function DialogContents(pageName) {
     return pageName === 'User' ? <NewUser/> : pageName === 'Ideas' ? <NewUser/> : pageName === 'Assets' ? <NewAssest/> :
-        pageName === 'Talent' ? <NewUser/> : pageName === 'Industry' ? <NewUser/> :
-            pageName === 'Mentors' ? <NewMentor/> : ''
+        pageName === 'Talent' ? <NewTalent/> : pageName === 'Industry' ? <NewUser/> :
+            pageName === 'Mentors' ? <NewUser/>: ''
 
 }
 
