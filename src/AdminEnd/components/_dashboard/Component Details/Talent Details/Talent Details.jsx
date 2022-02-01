@@ -67,7 +67,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function UserDetails({pageName, LIST,}) {
+function TalentDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -82,10 +82,11 @@ function UserDetails({pageName, LIST,}) {
     const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
         userId: listObj.id,
-        userName: listObj.username,
+        name: listObj.name,
         email: listObj.email,
-        subUsers: listObj.subusers,
-        projectName: listObj.projectname,
+        regno: listObj.regno,
+        skill: listObj.skill,
+        session: listObj.session,
     });
 
     console.log(values);
@@ -285,5 +286,5 @@ function UserDetails({pageName, LIST,}) {
     );
 }
 
-export default UserDetails;
+export default TalentDetails;
 

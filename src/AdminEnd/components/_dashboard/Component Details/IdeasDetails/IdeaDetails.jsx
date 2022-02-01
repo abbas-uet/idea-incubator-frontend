@@ -67,7 +67,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function UserDetails({pageName, LIST,}) {
+function IdeaDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -82,9 +82,9 @@ function UserDetails({pageName, LIST,}) {
     const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
         userId: listObj.id,
-        userName: listObj.username,
+        name: listObj.name,
         email: listObj.email,
-        subUsers: listObj.subusers,
+        field: listObj.field,
         projectName: listObj.projectname,
     });
 
@@ -111,7 +111,7 @@ function UserDetails({pageName, LIST,}) {
                     <Card>
                         <CardHeader
                             subheader="The information can be edited"
-                            title="User profile"
+                            title="Idea"
                         />
                         <Divider/>
                         <CardContent>
@@ -145,7 +145,7 @@ function UserDetails({pageName, LIST,}) {
                                         label="User Name"
                                         name="userName"
                                         onChange={handleChange}
-                                        value={values.userName}
+                                        value={values.name}
                                         variant="outlined"
                                     />
                                 </Grid>
@@ -174,7 +174,7 @@ function UserDetails({pageName, LIST,}) {
                                         label="Project Name"
                                         name="projectName"
                                         onChange={handleChange}
-                                        value={values.projectName}
+                                        value={values.field}
                                         variant="outlined"
                                     />
                                 </Grid>
@@ -183,24 +183,14 @@ function UserDetails({pageName, LIST,}) {
                                     md={6}
                                     xs={12}
                                 >
-                                    <Stack direction={"row"} spacing={2}>
-                                        <Typography variant={'subtitle2'} sx={{mt: 1.3}}>
-                                            Sub Users
-                                        </Typography>
-                                        <AvatarGroup max={4}>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                N
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                F
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                G
-                                            </Avatar>
-                                        </AvatarGroup>
-
-                                    </Stack>
-
+                                    <TextField
+                                        fullWidth
+                                        label="Project Name"
+                                        name="projectName"
+                                        onChange={handleChange}
+                                        value={values.projectName}
+                                        variant="outlined"
+                                    />
                                 </Grid>
                                 <Grid item
                                       md={6}
@@ -285,5 +275,5 @@ function UserDetails({pageName, LIST,}) {
     );
 }
 
-export default UserDetails;
+export default IdeaDetails;
 

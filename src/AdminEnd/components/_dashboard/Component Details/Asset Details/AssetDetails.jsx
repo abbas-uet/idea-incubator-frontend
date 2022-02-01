@@ -67,7 +67,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function UserDetails({pageName, LIST,}) {
+function AssetDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -285,5 +285,5 @@ function UserDetails({pageName, LIST,}) {
     );
 }
 
-export default UserDetails;
+export default AssetDetails;
 

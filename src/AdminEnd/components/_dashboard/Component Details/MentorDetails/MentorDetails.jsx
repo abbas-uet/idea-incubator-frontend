@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from "../../Page";
+import Page from "../../../Page";
 import {useHistory, useParams} from 'react-router-dom';
 import {
     Avatar,
@@ -34,7 +34,7 @@ import Stack from "@mui/material/Stack";
 import {AvatarGroup} from "@mui/lab";
 
 
-import ListToolBar from './ListToolBar';
+import ListToolBar from '../ListToolBar';
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -67,7 +67,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function UserDetails({pageName, LIST,}) {
+function MentorDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -82,10 +82,10 @@ function UserDetails({pageName, LIST,}) {
     const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
         userId: listObj.id,
-        userName: listObj.username,
+        name: listObj.name,
+        username: listObj.username,
         email: listObj.email,
-        subUsers: listObj.subusers,
-        projectName: listObj.projectname,
+        field: listObj.field,
     });
 
     console.log(values);
@@ -117,7 +117,7 @@ function UserDetails({pageName, LIST,}) {
                         <CardContent>
                             <Grid
                                 container
-                                spacing={1}
+                                spacing={3}
                             >
                                 <Grid
                                     item
@@ -246,7 +246,6 @@ function UserDetails({pageName, LIST,}) {
                     </Card>
                 </form>
 
-
             </Page>
             <Dialog
                 open={open}
@@ -286,5 +285,5 @@ function UserDetails({pageName, LIST,}) {
     );
 }
 
-export default UserDetails;
+export default MentorDetails;
 

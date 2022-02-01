@@ -67,7 +67,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function UserDetails({pageName, LIST,}) {
+function IndustryDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -84,8 +84,8 @@ function UserDetails({pageName, LIST,}) {
         userId: listObj.id,
         userName: listObj.username,
         email: listObj.email,
-        subUsers: listObj.subusers,
-        projectName: listObj.projectname,
+        companyName: listObj.companyname,
+        services: listObj.services,
     });
 
     console.log(values);
@@ -285,5 +285,5 @@ function UserDetails({pageName, LIST,}) {
     );
 }
 
-export default UserDetails;
+export default IndustryDetails;
 

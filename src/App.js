@@ -26,8 +26,15 @@ import GlobalStyles from "./theme/globalStyles";
 import {BaseOptionChartStyle} from "./AdminEnd/components/charts/BaseOptionChart";
 import ThemeConfig from "./theme";
 
-import UserDetails from './AdminEnd/components/_dashboard/Component Details/UserDetails';
+
+import AssetDetails from './AdminEnd/components/_dashboard/Component Details/Asset Details/AssetDetails';
+
+import UserDetails from './AdminEnd/components/_dashboard/Component Details/User Details/UserDetails';
 import {ListofTableContent} from "./AdminEnd/_mocks_/ListofTableContent";
+import IdeaDetails from "./AdminEnd/components/_dashboard/Component Details/IdeasDetails/IdeaDetails";
+import TalentDetails from "./AdminEnd/components/_dashboard/Component Details/Talent Details/Talent Details";
+import IndustryDetails from "./AdminEnd/components/_dashboard/Component Details/IndustryDetails/IndustryDetails";
+import MentorDetails from "./AdminEnd/components/_dashboard/Component Details/MentorDetails/MentorDetails";
 
 const cardObj = [
     [{
@@ -79,24 +86,29 @@ function App() {
                             <Route path={'user'}
                                    element={<AdminOptions pageName={'User'} cardObj={cardObj[0][0]}/>}/>
                             <Route path={'user/detailsUser/:id'}
-                                   element={<UserDetails pageName={'User'} LIST={ListofTableContent('User')}/>}/>
+                                   element={<UserDetails LIST={ListofTableContent('User')}/>}/>
                             <Route path={'ideas'}
                                    element={<AdminOptions pageName={'Ideas'}
                                                           cardObj={cardObj[1][0]}/> /*<Products />*/}/>
-                            <Route path={'ideas/detailsIdeas/:id'} element={<UserDetails pageName={'Ideas'}/>}/>
+                            <Route path={'ideas/detailsIdeas/:id'} element={<IdeaDetails
+                                LIST={ListofTableContent('Ideas')}/>}/>
                             <Route path={'assets'}
                                    element={<AdminOptions pageName={'Assets'} cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
-                            <Route path={'assets/detailsAssets'} element={<UserDetails pageName={'Assets'}/>}/>
+                            <Route path={'assets/detailsAssets/:id'}
+                                   element={<AssetDetails LIST={ListofTableContent('Assets')}/>}/>
                             <Route path={'talent'}
                                    element={<AdminOptions pageName={'Talent'} cardObj={cardObj[0][0]}/>}/>
-                            <Route path={'talent/detailsTalent'} element={<UserDetails pageName={'Talent'}/>}/>
+                            <Route path={'talent/detailsTalent/:id'} element={<TalentDetails
+                                LIST={ListofTableContent('Talent')}/>}/>
                             <Route path={'industry'}
                                    element={<AdminOptions pageName={'Industry'}
                                                           cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
-                            <Route path={'industry/detailsIndustry'} element={<UserDetails pageName={'Industry'}/>}/>
+                            <Route path={'industry/detailsIndustry/:id'} element={<IndustryDetails
+                                LIST={ListofTableContent('Industry')}/>}/>
                             <Route path={'mentors'}
                                    element={<AdminOptions pageName={'Mentors'} cardObj={cardObj[0][0]}/>}/>
-                            <Route path={'mentors/detailsMentors'} element={<UserDetails pageName={'Mentors'}/>}/>
+                            <Route path={'mentors/detailsMentors/:id'} element={<MentorDetails
+                                LIST={ListofTableContent('Mentors')}/>}/>
 
                         </Route>
 
