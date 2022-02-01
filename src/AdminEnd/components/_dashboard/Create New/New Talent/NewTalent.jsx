@@ -1,4 +1,8 @@
 import React from "react";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Button,
   Grid,
@@ -46,7 +50,7 @@ function NewTalent(props) {
       >
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item md={3}>
-            <Typography variant="body1" fontWeight={"fontWeightBold"}>
+            <Typography >
               Add Image:
             </Typography>
           </Grid>
@@ -78,7 +82,7 @@ function NewTalent(props) {
         </Grid>
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item md={3}>
-            <Typography variant="body1" fontWeight={"fontWeightBold"}>
+            <Typography>
               Student Name:
             </Typography>
           </Grid>
@@ -95,7 +99,7 @@ function NewTalent(props) {
         </Grid>
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item md={3}>
-            <Typography variant="body1" fontWeight={"fontWeightBold"}>
+            <Typography >
               Registration #:
             </Typography>
           </Grid>
@@ -112,7 +116,7 @@ function NewTalent(props) {
         </Grid>
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item md={3}>
-            <Typography variant="body1" fontWeight={"fontWeightBold"}>
+            <Typography>
               Department:
             </Typography>
           </Grid>
@@ -129,7 +133,7 @@ function NewTalent(props) {
         </Grid>
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item md={3}>
-            <Typography variant="body1" fontWeight={"fontWeightBold"}>
+            <Typography>
               Session:
             </Typography>
           </Grid>
@@ -146,7 +150,7 @@ function NewTalent(props) {
         </Grid>
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item md={3}>
-            <Typography variant="body1" fontWeight={"fontWeightBold"}>
+            <Typography >
               Email:
             </Typography>
           </Grid>
@@ -163,82 +167,68 @@ function NewTalent(props) {
         </Grid>
 
         <Grid item xs={12} md={12}>
-          <List dense={true}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Work Experience"
-                secondary="List your work history like contracts or internships"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Licences and certificate"
-                secondary="Showcase your expertise with your credentials"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Volunteer Experience"
-                secondary="Higlight your passions and how you like to give back"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Skills"
-                secondary="Showcase your strengths as a professional"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Languages"
-                secondary="Show how you can be a fit for a job "
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton />
-              </ListItemSecondaryAction>
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton />
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
-        </Grid>
+        <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Skills</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2a-content"
+          id="panel2a-header"
+        >
+          <Typography>Language</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Certification</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Experience</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+   
+      </Grid>
       </Grid>
     </div>
   );
