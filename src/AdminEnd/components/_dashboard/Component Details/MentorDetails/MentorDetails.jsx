@@ -100,6 +100,7 @@ function MentorDetails({LIST}) {
         {id: 'pending', label: 'Pending'},
         {id: 'thisweek', label: 'This Week'}];
     const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
+    const [disabled, setdisabled] = React.useState(true);
 
     return (
         <div>
@@ -110,8 +111,8 @@ function MentorDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            subheader="The information can be edited"
-                            title="User profile"
+                            sx={{ml:1}}
+                            title="Mentor Detail"
                         />
                         <Divider/>
                         <CardContent>
@@ -119,96 +120,104 @@ function MentorDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        helperText="This Cannot be Channged"
-                                        label="User Id"
-                                        name="userId"
-                                        disabled={true}
-                                        required
-                                        value={values.userId}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="User Name"
-                                        name="userName"
-                                        onChange={handleChange}
-                                        value={values.userName}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Email Address"
-                                        name="email"
-                                        onChange={handleChange}
-                                        required
-                                        value={values.email}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Project Name"
-                                        name="projectName"
-                                        onChange={handleChange}
-                                        value={values.projectName}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <Stack direction={"row"} spacing={2}>
-                                        <Typography variant={'subtitle2'} sx={{mt: 1.3}}>
-                                            Sub Users
-                                        </Typography>
-                                        <AvatarGroup max={4}>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                N
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                F
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                G
-                                            </Avatar>
-                                        </AvatarGroup>
+                  <Grid item md={5}>
+                  <Stack direction={"row"} spacing={10.8} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      ID:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.userId}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={7}></Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={7.8} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Name:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.name}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={7}></Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={4} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      UserName:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.username}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={7}></Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={8} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Email:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.email}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={7}></Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={8.5} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Field:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.field}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={7}></Grid>
+                               
+                                
 
-                                    </Stack>
-
-                                </Grid>
+                              
+                           
                                 <Grid item
-                                      md={6}
+                                      md={12}
                                       xs={12}>
-                                    <Stack direction={'row'} spacing={2} sx={{
+                                    <Stack direction={'row'} spacing={3} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        p: 2,
+                                        mr:2,
+                                        p:1
                                     }}>
                                         <Button
                                             color="inherit"
@@ -220,67 +229,24 @@ function MentorDetails({LIST}) {
                                             color="error"
                                             variant="outlined"
                                         >
-                                            Delete User
+                                            Delete Mentor
                                         </Button>
-                                        <Button
-                                            color="primary"
-                                            variant="contained"
-                                        >
-                                            Save Changes
-                                        </Button>
+                                        <Button color="primary" variant="contained" onClick={()=>setdisabled(!disabled)}>
+                      {disabled===true?'Update':'Save Changes'}
+                    </Button>
                                     </Stack>
                                 </Grid>
                             </Grid>
                         </CardContent>
 
-                        <Divider/>
-                        <ListToolBar filterSearcBy={filter} onFilterSearchBy={setFilter}
-                                     searchByOptionList={FILTER_BY_OPTION}/>
-                        <List
-                            sx={{width: '100%', bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto', mt: -3}}
-                            aria-label="contacts"
-
-                        >
-                            {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
-                        </List>
+                      
+                       
+                       
                     </Card>
                 </form>
 
             </Page>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                scroll={'paper'}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
-            >
-                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-                <DialogContent dividers={true}>
-                    <DialogContentText
-                        id="scroll-dialog-description"
-                    >
-                        <Stack direction={'row'} spacing={1}>
-                            <Typography variant={'subtitle1'}>Subject</Typography>
-                            <Typography variant={'body1'}> loremmdhufeu wehfuweuif</Typography>
-                        </Stack>
-                        <Stack direction={'row'} spacing={3}>
-                            <Typography variant={'subtitle1'}>Body</Typography>
-                            <Typography variant={'body1'}> lorem ipdnshfui hfuverhuif vhrufb sdvberub
-                                krbguierui
-                                ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb lorem ipdnshfui
-                                hfuverhuif vhrufb sdvberub
-                                krbguierui
-                                ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb lorem ipdnshfui
-                                hfuverhuif vhrufb sdvberub
-                                krbguierui
-                                ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb</Typography>
-                        </Stack>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} variant={'contained'} color={'inherit'}>Reply</Button>
-                </DialogActions>
-            </Dialog>
+          
         </div>
     );
 }

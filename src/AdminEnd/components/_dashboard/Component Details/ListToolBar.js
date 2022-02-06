@@ -60,11 +60,11 @@ export default function ListToolbar({
 
             }}
         >
-            <Typography component="div" variant="h6">
+            <Typography component="div" variant="h6" sx={{mb:0}}>
                 Recent Queries
             </Typography>
-            <Stack direction="row" spacing={1} flexShrink={0} sx={{
-                my: 1, display: 'flex',
+            <Stack direction="row" spacing={0.5} flexShrink={0} sx={{
+                display: 'flex',
                 justifyContent: 'flex-end'
             }}>
                 <SearchByOption select={filterSearcBy} setselectSearchBy={onFilterSearchBy}

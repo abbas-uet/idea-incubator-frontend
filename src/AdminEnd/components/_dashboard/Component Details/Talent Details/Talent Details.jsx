@@ -101,6 +101,7 @@ function TalentDetails({LIST}) {
         {id: 'pending', label: 'Pending'},
         {id: 'thisweek', label: 'This Week'}];
     const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
+    const [disabled, setdisabled] = React.useState(true);
 
     return (
         <div>
@@ -111,8 +112,9 @@ function TalentDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            subheader="The information can be edited"
-                            title="User profile"
+                            sx={{ml:1}}
+                            title="Talent Detail"
+                            
                         />
                         <Divider/>
                         <CardContent>
@@ -120,96 +122,170 @@ function TalentDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        helperText="This Cannot be Channged"
-                                        label="User Id"
-                                        name="userId"
-                                        disabled={true}
-                                        required
-                                        value={values.userId}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="User Name"
-                                        name="userName"
-                                        onChange={handleChange}
-                                        value={values.userName}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Email Address"
-                                        name="email"
-                                        onChange={handleChange}
-                                        required
-                                        value={values.email}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Project Name"
-                                        name="projectName"
-                                        onChange={handleChange}
-                                        value={values.projectName}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <Stack direction={"row"} spacing={2}>
-                                        <Typography variant={'subtitle2'} sx={{mt: 1.3}}>
-                                            Sub Users
-                                        </Typography>
-                                        <AvatarGroup max={4}>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                N
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                F
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                G
-                                            </Avatar>
-                                        </AvatarGroup>
-
-                                    </Stack>
-
-                                </Grid>
+                                  <Grid item md={5}>
+                  <Stack direction={"row"} spacing={5} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Student Name:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.name}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={5} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Roll #:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.regno}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={7} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Department:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.name}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={3} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Session:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.session}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={11.9} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Email:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.email}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={5}>
+                  <Stack direction={"row"} spacing={5.2} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Skills:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.skill}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={9}>
+                  <Stack direction={"row"} spacing={7.3} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Languages:
+                    </Typography>
+                    <TextField
+                    sx={{pr:0.5}}
+                      variant="outlined"
+                      fullWidth
+                      disabled={disabled}
+                      label={values.skill}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={9}>
+                  <Stack direction={"row"} spacing={6.3} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Certification:
+                    </Typography>
+                    <TextField
+                    sx={{pr:0.5}}
+                      variant="outlined"
+                      fullWidth
+                      disabled={disabled}
+                      label={values.skill}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                <Grid item md={12}>
+                  <Stack direction={"row"} spacing={7.1} alignItems={"center"}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Experience:
+                    </Typography>
+                    <TextField
+                      variant="outlined"
+                      disabled={disabled}
+                      label={values.skill}
+                      multiline
+                      minRows={3}
+                      sx={{ width: "590px" }}
+                      size="small"
+                    ></TextField>
+                  </Stack>
+                </Grid>
+                                        
+                               
+                                
+                               
+                                
                                 <Grid item
-                                      md={6}
+                                      md={12}
                                       xs={12}>
-                                    <Stack direction={'row'} spacing={2} sx={{
+                                    <Stack direction={'row'} spacing={4} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        p: 2,
+                                        p: 1,
+                                        mr:2,
                                     }}>
                                         <Button
                                             color="inherit"
@@ -221,67 +297,23 @@ function TalentDetails({LIST}) {
                                             color="error"
                                             variant="outlined"
                                         >
-                                            Delete User
+                                            Delete Talent
                                         </Button>
-                                        <Button
-                                            color="primary"
-                                            variant="contained"
-                                        >
-                                            Save Changes
-                                        </Button>
+                                        <Button color="primary" variant="contained" onClick={()=>setdisabled(!disabled)}>
+                      {disabled===true?'Update':'Save Changes'}
+                    </Button>
                                     </Stack>
                                 </Grid>
                             </Grid>
                         </CardContent>
 
-                        <Divider/>
-                        <ListToolBar filterSearcBy={filter} onFilterSearchBy={setFilter}
-                                     searchByOptionList={FILTER_BY_OPTION}/>
-                        <List
-                            sx={{width: '100%', bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto', mt: -3}}
-                            aria-label="contacts"
-
-                        >
-                            {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
-                        </List>
+                        
+                        
                     </Card>
                 </form>
 
             </Page>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                scroll={'paper'}
-                aria-labelledby="scroll-dialog-title"
-                aria-describedby="scroll-dialog-description"
-            >
-                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-                <DialogContent dividers={true}>
-                    <DialogContentText
-                        id="scroll-dialog-description"
-                    >
-                        <Stack direction={'row'} spacing={1}>
-                            <Typography variant={'subtitle1'}>Subject</Typography>
-                            <Typography variant={'body1'}> loremmdhufeu wehfuweuif</Typography>
-                        </Stack>
-                        <Stack direction={'row'} spacing={3}>
-                            <Typography variant={'subtitle1'}>Body</Typography>
-                            <Typography variant={'body1'}> lorem ipdnshfui hfuverhuif vhrufb sdvberub
-                                krbguierui
-                                ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb lorem ipdnshfui
-                                hfuverhuif vhrufb sdvberub
-                                krbguierui
-                                ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb lorem ipdnshfui
-                                hfuverhuif vhrufb sdvberub
-                                krbguierui
-                                ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb</Typography>
-                        </Stack>
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} variant={'contained'} color={'inherit'}>Reply</Button>
-                </DialogActions>
-            </Dialog>
+            
         </div>
     );
 }

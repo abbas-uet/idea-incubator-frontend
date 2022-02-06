@@ -81,7 +81,6 @@ function IdeaDetails({LIST}) {
     const {id} = useParams()
     const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
-        userId: listObj.id,
         name: listObj.name,
         email: listObj.email,
         field: listObj.field,
@@ -110,8 +109,8 @@ function IdeaDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            subheader="The information can be edited"
-                            title="Idea"
+                        sx={{ml:1}}
+                            title="Idea Details"
                         />
                         <Divider/>
                         <CardContent>
@@ -119,120 +118,64 @@ function IdeaDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        helperText="This Cannot be Channged"
-                                        label="User Id"
-                                        name="userId"
-                                        disabled={true}
-                                        required
-                                        value={values.userId}
-                                        variant="outlined"
-                                    />
+                                <Grid item md={12}>
+                                <Stack direction={"row"} spacing={9.5}>
+
+                                <Typography variant='body2' sx={{ml:1, fontWeight:'bold'}}>Name:</Typography>
+                                <Typography variant='body2'>{values.name}</Typography>
+                                </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="User Name"
-                                        name="userName"
-                                        onChange={handleChange}
-                                        value={values.name}
-                                        variant="outlined"
-                                    />
+                                <Grid item md={12}>
+                                <Stack direction={"row"} spacing={9.5}>
+
+                                <Typography variant='body2' sx={{ml:1, fontWeight:'bold'}}>Email:</Typography>
+                                <Typography variant='body2'>{values.email}</Typography>
+                                </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Email Address"
-                                        name="email"
-                                        onChange={handleChange}
-                                        required
-                                        value={values.email}
-                                        variant="outlined"
-                                    />
+                                <Grid item md={12}>
+                                <Stack direction={"row"} spacing={10}>
+
+                                <Typography variant='body2' sx={{ml:1, fontWeight:'bold'}}>Field:</Typography>
+                                <Typography variant='body2'>{values.field}</Typography>
+                                </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Project Name"
-                                        name="projectName"
-                                        onChange={handleChange}
-                                        value={values.field}
-                                        variant="outlined"
-                                    />
+                                <Grid item md={12}>
+                                <Stack direction={"row"} spacing={3}>
+
+                                <Typography variant='body2' sx={{ml:1, fontWeight:'bold'}}>Project Name:</Typography>
+                                <Typography variant='body2'>{values.projectName}</Typography>
+                                </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Project Name"
-                                        name="projectName"
-                                        onChange={handleChange}
-                                        value={values.projectName}
-                                        variant="outlined"
-                                    />
-                                </Grid>
+                               <Grid item md={6}></Grid>
+                                
+                                
+                                
                                 <Grid item
                                       md={6}
                                       xs={12}>
-                                    <Stack direction={'row'} spacing={2} sx={{
+                                    <Stack direction={'row'} spacing={4} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        p: 2,
-                                    }}>
-                                        <Button
-                                            color="inherit"
-                                            variant="contained"
-                                        >
-                                            Message
-                                        </Button>
+                                        pr:4                                    }}>
                                         <Button
                                             color="error"
                                             variant="outlined"
                                         >
-                                            Delete User
+                                            Reject Idea
                                         </Button>
                                         <Button
                                             color="primary"
                                             variant="contained"
                                         >
-                                            Save Changes
+                                            Approve Idea
                                         </Button>
                                     </Stack>
                                 </Grid>
                             </Grid>
                         </CardContent>
 
-                        <Divider/>
-                        <ListToolBar filterSearcBy={filter} onFilterSearchBy={setFilter}
-                                     searchByOptionList={FILTER_BY_OPTION}/>
-                        <List
-                            sx={{width: '100%', bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto', mt: -3}}
-                            aria-label="contacts"
-
-                        >
-                            {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
-                        </List>
+                       
+                        
                     </Card>
                 </form>
 
