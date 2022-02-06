@@ -1,6 +1,6 @@
 import {filter} from 'lodash';
 import {Icon} from '@iconify/react';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
@@ -11,7 +11,7 @@ import {
     Avatar,
     Button,
     Card,
-    Checkbox,
+    Checkbox, Chip,
     Container,
     Grid,
     Stack,
@@ -37,59 +37,41 @@ import TableItemDetails from "./TableItemDetails";
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-    [{id: 'id', label: 'Id', alignRight: false},
+    [{id: 'id', label: 'ID', alignRight: false},
         {id: 'username', label: 'User Name', alignRight: false},
+        {id: 'department', label: 'Department Name', alignRight: false},
         {id: 'email', label: 'Email', alignRight: false},
-        {id: 'projectname', label: 'Project Name', alignRight: false},
-        {id: 'subusers', label: 'Sub Users', alignRight: false},
+        {id: ''},],
+    [{id: 'id', label: 'ID', alignRight: false},
+        {id: 'department', label: 'Department Name', alignRight: false},
+        {id: 'noofadmins', label: 'No of Admins', alignRight: false},
         {id: ''},],
     [{id: 'id', label: 'Id', alignRight: false},
-        {id: 'email', label: 'Email', alignRight: false},
-        {id: 'name', label: 'Name', alignRight: false},
-        {id: 'field', label: 'Filed', alignRight: false},
-        {id: 'projectname', label: 'Project Name', alignRight: false},
-        {id: ''},],
-    [
-        {id: 'name', label: 'Name', alignRight: false},
-        {id: 'quantity', label: 'Quantity', alignRight: false},
-        {id: 'description', label: 'Description', alignRight: false},
-        {id: ''}],
-    [{id: 'name', label: 'Name', alignRight: false},
-        {id: 'email', label: 'email', alignRight: false},
-        {id: 'regno', label: 'Reg #', alignRight: false},
-        {id: 'skill', label: 'Skills', alignRight: false},
-        {id: 'session', label: 'Session', alignRight: false},
-        {id: ''}],
-    [{id: 'id', label: 'Id', alignRight: false},
-        {id: 'name', label: 'Name', alignRight: false},
         {id: 'username', label: 'User Name', alignRight: false},
         {id: 'email', label: 'Email', alignRight: false},
-        {id: 'field', label: 'Field', alignRight: false},
+        {id: 'subscription', label: 'Field', alignRight: false},
+        {id: 'lastinvoice', label: 'Last Invoice', alignRight: false},
+        {id: 'status', label: 'Status', alignRight: false},
+        {id: 'duedate', label: 'Due Date', alignRight: false},
         {id: ''}],
-    [{id: 'id', label: 'Id', alignRight: false},
-        {id: 'username', label: 'User Name', alignRight: false},
-        {id: 'email', label: 'Email', alignRight: false},
-        {id: 'companyname', label: 'Company Name', alignRight: false},
-        {id: 'services', label: 'Services', alignRight: false},
-        {id: ''}],
+    [{id: 'id', label: 'Invoice', alignRight: false},
+        {id: 'createdon', label: 'Created On', alignRight: false},
+        {id: 'duedate', label: 'Due Date', alignRight: false},
+        {id: 'billingperson', label: 'Billing Person', alignRight: false},
+        {id: 'paymentmethod', label: 'Payment Method', alignRight: false},
+        {id: 'ammount', label: 'Ammount', alignRight: false},
+        {id: 'status', label: 'Status', alignRight: false},
+        {id: ''}]
 ];
 
 
 const SEARCH_BY_LIST = [
     [{id: 'id', label: 'ID'},
-        {id: 'projectname', label: 'Project Name'},],
+        {id: 'username', label: 'User Name'},],
+    [{id: 'id', label: 'ID'},],
     [{id: 'id', label: 'ID'},
-        {id: 'name', label: 'Name'},
-        {id: 'projectname', label: 'Project Name',},],
-    [
-        {id: 'id', label: 'ID'},
-        {id: 'name', label: 'Name',},],
-    [{id: 'id', label: 'ID'},
-        {id: 'name', label: 'Name',},],
-    [{id: 'id', label: 'ID'},
-        {id: 'name', label: 'Name',},],
-    [{id: 'id', label: 'ID',},
-        {id: 'companyname', label: 'Company Name',},],
+        {id: 'username', label: 'User Name',},],
+    [{id: 'id', label: 'Invoice ID'},]
 ]
 
 
@@ -122,32 +104,82 @@ function applySortFilter(array, comparator, query, filterSearchBy) {
 
     if (query) {
         return filterSearchBy === 'id' ? filter(array, (_user) => _user.id === parseInt(query)) :
-            filterSearchBy === 'name' ? filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1) :
-                filterSearchBy === 'projectname' ? filter(array, (_user) => _user.projectname.toLowerCase().indexOf(query.toLowerCase()) !== -1) :
-                    filter(array, (_user) => _user.companyname.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-
+            filterSearchBy === 'username' ? filter(array, (_user) => _user.username.toLowerCase().indexOf(query.toLowerCase()) !== -1) : ''
     }
     return stabilizedThis.map((el) => el[0]);
 }
 
 function getTableHeadlist(pageName) {
-    return pageName === 'User' ? TABLE_HEAD[0] : pageName === 'Ideas' ? TABLE_HEAD[1] :
-        pageName === 'Assets' ? TABLE_HEAD[2] : pageName === 'Talent' ? TABLE_HEAD[3] :
-            pageName === 'Mentors' ? TABLE_HEAD[4] : pageName === 'Industry' ? TABLE_HEAD[5] : ''
+    return pageName === 'Admin' ? TABLE_HEAD[0] : pageName === 'Department' ? TABLE_HEAD[1] :
+        pageName === 'User' ? TABLE_HEAD[2] : pageName === 'Invoice' ? TABLE_HEAD[3] : ''
 }
 
 
 function getSearchByOption(pageName) {
-    return pageName === 'User' ? SEARCH_BY_LIST[0] : pageName === 'Ideas' ? SEARCH_BY_LIST[1] :
-        pageName === 'Assets' ? SEARCH_BY_LIST[2] : pageName === 'Talent' ? SEARCH_BY_LIST[3] :
-            pageName === 'Mentors' ? SEARCH_BY_LIST[4] : pageName === 'Industry' ? SEARCH_BY_LIST[5] : ''
+    return pageName === 'Admin' ? SEARCH_BY_LIST[0] : pageName === 'Department' ? SEARCH_BY_LIST[1] :
+        pageName === 'User' ? SEARCH_BY_LIST[2] : pageName === 'Invoice' ? SEARCH_BY_LIST[3] : ''
 }
 
 
 //Rendering the Tables of Different Tabs
 function renderTableContent(pageName, row, selected, handleClick) {
-    if (pageName === 'User') {
-        let {id, username, email, projectname, subusers} = row;
+    if (pageName === 'Admin') {
+        let {id, username, email, department} = row;
+        let isItemSelected = selected.indexOf(username) !== -1;
+        return (
+            <TableRow
+                hover
+                key={id}
+                tabIndex={-1}
+                role="checkbox"
+                selected={isItemSelected}
+                aria-checked={isItemSelected}
+            >
+                <TableCell padding="checkbox">
+                    <Checkbox
+                        checked={isItemSelected}
+                        onChange={(event) => handleClick(event, username)}
+                    />
+                </TableCell>
+                <TableCell align="left">{id}</TableCell>
+                <TableCell align="left">{username}</TableCell>
+                <TableCell align="left">{department}</TableCell>
+                <TableCell align="left">{email}</TableCell>
+
+                <TableCell align="right">
+                    <UserMoreMenu pageName={pageName} id={id}/>
+                </TableCell>
+            </TableRow>
+        );
+    } else if (pageName === 'Department') {
+        let {id, departmentname, noofadmins} = row;
+        let isItemSelected = selected.indexOf(departmentname) !== -1;
+        return (
+            <TableRow
+                hover
+                key={id}
+                tabIndex={-1}
+                role="checkbox"
+                selected={isItemSelected}
+                aria-checked={isItemSelected}
+            >
+                <TableCell padding="checkbox">
+                    <Checkbox
+                        checked={isItemSelected}
+                        onChange={(event) => handleClick(event, departmentname)}
+                    />
+                </TableCell>
+                <TableCell align="left">{id}</TableCell>
+                <TableCell align="left">{departmentname}</TableCell>
+                <TableCell align="left">{noofadmins}</TableCell>
+
+                <TableCell align="right">
+                    <UserMoreMenu pageName={pageName} id={id}/>
+                </TableCell>
+            </TableRow>
+        );
+    } else if (pageName === 'User') {
+        let {id, username, email, subscription, lastinvoice, status, duedate} = row;
         let isItemSelected = selected.indexOf(username) !== -1;
         return (
             <TableRow
@@ -167,19 +199,19 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 <TableCell align="left">{id}</TableCell>
                 <TableCell align="left">{username}</TableCell>
                 <TableCell align="left">{email}</TableCell>
-                <TableCell align="left">{projectname}</TableCell>
-                <TableCell align="left">
-                    {subusers}
-                </TableCell>
+                <TableCell align="left">{subscription}</TableCell>
+                <TableCell align="left">{lastinvoice}</TableCell>
+                <TableCell align="left">{status}</TableCell>
+                <TableCell align="left">{duedate}</TableCell>
 
                 <TableCell align="right">
                     <UserMoreMenu pageName={pageName} id={id}/>
                 </TableCell>
             </TableRow>
         );
-    } else if (pageName === 'Ideas') {
-        let {id, email, name, field, projectname} = row;
-        let isItemSelected = selected.indexOf(name) !== -1;
+    } else if (pageName === 'Invoice') {
+        let {id, createdon, billingperson, duedate, paymentmethod, ammount, status} = row;
+        let isItemSelected = selected.indexOf(id) !== -1;
         return (
             <TableRow
                 hover
@@ -192,144 +224,27 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 <TableCell padding="checkbox">
                     <Checkbox
                         checked={isItemSelected}
-                        onChange={(event) => handleClick(event, name)}
+                        onChange={(event) => handleClick(event, id)}
                     />
                 </TableCell>
                 <TableCell align="left">{id}</TableCell>
-                <TableCell align="left">{email}</TableCell>
-                <TableCell align="left">{name}</TableCell>
-                <TableCell align="left">{field}</TableCell>
+                <TableCell align="left">{createdon}</TableCell>
+                <TableCell align="left">{duedate}</TableCell>
+                <TableCell align="left">{billingperson}</TableCell>
+                <TableCell align="left">{paymentmethod}</TableCell>
+                <TableCell align="left">{ammount}</TableCell>
                 <TableCell align="left">
-                    {projectname}
+                    <Chip variant={'outlined'} label={status[0]} color={status[1]}/>
                 </TableCell>
-
                 <TableCell align="right">
                     <UserMoreMenu pageName={pageName} id={id}/>
-                </TableCell>
-            </TableRow>
-        );
-    } else if (pageName === 'Assets') {
-        let {id, name, quantity, description} = row;
-        let isItemSelected = selected.indexOf(name) !== -1;
-        return (
-            <TableRow
-                hover
-                key={id}
-                tabIndex={-1}
-                role="checkbox"
-                selected={isItemSelected}
-                aria-checked={isItemSelected}
-            >
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        checked={isItemSelected}
-                        onChange={(event) => handleClick(event, name)}
-                    />
-                </TableCell>
-                <TableCell align="left">{name}</TableCell>
-                <TableCell align="left">{quantity}</TableCell>
-                <TableCell align="left">{description}</TableCell>
-
-                <TableCell align="right">
-                    <UserMoreMenu pageName={pageName} id={id}/>
-                </TableCell>
-            </TableRow>
-        );
-    } else if (pageName === 'Talent') {
-        let {id, name, email, regno, skill, session} = row;
-        let isItemSelected = selected.indexOf(name) !== -1;
-        return (
-            <TableRow
-                hover
-                key={id}
-                tabIndex={-1}
-                role="checkbox"
-                selected={isItemSelected}
-                aria-checked={isItemSelected}
-            >
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        checked={isItemSelected}
-                        onChange={(event) => handleClick(event, name)}
-                    />
-                </TableCell>
-                <TableCell align="left">{name}</TableCell>
-                <TableCell align="left">{email}</TableCell>
-                <TableCell align="left">{regno}</TableCell>
-                <TableCell align="left">{skill}</TableCell>
-                <TableCell align="left">{session}</TableCell>
-                <TableCell align="right">
-                    <UserMoreMenu pageName={pageName} id={id}/>
-                </TableCell>
-            </TableRow>
-        );
-    } else if (pageName === 'Industry') {
-        let {id, username, email, companyname, services} = row;
-        let isItemSelected = selected.indexOf(companyname) !== -1;
-        return (
-            <TableRow
-                hover
-                key={id}
-                tabIndex={-1}
-                role="checkbox"
-                selected={isItemSelected}
-                aria-checked={isItemSelected}
-            >
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        checked={isItemSelected}
-                        onChange={(event) => handleClick(event, companyname)}
-                    />
-                </TableCell>
-                <TableCell align="left">{id}</TableCell>
-                <TableCell align="left">{username}</TableCell>
-                <TableCell align="left">{email}</TableCell>
-                <TableCell align="left">{companyname}</TableCell>
-
-
-                <TableCell align="left">
-                    {services}
-                </TableCell>
-
-                <TableCell align="right">
-                    <UserMoreMenu pageName={pageName} id={id}/>
-                </TableCell>
-            </TableRow>
-        );
-    } else if (pageName === 'Mentors') {
-        let {id, name, username, email, field} = row;
-        let isItemSelected = selected.indexOf(username) !== -1;
-        return (
-            <TableRow
-                hover
-                key={id}
-                tabIndex={-1}
-                role="checkbox"
-                selected={isItemSelected}
-                aria-checked={isItemSelected}
-            >
-                <TableCell padding="checkbox">
-                    <Checkbox
-                        checked={isItemSelected}
-                        onChange={(event) => handleClick(event, username)}
-                    />
-                </TableCell>
-                <TableCell align="left">{id}</TableCell>
-                <TableCell align="left">{name}</TableCell>
-                <TableCell align="left">{username}</TableCell>
-                <TableCell align="left">{email}</TableCell>
-                <TableCell align="left">{field}</TableCell>
-
-                <TableCell align="right">
-                    <UserMoreMenu pageName={pageName} id={id}/>
-
                 </TableCell>
             </TableRow>
         );
     }
 }
 
-export default function AdminOptions({pageName, cardObj}) {
+export default function SuperAdminOptions({pageName, cardObj}) {
 
 
     const SEARCH_BY_OPTIONS = getSearchByOption(pageName);
@@ -344,6 +259,19 @@ export default function AdminOptions({pageName, cardObj}) {
     const [filterName, setFilterName] = useState('');
     const [selectSearchBy, setselectSearchBy] = useState(SEARCH_BY_OPTIONS[0].id)
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+
+    useEffect(() => {
+        return () => {
+            setPage(0);
+            setOrder('asc');
+            setSelected([]);
+            setOrderBy('name');
+            setFilterName('');
+            setselectSearchBy(SEARCH_BY_OPTIONS[0].id)
+            setRowsPerPage(5);
+        };
+    }, []);
 
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -415,21 +343,19 @@ export default function AdminOptions({pageName, cardObj}) {
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
                     <BreadCrumb linkArr={['Dashboard', pageName]}/>
-                    {
-                        pageName === "Ideas" ? "" :
-                            <Button
-                                variant="contained"
-                                color={'inherit'}
-                                onClick={handleClickOpen}
-                                startIcon={<Icon icon={plusFill}
-                                />}
-                            >
-                                Add {pageName}
-                            </Button>
-                    }
+
+                    <Button
+                        variant="contained"
+                        color={'inherit'}
+                        onClick={handleClickOpen}
+                        startIcon={<Icon icon={plusFill}
+                        />}
+                    >
+                        Add {pageName}
+                    </Button>
                 </Stack>
 
-                {pageName === 'User' || pageName === 'Mentors' || pageName === 'Talent' || pageName === 'Ideas' ?
+                {pageName === 'Admin' || pageName === 'Depatment' || pageName === 'User' || pageName === 'Invoice' ?
                     <Grid container spacing={2} justifyContent="space-between" mb={2}>
                         <Grid item lg={4}
                               md={3}

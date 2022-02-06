@@ -12,40 +12,42 @@ import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 const getIcon = (name) => <Icon icon={name} width={25} height={25}/>;
 
 const sidebarConfig = [
+
     {
-        title: 'dashboard',
-        path: '/admin/dashboard/app',
+        title: 'Dashboard',
+        path: '/superadmin/dashboard/app',
         icon: getIcon(pieChart2Fill)
     },
     {
-        title: 'user',
-        path: '/admin/dashboard/user',
-        icon: getIcon(peopleFill)
-    },
-    {
-        title: 'ideas',
-        path: '/admin/dashboard/ideas',
+        title: 'Admin',
+        path: '/superadmin/dashboard/admins',
         icon: getIcon(shoppingBagFill)
     },
     {
-        title: 'assets',
-        path: '/admin/dashboard/assets',
+        title: 'Department',
+        path: '/superadmin/dashboard/departments',
+        icon: getIcon(shoppingBagFill)
+    },
+    {
+        title: 'User',
+        path: '/superadmin/dashboard/users',
+        icon: getIcon(peopleFill)
+    },
+
+    {
+        title: 'Invoices',
+        path: '/superadmin/dashboard/invoices',
         icon: getIcon(fileTextFill)
     },
     {
-        title: 'talent',
-        path: '/admin/dashboard/talent',
+        title: 'Subscription',
+        path: '/superadmin/dashboard/subscriptions',
         icon: getIcon(lockFill)
     },
     {
-        title: 'industry',
-        path: '/admin/dashboard/industry',
+        title: 'Logout',
+        path: '/superadmin/dashboard/logout',
         icon: getIcon(personAddFill)
-    },
-    {
-        title: 'mentors',
-        path: '/admin/dashboard/invoice',
-        icon: getIcon(alertTriangleFill)
     }
 ];
 

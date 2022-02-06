@@ -35,8 +35,6 @@ import {AvatarGroup} from "@mui/lab";
 
 
 import ListToolBar from '../ListToolBar';
-import {Icon} from "@iconify/react/dist/iconify";
-import plusFill from "@iconify/icons-eva/plus-fill";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -69,7 +67,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function IdeaDetails({LIST}) {
+function AssetDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -83,9 +81,10 @@ function IdeaDetails({LIST}) {
     const {id} = useParams()
     const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
-        name: listObj.name,
+        userId: listObj.id,
+        userName: listObj.username,
         email: listObj.email,
-        field: listObj.field,
+        subUsers: listObj.subusers,
         projectName: listObj.projectname,
     });
 
@@ -111,8 +110,8 @@ function IdeaDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            sx={{ml: 1}}
-                            title="Idea Details"
+                            subheader="The information can be edited"
+                            title="User profile"
                         />
                         <Divider/>
                         <CardContent>
@@ -120,73 +119,130 @@ function IdeaDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={9.5}>
-
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Name:</Typography>
-                                        <Typography variant='body2'>{values.name}</Typography>
-                                    </Stack>
+                                <Grid
+                                    item
+                                    md={6}
+                                    xs={12}
+                                >
+                                    <TextField
+                                        fullWidth
+                                        helperText="This Cannot be Channged"
+                                        label="User Id"
+                                        name="userId"
+                                        disabled={true}
+                                        required
+                                        value={values.userId}
+                                        variant="outlined"
+                                    />
                                 </Grid>
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={9.5}>
-
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Email:</Typography>
-                                        <Typography variant='body2'>{values.email}</Typography>
-                                    </Stack>
+                                <Grid
+                                    item
+                                    md={6}
+                                    xs={12}
+                                >
+                                    <TextField
+                                        fullWidth
+                                        label="User Name"
+                                        name="userName"
+                                        onChange={handleChange}
+                                        value={values.userName}
+                                        variant="outlined"
+                                    />
                                 </Grid>
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={10}>
-
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Field:</Typography>
-                                        <Typography variant='body2'>{values.field}</Typography>
-                                    </Stack>
+                                <Grid
+                                    item
+                                    md={6}
+                                    xs={12}
+                                >
+                                    <TextField
+                                        fullWidth
+                                        label="Email Address"
+                                        name="email"
+                                        onChange={handleChange}
+                                        required
+                                        value={values.email}
+                                        variant="outlined"
+                                    />
                                 </Grid>
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={3}>
-
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Project
-                                            Name:</Typography>
-                                        <Typography variant='body2'>{values.projectName}</Typography>
-                                    </Stack>
+                                <Grid
+                                    item
+                                    md={6}
+                                    xs={12}
+                                >
+                                    <TextField
+                                        fullWidth
+                                        label="Project Name"
+                                        name="projectName"
+                                        onChange={handleChange}
+                                        value={values.projectName}
+                                        variant="outlined"
+                                    />
                                 </Grid>
-                                <Grid item md={6}></Grid>
+                                <Grid
+                                    item
+                                    md={6}
+                                    xs={12}
+                                >
+                                    <Stack direction={"row"} spacing={2}>
+                                        <Typography variant={'subtitle2'} sx={{mt: 1.3}}>
+                                            Sub Users
+                                        </Typography>
+                                        <AvatarGroup max={4}>
+                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
+                                                N
+                                            </Avatar>
+                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
+                                                F
+                                            </Avatar>
+                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
+                                                G
+                                            </Avatar>
+                                        </AvatarGroup>
 
+                                    </Stack>
 
+                                </Grid>
                                 <Grid item
                                       md={6}
                                       xs={12}>
-                                    <Stack direction={'row'} spacing={4} sx={{
+                                    <Stack direction={'row'} spacing={2} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        pr: 4
+                                        p: 2,
                                     }}>
+                                        <Button
+                                            color="inherit"
+                                            variant="contained"
+                                        >
+                                            Message
+                                        </Button>
                                         <Button
                                             color="error"
                                             variant="outlined"
                                         >
-                                            Reject Idea
+                                            Delete User
                                         </Button>
                                         <Button
                                             color="primary"
                                             variant="contained"
                                         >
-                                            Approve Idea
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color={'inherit'}
-                                            onClick={handleClickOpen}
-                                            startIcon={<Icon icon={plusFill}
-                                            />}
-                                        >
-                                            Add Idea
+                                            Save Changes
                                         </Button>
                                     </Stack>
                                 </Grid>
                             </Grid>
                         </CardContent>
 
+                        <Divider/>
+                        <ListToolBar filterSearcBy={filter} onFilterSearchBy={setFilter}
+                                     searchByOptionList={FILTER_BY_OPTION}/>
+                        <List
+                            sx={{width: '100%', bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto', mt: -3}}
+                            aria-label="contacts"
 
+                        >
+                            {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
+                        </List>
                     </Card>
                 </form>
 
@@ -229,5 +285,5 @@ function IdeaDetails({LIST}) {
     );
 }
 
-export default IdeaDetails;
+export default AssetDetails;
 
