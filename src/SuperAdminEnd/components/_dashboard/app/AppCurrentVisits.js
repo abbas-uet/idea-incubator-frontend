@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
+
 // material
 import { useTheme, styled } from '@mui/material/styles';
 import { Card, CardHeader } from '@mui/material';
@@ -8,64 +9,75 @@ import { fNumber } from '../../../utils/formatNumber';
 //
 import { BaseOptionChart } from '../../charts';
 
+
+
+
 // ----------------------------------------------------------------------
-
-const CHART_HEIGHT = 280;
-const LEGEND_HEIGHT = 40;
-
-const ChartWrapperStyle = styled('div')(({ theme }) => ({
-  height: CHART_HEIGHT,
-  marginTop: theme.spacing(0),
-  '& .apexcharts-canvas svg': { height: CHART_HEIGHT },
-  '& .apexcharts-canvas svg,.apexcharts-canvas foreignObject': {
-    overflow: 'visible'
-  },
-  '& .apexcharts-legend': {
-    height: LEGEND_HEIGHT,
-    alignContent: 'center',
-    position: 'relative !important',
-    borderTop: `solid 1px ${theme.palette.divider}`,
-    top: `calc(${CHART_HEIGHT - LEGEND_HEIGHT}px) !important`
-  }
+const RootStyle = styled(Card)(({ theme }) => ({
+  boxShadow: 'none',
+  textAlign: 'center',
+  padding: theme.spacing(2, 2),
+  // color: theme.palette.warning.darker,
+  // backgroundColor: theme.palette.warning.lighter
 }));
 
-// ----------------------------------------------------------------------
-
-const CHART_DATA = [6743, 4135];
 
 export default function AppCurrentVisits() {
   const theme = useTheme();
 
-  const chartOptions = merge(BaseOptionChart(), {
-    colors: [
-      theme.palette.warning.main,
-      theme.palette.error.main
-    ],
-    labels: ['Men', 'Women'],
-    label:'lines',
-    stroke: { colors: [theme.palette.background.paper] },
-    legend: { floating: true, horizontalAlign: 'center' },
-    dataLabels: { enabled: true, dropShadow: { enabled: false } },
-    tooltip: {
-      fillSeriesColor: false,
-      y: {
-        formatter: (seriesName) => fNumber(seriesName),
-        title: {
-          formatter: (seriesName) => `#${seriesName}`
+  const state = {
+          
+    series: [{
+        name: "Desktops",
+        data: [19456, 36290, 64870, 47843, 81000, 59543]
+    }],
+    options: {
+      chart: {
+        height: 290,
+        type: 'area',
+        zoom: {
+          enabled: false
         }
-      }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      title: {
+        text: 'Payments',
+        align: 'left',
+        
+      },
+      // grid: {
+      //   row: {
+      //     colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+      //     opacity: 0.5
+      //   },
+      // },
+      xaxis: {
+        categories: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022' ],
+      },
+      yaxis:{
+        min:0,
+      max:100000,
+      tickAmount:5
     },
-    plotOptions: {
-      pie: { donut: { labels: { show: false } } }
-    }
-  });
+      
+    },
+  
+  
+  };
+
+
 
   return (
     <Card>
-      <CardHeader title="Users" />
-      <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="donut"  series={CHART_DATA} options={chartOptions} height={260} />
-      </ChartWrapperStyle>
+      <RootStyle>
+
+      <ReactApexChart options={state.options} series={state.series} type="area" height={280} />
+      </RootStyle>
     </Card>
   );
 }

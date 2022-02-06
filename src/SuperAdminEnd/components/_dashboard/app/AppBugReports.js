@@ -34,7 +34,7 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 234;
+const TOTAL = 24;
 
 export default function AppBugReports() {
   return (
@@ -43,7 +43,7 @@ export default function AppBugReports() {
         <Icon icon={bugFilled} width={20} height={20} />
       </IconWrapperStyle>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Industry
+        Department
       </Typography>
       <Typography variant="h6">{fShortenNumber(TOTAL)}</Typography>
       

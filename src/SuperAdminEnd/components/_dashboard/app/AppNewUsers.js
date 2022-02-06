@@ -35,8 +35,8 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const Approved = 13528;
-const Pending= 1500;
+const Total = 1000;
+
 
 export default function AppNewUsers() {
   return (
@@ -44,26 +44,13 @@ export default function AppNewUsers() {
       <IconWrapperStyle>
         <Icon icon={appleFilled} width={20} height={20} />
       </IconWrapperStyle>
-      <Grid container direction="row" justifyContent="center" alignItems="center" >
-      <Grid item md={6}>
-        <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Pending Ideas
-      </Typography>
-        </Grid>
-        <Grid item md={6}>
+  
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Approved Ideas
+        Admins
       </Typography>
-        </Grid>
-      </Grid>
-       <Grid container direction="row" justifyContent="center" alignItems="center" >
-      <Grid item md={6}>
-      <Typography variant="h5">{fShortenNumber(Pending)}</Typography>
-      </Grid>
-        <Grid item md={6}>
-      <Typography variant="h5">{fShortenNumber(Approved)}</Typography>
-        </Grid>
-        </Grid>
+      <Typography variant="h6">{fShortenNumber(Total)}</Typography>
+        
+     
     </RootStyle>
   );
 }

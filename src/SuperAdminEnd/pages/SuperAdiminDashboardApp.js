@@ -1,6 +1,6 @@
 import {Box, Grid, Container, Typography} from '@mui/material';
 import Page from '../components/Page';
-import MentorGraph from '../components/_dashboard/app/MentorGraph';
+
 import {
     AppNewUsers,
     AppBugReports,
@@ -8,6 +8,8 @@ import {
     AppCurrentVisits,
     AppCurrentSubject,
 } from '../components/_dashboard/app';
+import NotificationList from '../../UserEnd/components/Navbar/NotificationSection/NotificationList';
+import NotificationSection from '../../UserEnd/components/Navbar/NotificationSection';
 
 export default function SuperAdiminDashboardApp() {
     return (
@@ -24,14 +26,11 @@ export default function SuperAdiminDashboardApp() {
                     <Grid item xs={12} sm={6} md={4}>
                         <AppBugReports/>
                     </Grid>
-                    <Grid item xs={12} md={6} lg={4}>
+                    <Grid item xs={12} md={6} lg={7}>
                         <AppCurrentVisits/>
                     </Grid>
-                    <Grid item xs={12} md={6} lg={4}>
-                        <AppCurrentSubject/>
-                    </Grid>
-                    <Grid item xs={12} md={6} lg={4}>
-                        <MentorGraph/>
+                    <Grid item xs={12} md={6} lg={5}>
+                        <NotificationSection/>
                     </Grid>
 
 

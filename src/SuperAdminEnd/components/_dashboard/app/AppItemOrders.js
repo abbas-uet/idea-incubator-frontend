@@ -45,7 +45,7 @@ export default function AppItemOrders() {
       </IconWrapperStyle>
       
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Assests
+        Users
       </Typography>
       <Typography variant="h5">{fShortenNumber(TOTAL)}</Typography>
       

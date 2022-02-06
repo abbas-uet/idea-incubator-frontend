@@ -1,70 +1,152 @@
-import { merge } from 'lodash';
-import ReactApexChart from 'react-apexcharts';
-// material
-import { useTheme, styled } from '@mui/material/styles';
-import { Card, CardHeader } from '@mui/material';
-//
-import { BaseOptionChart } from '../../charts';
+import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-// ----------------------------------------------------------------------
+// material-ui
+import { useTheme } from '@mui/material/styles';
+import {
+    Avatar,
+    Box,
+    Button,
+    ButtonBase,
+    Card,
+    CardActions,
+    Chip,
+    ClickAwayListener,
+    Divider,
+    Grid,
+    Paper,
+    Popper,
+    Stack,
+    TextField,
+    Typography,
+    useMediaQuery
+} from '@mui/material';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
-const CHART_HEIGHT = 280;
-const LEGEND_HEIGHT = 40;
-
-const ChartWrapperStyle = styled('div')(({ theme }) => ({
-  height: CHART_HEIGHT,
-  marginTop: theme.spacing(0),
-  '& .apexcharts-canvas svg': {
-    height: CHART_HEIGHT
-  },
-  '& .apexcharts-canvas svg,.apexcharts-canvas foreignObject': {
-    overflow: 'visible'
-  },
-  '& .apexcharts-legend': {
-    height: LEGEND_HEIGHT,
-    alignContent: 'center',
-    position: 'relative !important',
-    borderTop: `solid 1px ${theme.palette.divider}`,
-    top: `calc(${CHART_HEIGHT - LEGEND_HEIGHT}px) !important`
-  }
-}));
-
-// ----------------------------------------------------------------------
-
-const CHART_DATA = [
-  { name: 'Student:', data: [360, 550, 800, 650] },
-
+import NotificationList from '../../../../UserEnd/components/Navbar/NotificationSection/NotificationList.jsx';
+const status = [
+    {
+        value: 'all',
+        label: 'All Notification'
+    },
+    {
+        value: 'new',
+        label: 'New'
+    },
+    {
+        value: 'unread',
+        label: 'Unread'
+    },
+    {
+        value: 'other',
+        label: 'Other'
+    }
 ];
 
-export default function AppCurrentSubject() {
-  const theme = useTheme();
+// ==============================|| NOTIFICATION ||============================== //
 
-  const chartOptions = merge(BaseOptionChart(), {
-    stroke: { width: 2 },
-    fill: { opacity: 1 },
-    legend: { floating: true, horizontalAlign: 'center' },
-    xaxis: {
-      categories: ['2018', '2019', '2020', '2021'],
-    },
-    yaxis:{
-      min:0,
-    max:1000,
-    tickAmount:4
-  },
-    plotOptions: {
-      bar: {
-        distributed: true
-      }
-    } 
-  });
-   
+const AppCurrentSubject = (props) => {
+    const theme = useTheme();
+    const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
-  return (
-    <Card>
-      <CardHeader title="Talent" />
-      <ChartWrapperStyle dir="ltr">
-        <ReactApexChart type="bar" series={CHART_DATA} options={chartOptions} height={240}/>
-      </ChartWrapperStyle>
-    </Card>
-  );
-}
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState('');
+    /**
+     * anchorRef is used on different componets and specifying one type leads to other components throwing an error
+     * */
+    const anchorRef = useRef(null);
+
+    const handleToggle = () => {
+        setOpen((prevOpen) => !prevOpen);
+    };
+
+    const handleClose = (event) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
+        }
+        setOpen(false);
+    };
+
+    const prevOpen = useRef(open);
+    useEffect(() => {
+        if (prevOpen.current === true && open === false) {
+            anchorRef.current.focus();
+        }
+        prevOpen.current = open;
+    }, [open]);
+
+    const handleChange = (event) => {
+        if (event?.target.value) setValue(event?.target.value);
+    };
+
+    return (
+                               <Card>
+
+                                    <Grid container direction="column" spacing={2}>
+                                        <Grid item xs={12}>
+                                            <Grid container alignItems="center" justifyContent="space-between" sx={{ pt: 2, px: 2 }}>
+                                                <Grid item>
+                                                    <Stack direction="row" spacing={2}>
+                                                        <Typography variant="subtitle1">{props.type}</Typography>
+                                                        <Chip
+                                                            size="small"
+                                                            label="01"
+                                                            sx={{
+                                                              color: theme.palette.background.default,
+                                                              bgcolor: theme.palette.warning.dark
+                                                            }}
+                                                            />
+                                                    </Stack>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography component={Link} to="#" variant="subtitle2" color="primary">
+                                                        Mark as all read
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <PerfectScrollbar
+                                                style={{ height: '100%', maxHeight: 'calc(100vh - 300px)', overflowX: 'hidden' }}
+                                                >
+                                                <Grid container direction="column" spacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <Box sx={{ px: 2, pt: 0.25, mt: 2 }}>
+                                                            <TextField
+                                                                variant='outlined'
+                                                                label='Filter'
+                                                                select
+                                                                fullWidth
+                                                                value={value}
+                                                                onChange={handleChange}
+                                                                SelectProps={{
+                                                                  native: true
+                                                                }}
+                                                                >
+                                                                {status.map((option) => (
+                                                                    <option key={option.value} value={option.value}>
+                                                                        {option.label}
+                                                                    </option>
+                                                                ))}
+                                                            </TextField>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={12} p={0}>
+                                                        <Divider sx={{ my: 0 }} />
+                                                    </Grid>
+                                                </Grid>
+                                                <NotificationList/>
+                                            </PerfectScrollbar>
+                                        </Grid>
+                                    </Grid>
+                                    <Divider />
+                                    <CardActions sx={{ p: 1.25, justifyContent: 'center' }}>
+                                        <Button size="small" disableElevation>
+                                            View All
+                                        </Button>
+                                    </CardActions>
+                                    </Card>
+    );
+};
+
+export default AppCurrentSubject;
