@@ -86,7 +86,7 @@ function App() {
 
                             <Route path={'admins'}
                                    element={<SuperAdminOptions pageName={'Admin'}
-                                                               cardObj={cardObj[1][0]}/> /*<Products />*/}/>
+                                                               cardObj={cardObj[0][0]}/> /*<Products />*/}/>
                             <Route path={'admin/detailsAdmin/:id'} element={<IdeaDetails
                                 LIST={ListofTableContent('Ideas')}/>}/>
 

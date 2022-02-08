@@ -11,7 +11,7 @@ import {
     Divider,
     Grid,
     TextField, Typography,
-    List, ListItemAvatar, ListItem
+    List, ListItem
 } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';

@@ -40,7 +40,7 @@ export default function AppBugReports() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={bugFilled} width={20} height={20} />
+        <Icon icon={bugFilled} width={16} height={16} />
       </IconWrapperStyle>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Department

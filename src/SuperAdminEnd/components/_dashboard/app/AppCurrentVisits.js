@@ -76,7 +76,7 @@ export default function AppCurrentVisits() {
     <Card>
       <RootStyle>
 
-      <ReactApexChart options={state.options} series={state.series} type="area" height={280} />
+      <ReactApexChart options={state.options} series={state.series} type="area" height={350} />
       </RootStyle>
     </Card>
   );

@@ -2,10 +2,10 @@
 import photoUrl from '../../../Utils/static/mock-images/avatars/avatar_default.jpg';
 
 const account = {
-    displayName: 'Jaydon Frankie',
+    displayName: 'Sehar Asghar',
     email: 'demo@minimals.cc',
     photoURL: photoUrl,
-    role: 'Admin'
+    role: 'Super Admin'
 };
 
 export default account;
