@@ -17,9 +17,6 @@ import AdminIndex from './AdminEnd/AdminIndex';
 import DashboardLayout from "./AdminEnd/layouts/dashboard";
 import DashboardApp from "./AdminEnd/pages/DashboardApp";
 import AdminOptions from "./AdminEnd/pages/AdminOptions";
-import Products from "./AdminEnd/pages/Products";
-import Blog from "./AdminEnd/pages/Blog";
-import NotFound from "./AdminEnd/pages/Page404";
 import Login from './Authentication/Login';
 import Register from './Authentication/Register';
 import GlobalStyles from "./theme/globalStyles";
@@ -43,6 +40,13 @@ import SuperAdminDashboardApp from './SuperAdminEnd/pages/SuperAdiminDashboardAp
 import SuperAdminOptions from './SuperAdminEnd/pages/SuperAdminOptions';
 import Subscription from "./SuperAdminEnd/pages/Subscription";
 import Logout from "./SuperAdminEnd/pages/Logout";
+
+
+import InvoiceDetails from './SuperAdminEnd/components/_dashboard/Component Details/Invoice Details/InvoiceDetails'
+import DepartmentDetails
+    from "./SuperAdminEnd/components/_dashboard/Component Details/Department Details/DepartmentDetails";
+import AdminDetails from "./SuperAdminEnd/components/_dashboard/Component Details/Admin Details/AdminDetails";
+import {SuperAdminListofTableContent} from "./SuperAdminEnd/_mocks_/SuperAdminListofTableContent";
 
 const cardObj = [
     [{
@@ -85,31 +89,30 @@ function App() {
 
 
                             <Route path={'admins'}
-                                   element={<SuperAdminOptions pageName={'Admin'}
-                                                               cardObj={cardObj[0][0]}/> /*<Products />*/}/>
-                            <Route path={'admin/detailsAdmin/:id'} element={<IdeaDetails
-                                LIST={ListofTableContent('Ideas')}/>}/>
+                                   element={<SuperAdminOptions pageName={'Admins'}
+                                                               cardObj={cardObj[1][0]}/> /*<Products />*/}/>
+                            <Route path={'admins/detailsAdmins/:id'} element={<AdminDetails
+                                LIST={SuperAdminListofTableContent('Admins')}/>}/>
 
                             <Route path={'departments'}
-                                   element={<SuperAdminOptions pageName={'Department'}
+                                   element={<SuperAdminOptions pageName={'Departments'}
                                                                cardObj={cardObj[1][0]}/> /*<Products />*/}/>
-                            <Route path={'admin/detailsDepartment/:id'} element={<IdeaDetails
-                                LIST={ListofTableContent('Ideas')}/>}/>
+                            <Route path={'departments/detailsDepartments/:id'} element={<DepartmentDetails
+                                LIST={SuperAdminListofTableContent('Departments')}/>}/>
 
                             <Route path={'users'}
-                                   element={<SuperAdminOptions pageName={'User'} cardObj={cardObj[0][0]}/>}/>
-                            <Route path={'user/detailsUser/:id'}
-                                   element={<UserDetails LIST={ListofTableContent('User')}/>}/>
+                                   element={<SuperAdminOptions pageName={'Users'} cardObj={cardObj[0][0]}/>}/>
+                            <Route path={'users/detailsUsers/:id'}
+                                   element={<UserDetails LIST={SuperAdminListofTableContent('Users')}/>}/>
 
                             <Route path={'invoices'}
-                                   element={<SuperAdminOptions pageName={'Invoice'}
+                                   element={<SuperAdminOptions pageName={'Invoices'}
                                                                cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
-                            <Route path={'assets/detailsInvoice/:id'}
-                                   element={<AssetDetails LIST={ListofTableContent('Assets')}/>}/>
+                            <Route path={'invoices/detailsInvoices/:id'}
+                                   element={<InvoiceDetails LIST={SuperAdminListofTableContent('Invoices')}/>}/>
                             <Route path={'subscriptions'}
                                    element={<Subscription/>}/>
-                            <Route path={'talent/detailssubscription/:id'} element={<TalentDetails
-                                LIST={ListofTableContent('Talent')}/>}/>
+
                             <Route path={'logout'}
                                    element={<Logout/> /* <NotFound />*/}/>
                         </Route>
@@ -157,7 +160,7 @@ function App() {
                                 LIST={ListofTableContent('Industry')}/>}/>
                             <Route path={'mentors'}
                                    element={<AdminOptions pageName={'Mentors'} cardObj={cardObj[0][0]}/>}/>
-                            <Route path={'invoice/detailsMentors/:id'} element={<MentorDetails
+                            <Route path={'mentors/detailsMentors/:id'} element={<MentorDetails
                                 LIST={ListofTableContent('Mentors')}/>}/>
                         </Route>
 

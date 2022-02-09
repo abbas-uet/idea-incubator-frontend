@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 
 
-export const CreateNewComponent = (props) => {
+export const CreateNewDepartment = (props) => {
     const [values, setValues] = useState({
         fullName: '',
         email: '',

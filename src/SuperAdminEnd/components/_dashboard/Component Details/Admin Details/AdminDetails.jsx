@@ -47,27 +47,27 @@ const QUERIES_LIST = [...Array(24)].map((_, index) => ({
 function ListItemRender(id, title, body, handleDialogueOpen) {
     return <ListItem key={id} onClick={handleDialogueOpen}>
         <ListItemButton>
-            <ListItemIcon>
+            <ListItemIcon sx={{mt: 0}}>
                 <FiberManualRecordIcon sx={{fontSize: 10}}/>
             </ListItemIcon>
             <ListItemText primary={
-                <Stack direction={'row'} spacing={1}>
-                    <Typography variant={'subtitle2'}>{title}</Typography>
-                    <ArrowRightIcon/>
-                    <Typography variant={'body1'} sx={{
-                        display: "block",
-                        width: "750px",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden"
-                    }}>{body}</Typography>
-                </Stack>
-            }/>
+
+                <Typography variant={'subtitle2'}>{title}</Typography>
+
+
+            } secondary={<Typography variant={'body1'} sx={{
+                display: "block",
+                width: "910px",
+                whiteSpace: "nowrap",
+                overflow: "hidden"
+            }}>{body}</Typography>}/><Typography sx={{mt: 2}}>{"..."}</Typography>
+
         </ListItemButton>
     </ListItem>;
 }
 
 
-function TalentDetails({LIST}) {
+function AdminDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -82,11 +82,10 @@ function TalentDetails({LIST}) {
     const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
         userId: listObj.id,
-        name: listObj.name,
+        userName: listObj.username,
         email: listObj.email,
-        regno: listObj.regno,
-        skill: listObj.skill,
-        session: listObj.session,
+        subUsers: listObj.subusers,
+        projectName: listObj.projectname,
     });
 
     console.log(values);
@@ -111,7 +110,7 @@ function TalentDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            subheader="The information can be edited"
+                            sx={{ml: 1}}
                             title="User profile"
                         />
                         <Divider/>
@@ -120,73 +119,51 @@ function TalentDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        helperText="This Cannot be Channged"
-                                        label="User Id"
-                                        name="userId"
-                                        disabled={true}
-                                        required
-                                        value={values.userId}
-                                        variant="outlined"
-                                    />
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={9.5}>
+
+                                        <Typography variant='body2'
+                                                    sx={{ml: 1, fontWeight: 'bold'}}>UserId:</Typography>
+                                        <Typography variant='body2'>{values.userId}</Typography>
+                                    </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="User Name"
-                                        name="userName"
-                                        onChange={handleChange}
-                                        value={values.userName}
-                                        variant="outlined"
-                                    />
+
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={6}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
+                                            Name:</Typography>
+                                        <Typography variant='body2'>{values.userName}</Typography>
+                                    </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Email Address"
-                                        name="email"
-                                        onChange={handleChange}
-                                        required
-                                        value={values.email}
-                                        variant="outlined"
-                                    />
+
+                                <Grid item md={12}>
+
+                                    <Stack direction={"row"} spacing={10.5}>
+
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Email:</Typography>
+                                        <Typography variant='body2'></Typography>{values.email}
+                                    </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Project Name"
-                                        name="projectName"
-                                        onChange={handleChange}
-                                        value={values.projectName}
-                                        variant="outlined"
-                                    />
+
+                                <Grid item md={12}>
+
+                                    <Stack direction={"row"} spacing={4}>
+
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Project
+                                            Name:</Typography>
+                                        <Typography variant='body2'></Typography>{values.projectName}
+                                    </Stack>
                                 </Grid>
+
                                 <Grid
                                     item
-                                    md={6}
+                                    md={5}
                                     xs={12}
+                                    sx={{ml: 1}}
                                 >
-                                    <Stack direction={"row"} spacing={2}>
-                                        <Typography variant={'subtitle2'} sx={{mt: 1.3}}>
-                                            Sub Users
+                                    <Stack direction={"row"} spacing={6}>
+                                        <Typography variant={'subtitle2'} sx={{mt: 1}}>
+                                            Sub Users:
                                         </Typography>
                                         <AvatarGroup max={4}>
                                             <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
@@ -206,10 +183,11 @@ function TalentDetails({LIST}) {
                                 <Grid item
                                       md={6}
                                       xs={12}>
-                                    <Stack direction={'row'} spacing={2} sx={{
+                                    <Stack direction={'row'} spacing={4} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        p: 2,
+                                        p: 1,
+                                        marginTop: 5
                                     }}>
                                         <Button
                                             color="inherit"
@@ -222,12 +200,6 @@ function TalentDetails({LIST}) {
                                             variant="outlined"
                                         >
                                             Delete User
-                                        </Button>
-                                        <Button
-                                            color="primary"
-                                            variant="contained"
-                                        >
-                                            Save Changes
                                         </Button>
                                     </Stack>
                                 </Grid>
@@ -259,13 +231,14 @@ function TalentDetails({LIST}) {
                 <DialogContent dividers={true}>
                     <DialogContentText
                         id="scroll-dialog-description"
+
                     >
-                        <Stack direction={'row'} spacing={1}>
-                            <Typography variant={'subtitle1'}>Subject</Typography>
+                        <Stack direction={'row'} spacing={1} marginBottom={2}>
+                            <Typography variant={'subtitle1'}>Subject:</Typography>
                             <Typography variant={'body1'}> loremmdhufeu wehfuweuif</Typography>
                         </Stack>
-                        <Stack direction={'row'} spacing={3}>
-                            <Typography variant={'subtitle1'}>Body</Typography>
+                        <Stack direction={'column'} spacing={1}>
+                            <Typography variant={'subtitle1'}>Body:</Typography>
                             <Typography variant={'body1'}> lorem ipdnshfui hfuverhuif vhrufb sdvberub
                                 krbguierui
                                 ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb lorem ipdnshfui
@@ -286,5 +259,5 @@ function TalentDetails({LIST}) {
     );
 }
 
-export default TalentDetails;
+export default AdminDetails;
 

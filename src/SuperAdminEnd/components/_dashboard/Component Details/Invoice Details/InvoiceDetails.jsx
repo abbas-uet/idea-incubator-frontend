@@ -67,7 +67,8 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function AssetDetails({LIST}) {
+function InvoiceDetails({LIST}) {
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -285,5 +286,5 @@ function AssetDetails({LIST}) {
     );
 }
 
-export default AssetDetails;
+export default InvoiceDetails;
 

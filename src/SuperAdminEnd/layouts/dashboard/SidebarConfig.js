@@ -35,7 +35,7 @@ const sidebarConfig = [
     },
 
     {
-        title: 'Invoices',
+        title: 'Invoice',
         path: '/superadmin/dashboard/invoices',
         icon: getIcon(fileTextFill)
     },

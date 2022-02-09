@@ -3,7 +3,7 @@ import faker from 'faker';
 
 const typeOfStaus = [['pending', 'error'], ['initiated', 'secondary'], ['completed', 'primary']]
 const invoice = [...Array(24)].map((_, index) => ({
-    id: (index * index + 50),
+    id: index,
     createdon: '12/12/2022 wednesday',
     duedate: '1/2/2022 wednesday',
     billingperson: faker.name.firstName(),
