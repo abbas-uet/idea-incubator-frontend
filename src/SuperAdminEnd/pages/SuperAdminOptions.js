@@ -2,6 +2,8 @@ import {filter} from "lodash";
 import {Icon} from "@iconify/react";
 import React, {useEffect, useState} from "react";
 import plusFill from "@iconify/icons-eva/plus-fill";
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
@@ -60,7 +62,7 @@ const TABLE_HEAD = [
         {id: "id", label: "Id", alignRight: false},
         {id: "username", label: "User Name", alignRight: false},
         {id: "email", label: "Email", alignRight: false},
-        {id: "subscription", label: "Field", alignRight: false},
+        {id: "subscription", label: "Subscription", alignRight: false},
         {id: "lastinvoice", label: "Last Invoice", alignRight: false},
         {id: "status", label: "Status", alignRight: false},
         {id: "duedate", label: "Due Date", alignRight: false},
@@ -400,10 +402,9 @@ export default function SuperAdminOptions({pageName, cardObj}) {
 
                 </Stack>
 
-                {pageName === "Admin" ||
-                pageName === "Depatment" ||
-                pageName === "User" ||
-                pageName === "Invoice" ? (
+                {
+                pageName === "Users"
+                ? (
                     <Grid container spacing={2} justifyContent="space-between" mb={2}>
                         <Grid item lg={4} md={3} xl={6} xs={12}>
                             <DashBoardCharts
@@ -427,7 +428,7 @@ export default function SuperAdminOptions({pageName, cardObj}) {
                             />
                         </Grid>
                     </Grid>
-                ) : (
+                ): pageName==="Admins"|| pageName==="Departments"? (
                     <Grid container spacing={2} justifyContent="space-between" mb={2}>
                         <Grid item lg={4} md={12} xl={12} xs={12}>
                             <DashBoardCharts
@@ -437,9 +438,32 @@ export default function SuperAdminOptions({pageName, cardObj}) {
                             />
                         </Grid>
                     </Grid>
-                )}
+                ):''}
+
 
                 <Card sx={{mt: 2}}>
+                {pageName==="Invoices"? (<Grid container spacing={3}>
+                    <Grid item md={12} xs={12}>
+                        <Stack
+                          direction={"row"}
+                          spacing={2}
+                          sx={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                            m:2,
+                          }}
+                        >
+                          
+                          <Button color="inherit" variant="contained">
+                            Download PDF
+                          </Button>
+                        <Stack direction={'row'}spacing={5}paddingRight={2}>
+            <FormControlLabel  labelPlacement="start"control={<Checkbox />} label={<Typography variant="subtitle2">Resend Invoice</Typography>}/>
+            <FormControlLabel  labelPlacement="start"control={<Checkbox />} label={<Typography variant="subtitle2">Mark as Paid</Typography>} />
+                            </Stack> 
+                        </Stack>
+                      </Grid>
+                      </Grid>):''}
                     <UserListToolbar
                         pageName={pageName}
                         numSelected={selected.length}
@@ -453,6 +477,7 @@ export default function SuperAdminOptions({pageName, cardObj}) {
                     <TableContainer
                         sx={{minWidth: 800, maxHeight: 500, overflow: "auto"}}
                     >
+
                         <Table>
                             <UserListHead
                                 order={order}

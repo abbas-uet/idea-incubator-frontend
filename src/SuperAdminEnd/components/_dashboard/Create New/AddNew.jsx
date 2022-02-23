@@ -25,7 +25,7 @@ function AddNew({open, handleClose, pageName}) {
 
             <DialogActions>
                 <Button onClick={handleClose} variant={'outlined'} color={'error'}>Cancel</Button>
-                <Button onClick={handleClose} variant={'contained'} color={'primary'}>{'Submit'}</Button>
+                <Button onClick={handleClose} variant={'contained'} color={'primary'}>{'Create'}</Button>
             </DialogActions>
         </Dialog>
     );

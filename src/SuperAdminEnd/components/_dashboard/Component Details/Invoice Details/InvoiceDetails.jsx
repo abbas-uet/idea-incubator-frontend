@@ -1,271 +1,310 @@
-import React from 'react';
+import React from "react";
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
+import { useHistory, useParams } from "react-router-dom";
 import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField, Typography,
-    List, ListItemAvatar, ListItem
-} from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  TextField,
+  Typography,
+  List,
+  ListItemAvatar,
+  ListItem,
+} from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-import faker from 'faker';
+import faker from "faker";
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 
-
-import {deepOrange, green} from '@mui/material/colors';
-import {useState} from 'react';
+import { deepOrange, green } from "@mui/material/colors";
+import { useState } from "react";
 import Stack from "@mui/material/Stack";
-import {AvatarGroup} from "@mui/lab";
+import { AvatarGroup } from "@mui/lab";
 
-
-import ListToolBar from '../ListToolBar';
-
+import ListToolBar from "../ListToolBar";
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
-    id: index,
-    title: faker.name.lastName(),
-    description: faker.lorem.paragraphs(),
+  id: index,
+  title: faker.name.lastName(),
+  description: faker.lorem.paragraphs(),
 }));
 
-
 function ListItemRender(id, title, body, handleDialogueOpen) {
-    return <ListItem key={id} onClick={handleDialogueOpen}>
-        <ListItemButton>
-            <ListItemIcon>
-                <FiberManualRecordIcon sx={{fontSize: 10}}/>
-            </ListItemIcon>
-            <ListItemText primary={
-                <Stack direction={'row'} spacing={1}>
-                    <Typography variant={'subtitle2'}>{title}</Typography>
-                    <ArrowRightIcon/>
-                    <Typography variant={'body1'} sx={{
-                        display: "block",
-                        width: "750px",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden"
-                    }}>{body}</Typography>
-                </Stack>
-            }/>
-        </ListItemButton>
-    </ListItem>;
+  return (
+    <ListItem key={id} onClick={handleDialogueOpen}>
+      <ListItemButton>
+        <ListItemIcon>
+          <FiberManualRecordIcon sx={{ fontSize: 10 }} />
+        </ListItemIcon>
+        <ListItemText
+          primary={
+            <Stack direction={"row"} spacing={1}>
+              <Typography variant={"subtitle2"}>{title}</Typography>
+              <ArrowRightIcon />
+              <Typography
+                variant={"body1"}
+                sx={{
+                  display: "block",
+                  width: "750px",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                }}
+              >
+                {body}
+              </Typography>
+            </Stack>
+          }
+        />
+      </ListItemButton>
+    </ListItem>
+  );
 }
 
+function InvoiceDetails({ LIST }) {
+  const [open, setOpen] = React.useState(false);
 
-function InvoiceDetails({LIST}) {
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+  const { id } = useParams();
+  const listObj = LIST[parseInt(id)];
+  const [values, setValues] = useState({
+    userId: listObj.id,
+    userName: listObj.username,
+    email: listObj.email,
+    billingperson:listObj.billingperson,
+    duedate:listObj.duedate,
+    createdon:listObj.createdon
+  });
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  console.log(values);
 
-    const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
-    const [values, setValues] = useState({
-        userId: listObj.id,
-        userName: listObj.username,
-        email: listObj.email,
-        subUsers: listObj.subusers,
-        projectName: listObj.projectname,
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
     });
+  };
+  const FILTER_BY_OPTION = [
+    { id: "approved", label: "Approved" },
+    { id: "pending", label: "Pending" },
+    { id: "thisweek", label: "This Week" },
+  ];
+  const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
 
-    console.log(values);
+  return (
+    <div>
+      <Page>
+        <form autoComplete="off" noValidate>
+          <Card>
+            <CardContent>
+              <Grid container spacing={3}>
+              <Grid item md={12} xs={12}>
+                  <Stack
+                    direction={"row"}
+                    spacing={2}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      p: 2,
+                    }}
+                  >
+                    
+                    <Button color="inherit" variant="contained">
+                      Download PDF
+                    </Button>
+                  <Stack direction={'row'}spacing={10}paddingRight={5}>
+      <FormControlLabel  labelPlacement="start"control={<Checkbox />} label={<Typography variant="subtitle2">Resend Invoice</Typography>}/>
+      <FormControlLabel  labelPlacement="start"control={<Checkbox />} label={<Typography variant="subtitle2">Mark as Paid</Typography>} />
+                      </Stack> 
+   
+                    <Button color="error" variant="outlined" onClick={handleClickOpen}>
+                      Cancel Invoice
+                    </Button>
+                  </Stack>
+                </Grid>
+                <Grid item md={5}ml={1.5}>
+                  <Stack direction={"row"} spacing={7.5}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Name:
+                    </Typography>
+                    <Typography variant="body2">
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-        });
-    };
-    const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'},
-        {id: 'pending', label: 'Pending'},
-        {id: 'thisweek', label: 'This Week'}];
-    const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
+                    {values.billingperson}
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid item md={6} ml={1.5}>
+                  <Stack direction={"row"} spacing={5}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Invoice #:
+                    </Typography>
+                    <Typography variant="body2">
 
-    return (
-        <div>
-            <Page>
-                <form
-                    autoComplete="off"
-                    noValidate
-                >
-                    <Card>
-                        <CardHeader
-                            subheader="The information can be edited"
-                            title="User profile"
-                        />
-                        <Divider/>
-                        <CardContent>
-                            <Grid
-                                container
-                                spacing={3}
-                            >
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        helperText="This Cannot be Channged"
-                                        label="User Id"
-                                        name="userId"
-                                        disabled={true}
-                                        required
-                                        value={values.userId}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="User Name"
-                                        name="userName"
-                                        onChange={handleChange}
-                                        value={values.userName}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Email Address"
-                                        name="email"
-                                        onChange={handleChange}
-                                        required
-                                        value={values.email}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Project Name"
-                                        name="projectName"
-                                        onChange={handleChange}
-                                        value={values.projectName}
-                                        variant="outlined"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <Stack direction={"row"} spacing={2}>
-                                        <Typography variant={'subtitle2'} sx={{mt: 1.3}}>
-                                            Sub Users
-                                        </Typography>
-                                        <AvatarGroup max={4}>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                N
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                F
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                G
-                                            </Avatar>
-                                        </AvatarGroup>
+                    {values.billingperson}
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid item md={5} ml={1.5}>
+                  <Stack direction={"row"} spacing={6}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Phone#:
+                    </Typography>
+                    <Typography variant="body2">
 
-                                    </Stack>
+                    {values.billingperson}
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid item md={6} ml={1.5}>
+                  <Stack direction={"row"} spacing={8.5}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Date:
+                    </Typography>
+                    <Typography variant="body2">
 
-                                </Grid>
-                                <Grid item
-                                      md={6}
-                                      xs={12}>
-                                    <Stack direction={'row'} spacing={2} sx={{
-                                        display: 'flex',
-                                        justifyContent: 'flex-end',
-                                        p: 2,
-                                    }}>
-                                        <Button
-                                            color="inherit"
-                                            variant="contained"
-                                        >
-                                            Message
-                                        </Button>
-                                        <Button
-                                            color="error"
-                                            variant="outlined"
-                                        >
-                                            Delete User
-                                        </Button>
-                                        <Button
-                                            color="primary"
-                                            variant="contained"
-                                        >
-                                            Save Changes
-                                        </Button>
-                                    </Stack>
-                                </Grid>
-                            </Grid>
-                        </CardContent>
+                    {values.createdon}
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid item md={5}ml={1.5}>
+                  <Stack direction={"row"} spacing={9.1}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      City:
+                    </Typography>
+                    <Typography variant="body2">
 
-                        <Divider/>
-                        <ListToolBar filterSearcBy={filter} onFilterSearchBy={setFilter}
-                                     searchByOptionList={FILTER_BY_OPTION}/>
-                        <List
-                            sx={{width: '100%', bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto', mt: -3}}
-                            aria-label="contacts"
+                    {values.billingperson}
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid item md={6} ml={1.5}>
+                  <Stack direction={"row"} spacing={5}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Due Date:
+                    </Typography>
+                    <Typography variant="body2">
+                    {values.duedate}
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid item md={12}ml={1.5}>
+                  <Stack direction={"row"} spacing={5.5}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Address:
+                    </Typography>
+                    <Typography variant="body2"> 
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat obcaecati dignissimos explicabo,
+                    </Typography>
+                   
+                  </Stack>
+                </Grid>
+                <Grid item md={12}ml={1.5}>
+                  <Stack direction={"row"} spacing={3}>
+                    <Typography
+                      variant="body2"
+                      sx={{ ml: 1, fontWeight: "bold" }}
+                    >
+                      Description:
+                    </Typography>
+                    <Typography variant="body2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque minus dolore ratione inventore officia aspernatur, ut est vel adipisci perferendis architecto odio asperiores quo distinctio cupiditate maiores consequuntur sed ex facere dolorum quis quam deserunt sapiente. Ad quasi adipisci eum dolores vero nostrum, perferendis iure obcaecati exercitationem, ut libero aperiam.
+                    </Typography>
+                  </Stack>
+                </Grid>
+               
+                
+               
+                
+               
+                
+                
+               
+                      
+                <Grid item md={12} xs={12}>
+                  <Stack
+                    direction={"row"}
+                    spacing={2}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      p: 2,
+                    }}
+                  >
+                    
+                    <Button color="primary" variant="contained">
+                      Save 
+                    </Button>
+                  </Stack>
+                </Grid>
+              </Grid>
+            </CardContent>
 
-                        >
-                            {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
-                        </List>
-                    </Card>
-                </form>
-
-            </Page>
-            <Dialog
+            
+              
+          </Card>
+        </form>
+      </Page>
+     
+      <Dialog
                 open={open}
                 onClose={handleClose}
                 scroll={'paper'}
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
             >
-                <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+                <DialogTitle id="scroll-dialog-title">Cancel Invoice</DialogTitle>
                 <DialogContent dividers={true}>
                     <DialogContentText
                         id="scroll-dialog-description"
                     >
-                        <Stack direction={'row'} spacing={1}>
-                            <Typography variant={'subtitle1'}>Subject</Typography>
-                            <Typography variant={'body1'}> loremmdhufeu wehfuweuif</Typography>
-                        </Stack>
-                        <Stack direction={'row'} spacing={3}>
-                            <Typography variant={'subtitle1'}>Body</Typography>
+                        <Grid item md={12}>
+                              <Typography variant={'subtitle1'} gutterBottom>Reason:</Typography>
+                            </Grid> 
+                            <Grid item md={12}>
                             <Typography variant={'body1'}> lorem ipdnshfui hfuverhuif vhrufb sdvberub
                                 krbguierui
                                 ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb lorem ipdnshfui
@@ -275,16 +314,16 @@ function InvoiceDetails({LIST}) {
                                 hfuverhuif vhrufb sdvberub
                                 krbguierui
                                 ekvberubd bhvberuhd buherbyuebhvbyerbguiwebvuhebribvyueviebrufgvy evhb</Typography>
-                        </Stack>
+                                </Grid> 
+                        
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} variant={'contained'} color={'inherit'}>Reply</Button>
+                    <Button onClick={handleClose} variant={'contained'} color={'primary'}>Submit</Button>
                 </DialogActions>
             </Dialog>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default InvoiceDetails;
-

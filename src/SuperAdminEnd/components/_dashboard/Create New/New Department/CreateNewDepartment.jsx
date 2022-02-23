@@ -13,10 +13,9 @@ import {
 
 export const CreateNewDepartment = (props) => {
     const [values, setValues] = useState({
-        fullName: '',
-        email: '',
-        password: '',
-        confirm: ''
+        id: '',
+        name: '',
+        no: ''
     });
 
     const handleChange = (event) => {
@@ -38,7 +37,7 @@ export const CreateNewDepartment = (props) => {
                 xs={6}
             >
                 <Typography variant={'body1'} marginTop={2}>
-                    FullName
+                    Department ID
                 </Typography>
 
             </Grid>
@@ -48,11 +47,11 @@ export const CreateNewDepartment = (props) => {
                 xs={6}
             >
                 <TextField
-                    name="fullName"
+                    name="id"
                     onChange={handleChange}
                     required
                     color={'grey'}
-                    value={values.fullName}
+                    value={values.id}
                     variant="filled"
                 />
             </Grid>
@@ -62,7 +61,7 @@ export const CreateNewDepartment = (props) => {
                 xs={6}
             >
                 <Typography variant={'body1'} marginTop={2}>
-                    Email
+                    Department Name
                 </Typography>
 
             </Grid>
@@ -72,11 +71,11 @@ export const CreateNewDepartment = (props) => {
                 xs={6}
             >
                 <TextField
-                    name="email"
+                    name="name"
                     onChange={handleChange}
                     required
                     color={'grey'}
-                    value={values.email}
+                    value={values.name}
                     variant="filled"
                 />
             </Grid>
@@ -86,7 +85,7 @@ export const CreateNewDepartment = (props) => {
                 xs={6}
             >
                 <Typography variant={'body1'} marginTop={2}>
-                    Password
+                    No of Admins
                 </Typography>
 
             </Grid>
@@ -97,38 +96,14 @@ export const CreateNewDepartment = (props) => {
             >
                 <TextField
                     color={'grey'}
-                    name="password"
+                    name="no of admins"
                     onChange={handleChange}
-                    type="password"
-                    value={values.password}
+                    value={values.no}
                     variant="filled"
                 />
             </Grid>
-            <Grid
-                item
-                md={5}
-                xs={6}
-            >
-                <Typography variant={'body1'} marginTop={4}>
-                    Confirm Password
-                </Typography>
-
-            </Grid>
-            <Grid
-                item
-                md={7}
-                xs={6}
-            >
-                <TextField
-                    color={'grey'}
-                    name="confirm"
-                    margin={"normal"}
-                    onChange={handleChange}
-                    type="password"
-                    value={values.confirm}
-                    variant="filled"
-                />
-            </Grid>
+           
+           
         </Grid>
     );
 };

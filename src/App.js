@@ -40,9 +40,11 @@ import SuperAdminDashboardApp from './SuperAdminEnd/pages/SuperAdiminDashboardAp
 import SuperAdminOptions from './SuperAdminEnd/pages/SuperAdminOptions';
 import Subscription from "./SuperAdminEnd/pages/Subscription";
 import Logout from "./SuperAdminEnd/pages/Logout";
+import SuperAdminUserDetail from "./SuperAdminEnd/components/_dashboard/Component Details/User Details/UserDetails";
 
 
 import InvoiceDetails from './SuperAdminEnd/components/_dashboard/Component Details/Invoice Details/InvoiceDetails'
+import CreateSubscription from "./SuperAdminEnd/components/_dashboard/Create New/New Subscription/CreateSubscription";
 import DepartmentDetails
     from "./SuperAdminEnd/components/_dashboard/Component Details/Department Details/DepartmentDetails";
 import AdminDetails from "./SuperAdminEnd/components/_dashboard/Component Details/Admin Details/AdminDetails";
@@ -103,7 +105,7 @@ function App() {
                             <Route path={'users'}
                                    element={<SuperAdminOptions pageName={'Users'} cardObj={cardObj[0][0]}/>}/>
                             <Route path={'users/detailsUsers/:id'}
-                                   element={<UserDetails LIST={SuperAdminListofTableContent('Users')}/>}/>
+                                   element={<SuperAdminUserDetail LIST={SuperAdminListofTableContent('Users')}/>}/>
 
                             <Route path={'invoices'}
                                    element={<SuperAdminOptions pageName={'Invoices'}
@@ -112,10 +114,12 @@ function App() {
                                    element={<InvoiceDetails LIST={SuperAdminListofTableContent('Invoices')}/>}/>
                             <Route path={'subscriptions'}
                                    element={<Subscription/>}/>
+                                       <Route path={'subscriptions/create'}
+                                       element={<CreateSubscription/>}/>
 
                             <Route path={'logout'}
                                    element={<Logout/> /* <NotFound />*/}/>
-                        </Route>
+                      </Route>
                     </Route>
 
 

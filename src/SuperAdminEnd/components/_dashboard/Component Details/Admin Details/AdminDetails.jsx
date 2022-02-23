@@ -84,8 +84,7 @@ function AdminDetails({LIST}) {
         userId: listObj.id,
         userName: listObj.username,
         email: listObj.email,
-        subUsers: listObj.subusers,
-        projectName: listObj.projectname,
+        department: listObj.department,
     });
 
     console.log(values);
@@ -111,7 +110,7 @@ function AdminDetails({LIST}) {
                     <Card>
                         <CardHeader
                             sx={{ml: 1}}
-                            title="User profile"
+                            title="Admin Details"
                         />
                         <Divider/>
                         <CardContent>
@@ -120,7 +119,7 @@ function AdminDetails({LIST}) {
                                 spacing={3}
                             >
                                 <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={9.5}>
+                                    <Stack direction={"row"} spacing={9}>
 
                                         <Typography variant='body2'
                                                     sx={{ml: 1, fontWeight: 'bold'}}>UserId:</Typography>
@@ -129,65 +128,39 @@ function AdminDetails({LIST}) {
                                 </Grid>
 
                                 <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={6}>
+                                    <Stack direction={"row"} spacing={5.3}>
                                         <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
                                             Name:</Typography>
                                         <Typography variant='body2'>{values.userName}</Typography>
                                     </Stack>
                                 </Grid>
-
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={4.9}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Department:</Typography>
+                                        <Typography variant='body2'>{values.department}</Typography>
+                                    </Stack>
+                                </Grid>
                                 <Grid item md={12}>
 
-                                    <Stack direction={"row"} spacing={10.5}>
+                                    <Stack direction={"row"} spacing={9.9}>
 
                                         <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Email:</Typography>
                                         <Typography variant='body2'></Typography>{values.email}
                                     </Stack>
                                 </Grid>
 
-                                <Grid item md={12}>
+                               
 
-                                    <Stack direction={"row"} spacing={4}>
-
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Project
-                                            Name:</Typography>
-                                        <Typography variant='body2'></Typography>{values.projectName}
-                                    </Stack>
-                                </Grid>
-
-                                <Grid
-                                    item
-                                    md={5}
-                                    xs={12}
-                                    sx={{ml: 1}}
-                                >
-                                    <Stack direction={"row"} spacing={6}>
-                                        <Typography variant={'subtitle2'} sx={{mt: 1}}>
-                                            Sub Users:
-                                        </Typography>
-                                        <AvatarGroup max={4}>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                N
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                F
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                G
-                                            </Avatar>
-                                        </AvatarGroup>
-
-                                    </Stack>
-
-                                </Grid>
+                               
+                                            
                                 <Grid item
-                                      md={6}
+                                      md={12}
                                       xs={12}>
                                     <Stack direction={'row'} spacing={4} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
                                         p: 1,
-                                        marginTop: 5
+   
                                     }}>
                                         <Button
                                             color="inherit"
@@ -199,7 +172,7 @@ function AdminDetails({LIST}) {
                                             color="error"
                                             variant="outlined"
                                         >
-                                            Delete User
+                                            Delete Admin
                                         </Button>
                                     </Stack>
                                 </Grid>

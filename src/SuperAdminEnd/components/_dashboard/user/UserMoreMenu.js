@@ -30,29 +30,25 @@ export default function UserMoreMenu({pageName, id}) {
                 anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 transformOrigin={{vertical: 'top', horizontal: 'right'}}
             >
-                <MenuItem component={RouterLink}
-                          to={"/superadmin/dashboard/" + pageName.toLowerCase() + "/details" + pageName + '/' + id}
-                          sx={{color: 'text.secondary'}}>
+                {console.log(pageName.page)}
+                {
+                    pageName.page==="UserInvoice"?
+                    <MenuItem onClick={pageName.function} sx={{color: 'text.secondary'}}>
+                    <ListItemIcon>
+                        <Icon icon={'mdi:card-account-details-outline'} width={24} height={24}/>
+                    </ListItemIcon>
+                    <ListItemText primary="Get Details" primaryTypographyProps={{variant: 'body2'}}/>
+                </MenuItem>:
+                    <MenuItem component={RouterLink}
+                    to={"/superadmin/dashboard/" + pageName.toLowerCase() + "/details" + pageName + '/' + id}
+                    sx={{color: 'text.secondary'}}>
                     <ListItemIcon>
                         <Icon icon={'mdi:card-account-details-outline'} width={24} height={24}/>
                     </ListItemIcon>
                     <ListItemText primary="Get Details" primaryTypographyProps={{variant: 'body2'}}/>
                 </MenuItem>
-                <MenuItem sx={{color: 'text.secondary'}}>
 
-                    <ListItemIcon>
-                        <Icon icon={trash2Outline} width={24} height={24}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Delete" primaryTypographyProps={{variant: 'body2'}}/>
-                </MenuItem>
-
-                <MenuItem component={RouterLink} to="#" sx={{color: 'text.secondary'}}>
-                    <ListItemIcon>
-                        <Icon icon={editFill} width={24} height={24}/>
-                    </ListItemIcon>
-                    <ListItemText primary="Edit" primaryTypographyProps={{variant: 'body2'}}/>
-                </MenuItem>
-
+}
             </Menu>
         </>
     );

@@ -11,7 +11,7 @@ import {
     Divider,
     Grid,
     TextField, Typography,
-    List, ListItemAvatar, ListItem
+    List, ListItemAvatar, ListItem, Paper
 } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -67,7 +67,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function UserDetails({pageName, LIST,}) {
+function SuperAdminUserDetail({pageName, LIST,}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -84,8 +84,9 @@ function UserDetails({pageName, LIST,}) {
         userId: listObj.id,
         userName: listObj.username,
         email: listObj.email,
-        subUsers: listObj.subusers,
-        projectName: listObj.projectname,
+        Joindate:listObj.join,
+        managedby:listObj.manged,
+        projectid: listObj.projectid,
     });
 
     console.log(values);
@@ -108,129 +109,136 @@ function UserDetails({pageName, LIST,}) {
                     autoComplete="off"
                     noValidate
                 >
-                    <Card>
+                    <Paper>
                         <CardHeader
-                            subheader="The information can be edited"
-                            title="User profile"
+     
+                            title="User Details"
                         />
                         <Divider/>
                         <CardContent>
+                           
+                           <Stack direction={'row'}>
+
                             <Grid
                                 container
                                 spacing={3}
-                            >
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
+                                md={6}
                                 >
-                                    <TextField
-                                        fullWidth
-                                        helperText="This Cannot be Channged"
-                                        label="User Id"
-                                        name="userId"
-                                        disabled={true}
-                                        required
-                                        value={values.userId}
-                                        variant="outlined"
-                                    />
+                              <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={9}>
+
+                                        <Typography variant='body2'
+                                                    sx={{ml: 1, fontWeight: 'bold'}}>UserID:</Typography>
+                                        <Typography variant='body2'>{values.userId}</Typography>
+                                    </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="User Name"
-                                        name="userName"
-                                        onChange={handleChange}
-                                        value={values.userName}
-                                        variant="outlined"
-                                    />
+
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={5.3}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
+                                            Name:</Typography>
+                                        <Typography variant='body2'>{values.userName}</Typography>
+                                    </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Email Address"
-                                        name="email"
-                                        onChange={handleChange}
-                                        required
-                                        value={values.email}
-                                        variant="outlined"
-                                    />
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={4.9}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>ProjectID:</Typography>
+                                        <Typography variant='body2'>{values.projectid}</Typography>
+                                    </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
-                                >
-                                    <TextField
-                                        fullWidth
-                                        label="Project Name"
-                                        name="projectName"
-                                        onChange={handleChange}
-                                        value={values.projectName}
-                                        variant="outlined"
-                                    />
+                                <Grid item md={12}>
+
+                                    <Stack direction={"row"} spacing={9.9}>
+
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Managed By:</Typography>
+                                        <Typography variant='body2'></Typography>{values.managedby}
+                                    </Stack>
                                 </Grid>
-                                <Grid
-                                    item
-                                    md={6}
-                                    xs={12}
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={9}>
+
+                                        <Typography variant='body2'
+                                                    sx={{ml: 1, fontWeight: 'bold'}}>Join Date:</Typography>
+                                        <Typography variant='body2'>{values.Joindate}</Typography>
+                                    </Stack>
+                                </Grid>
+
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={5.3}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>
+                                            Email:</Typography>
+                                        <Typography variant='body2'>{values.email}</Typography>
+                                    </Stack>
+                                </Grid>
+                               
+
+
+                               
+                               
+                            </Grid>      
+                            <Grid
+                               container
+                               md={6}
+                                spacing={3}
                                 >
-                                    <Stack direction={"row"} spacing={2}>
-                                        <Typography variant={'subtitle2'} sx={{mt: 1.3}}>
-                                            Sub Users
+                              <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={9}>
+
+                                        <Typography variant='body2'
+                                                    sx={{ml: 1, fontWeight: 'bold'}}>Standard Annual:</Typography>
+                                        <Typography variant='body2'>{values.userId}</Typography>
+                                    </Stack>
+                                </Grid>
+
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={5.3}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
                                         </Typography>
-                                        <AvatarGroup max={4}>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                N
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                F
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                G
-                                            </Avatar>
-                                        </AvatarGroup>
-
-                                    </Stack>
-
-                                </Grid>
-                                <Grid item
-                                      md={6}
-                                      xs={12}>
-                                    <Stack direction={'row'} spacing={2} sx={{
-                                        display: 'flex',
-                                        justifyContent: 'flex-end',
-                                        p: 2,
-                                    }}>
-                                        <Button
-                                            color="inherit"
-                                            variant="contained"
-                                        >
-                                            Message
-                                        </Button>
-                                        <Button
-                                            color="error"
-                                            variant="outlined"
-                                        >
-                                            Delete User
-                                        </Button>
-                                        <Button
-                                            color="primary"
-                                            variant="contained"
-                                        >
-                                            Save Changes
-                                        </Button>
+                                        <Typography variant='body2'>{values.userName}</Typography>
                                     </Stack>
                                 </Grid>
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={4.9}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>ProjectID:</Typography>
+                                        <Typography variant='body2'>{values.projectid}</Typography>
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={12}>
+
+                                    <Stack direction={"row"} spacing={9.9}>
+
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Managed By:</Typography>
+                                        <Typography variant='body2'></Typography>{values.managedby}
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={9}>
+
+                                        <Typography variant='body2'
+                                                    sx={{ml: 1, fontWeight: 'bold'}}>Join Date:</Typography>
+                                        <Typography variant='body2'>{values.Joindate}</Typography>
+                                    </Stack>
+                                </Grid>
+
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={5.3}>
+                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>
+                                            Email:</Typography>
+                                        <Typography variant='body2'>{values.email}</Typography>
+                                    </Stack>
+                                </Grid>
+                               
+
+
+                               
+                               
                             </Grid>
+                                                </Stack>
+                       
+                        
+                          
+
+                                         
                         </CardContent>
 
                         <Divider/>
@@ -243,7 +251,31 @@ function UserDetails({pageName, LIST,}) {
                         >
                             {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
                         </List>
-                    </Card>
+                        <Grid item
+                                      md={12}
+                                      xs={12}>
+                                    <Stack direction={'row'} spacing={7} sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        pb: 2,
+                                        pt:2,
+                                    }}>
+                                        <Button
+                                            color="inherit"
+                                            variant="contained"
+                                            >
+                                            Message User
+                                        </Button>
+                                        <Button
+                                            color="error"
+                                            variant="outlined"
+                                            >
+                                            Delete User
+                                        </Button>
+                                        
+                                    </Stack>
+                                </Grid>
+                    </Paper>
                 </form>
 
             </Page>
@@ -285,5 +317,5 @@ function UserDetails({pageName, LIST,}) {
     );
 }
 
-export default UserDetails;
+export default SuperAdminUserDetail;
 

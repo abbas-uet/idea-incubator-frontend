@@ -16,6 +16,8 @@ export const CreateNewAdmin = (props) => {
         fullName: '',
         email: '',
         password: '',
+        id:'',
+        username:'',
         confirm: ''
     });
 
@@ -38,6 +40,30 @@ export const CreateNewAdmin = (props) => {
                 xs={6}
             >
                 <Typography variant={'body1'} marginTop={2}>
+                    ID
+                </Typography>
+
+            </Grid>
+            <Grid
+                item
+                md={7}
+                xs={6}
+            >
+                <TextField
+                    name="ID"
+                    onChange={handleChange}
+                    required
+                    color={'grey'}
+                    value={values.id}
+                    variant="filled"
+                />
+            </Grid>
+            <Grid
+                item
+                md={5}
+                xs={6}
+            >
+                <Typography variant={'body1'} marginTop={2}>
                     FullName
                 </Typography>
 
@@ -53,6 +79,30 @@ export const CreateNewAdmin = (props) => {
                     required
                     color={'grey'}
                     value={values.fullName}
+                    variant="filled"
+                />
+            </Grid>
+            <Grid
+                item
+                md={5}
+                xs={6}
+            >
+                <Typography variant={'body1'} marginTop={2}>
+                    UserName
+                </Typography>
+
+            </Grid>
+            <Grid
+                item
+                md={7}
+                xs={6}
+            >
+                <TextField
+                    name="username"
+                    onChange={handleChange}
+                    required
+                    color={'grey'}
+                    value={values.username}
                     variant="filled"
                 />
             </Grid>
