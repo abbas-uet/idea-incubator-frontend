@@ -1,14 +1,14 @@
 import React from 'react';
 import Page from "../components/Page";
-import { Button } from '@mui/material';
+import {Button} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { Paper } from "@mui/material";
-import { purple } from '@mui/material/colors'
+import {Paper} from "@mui/material";
+import {purple} from '@mui/material/colors'
 import {Link} from 'react-router-dom';
 
 
@@ -17,7 +17,7 @@ const tiers = [
         title: 'Basic',
         price: '0',
         description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support']
-        
+
     },
     {
         title: 'Standard',
@@ -28,7 +28,7 @@ const tiers = [
             'Help center access',
             'Priority email support',
         ]
-  
+
     },
     {
         title: 'Enterprise',
@@ -39,7 +39,7 @@ const tiers = [
             'Help center access',
             'Phone & email support',
         ],
-       
+
     },
 ];
 
@@ -48,27 +48,29 @@ function Subscription(props) {
 
     return (
         <Page>
-            <Button variant="contained" color='primary' sx={{mb:5}}>Create Subscription</Button>
+            <Button variant="contained" color='inherit' sx={{mb: 5}} LinkComponent={Link}
+                    to={'/superadmin/dashboard/subscriptions/create'}
+            >Create Subscription</Button>
             <Grid container spacing={2} alignItems="flex-end">
                 {tiers.map(tier => (
                     <Grid item key={tier.title} xs={12} sm={6} md={4}>
                         <Paper elevation={5}>
                             <Card>
                                 <CardHeader
-                                   
                                     title={tier.title}
                                     subheader={tier.subheader}
-                                    titleTypographyProps={{ align: 'center',justifyContent:'center' }}
-                                    sx={{pb:5}}
-                                    
-                                    sx={{ bgcolor: purple[200] }}
+                                    titleTypographyProps={{align: 'center', justifyContent: 'center'}}
+                                    sx={{pb: 5}}
+
+                                    sx={{bgcolor: purple[200]}}
                                 />
                                 <CardContent>
-                                    <div >
-                                        <Typography component="h2" variant="h5" color="textPrimary" sx={{ml:12}} marginBottom>
+                                    <div>
+                                        <Typography component="h2" variant="h5" color="textPrimary" sx={{ml: 12}}
+                                                    marginBottom>
                                             ${tier.price} / month
                                         </Typography>
-                                       
+
                                     </div>
                                     {tier.description.map(line => (
                                         <Typography variant="subtitle1" align="center" key={line} marginBottom>
@@ -76,14 +78,6 @@ function Subscription(props) {
                                         </Typography>
                                     ))}
                                 </CardContent>
-                                <CardActions>
-                                    
-                                    <Button fullWidth variant={tier.buttonVariant} color="primary"
-                                  LinkComponent={Link} to={"create"}>
-                                        {tier.buttonText}
-                                    </Button>
-                                         
-                                </CardActions>
                             </Card>
                         </Paper>
                     </Grid>

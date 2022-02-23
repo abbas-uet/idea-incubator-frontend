@@ -50,6 +50,7 @@ import DepartmentDetails
 import AdminDetails from "./SuperAdminEnd/components/_dashboard/Component Details/Admin Details/AdminDetails";
 import {SuperAdminListofTableContent} from "./SuperAdminEnd/_mocks_/SuperAdminListofTableContent";
 
+
 const cardObj = [
     [{
         totalLabelValue: '5k',
@@ -78,7 +79,6 @@ function App() {
                     <Route path="/" element={<Navigate to="login" replace/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'register'} element={<Register/>}/>
-
 
                     {//
                         //Super Admin Dashboard
@@ -114,12 +114,12 @@ function App() {
                                    element={<InvoiceDetails LIST={SuperAdminListofTableContent('Invoices')}/>}/>
                             <Route path={'subscriptions'}
                                    element={<Subscription/>}/>
-                                       <Route path={'subscriptions/create'}
-                                       element={<CreateSubscription/>}/>
+                            <Route path={'subscriptions/create'}
+                                   element={<CreateSubscription/>}/>
 
                             <Route path={'logout'}
                                    element={<Logout/> /* <NotFound />*/}/>
-                      </Route>
+                        </Route>
                     </Route>
 
 
@@ -167,8 +167,6 @@ function App() {
                             <Route path={'mentors/detailsMentors/:id'} element={<MentorDetails
                                 LIST={ListofTableContent('Mentors')}/>}/>
                         </Route>
-
-
                     </Route>
                 </Routes>
             </BrowserRouter>
