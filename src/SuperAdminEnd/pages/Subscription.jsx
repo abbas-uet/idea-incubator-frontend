@@ -61,7 +61,6 @@ function Subscription(props) {
                                     subheader={tier.subheader}
                                     titleTypographyProps={{align: 'center', justifyContent: 'center'}}
                                     sx={{pb: 5}}
-
                                     sx={{bgcolor: purple[200]}}
                                 />
                                 <CardContent>
