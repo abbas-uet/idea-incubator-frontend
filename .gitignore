@@ -11,6 +11,9 @@
 # production
 /build
 
+
+#backendFiles
+/idea-incubator-backend
 # misc
 .DS_Store
 .env.local

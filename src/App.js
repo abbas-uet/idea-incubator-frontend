@@ -125,7 +125,7 @@ function App() {
 
                     <Route path={'user'} element={<UserIndex/>}>
                         <Route path="home" element={<DashBoard/>}/>
-                        <Route path="invoice" element={<Mentors/>}/>
+                        <Route path="mentors" element={<Mentors/>}/>
                         <Route path="industry" element={<Industry/>}/>
                         <Route path="assest" element={<Assest/>}/>
                         <Route path="assest/viewAssest" element={<AssestDetail/>}/>
