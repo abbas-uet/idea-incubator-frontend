@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Page from "../../../Page";
 import { useHistory, useParams } from "react-router-dom";
 import {
@@ -39,6 +39,7 @@ import Stack from "@mui/material/Stack";
 import { AvatarGroup } from "@mui/lab";
 
 import ListToolBar from "../ListToolBar";
+import axios from "axios";
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
   id: index,
@@ -77,7 +78,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
   );
 }
 
-function InvoiceDetails({ LIST }) {
+function InvoiceDetails() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -89,17 +90,29 @@ function InvoiceDetails({ LIST }) {
   };
 
   const { id } = useParams();
-  const listObj = LIST[parseInt(id)];
   const [values, setValues] = useState({
-    userId: listObj.id,
-    userName: listObj.username,
-    email: listObj.email,
-    billingperson:listObj.billingperson,
-    duedate:listObj.duedate,
-    createdon:listObj.createdon
+    userId: '',
+    invoiceid:'',
+    userName: '',
+    email: '',
+    billingperson: '',
+    duedate: '',
+    createdon: ''
   });
 
-  console.log(values);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/invoices/view_invoice/'+id)
+            .then(function (response) {
+                setValues({...values,["userId"]:response.data.userId,["userName"]:response.data.username,
+                ["createdon"]:response.data.createdon,["duedate"]:response.data.duedate,
+                ["invoiceid"]:response.data.invoiceid})
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [])
+
 
   const handleChange = (event) => {
     setValues({
@@ -155,7 +168,7 @@ function InvoiceDetails({ LIST }) {
                     </Typography>
                     <Typography variant="body2">
 
-                    {values.billingperson}
+                    {values.userId}
                     </Typography>
                   </Stack>
                 </Grid>
@@ -169,7 +182,7 @@ function InvoiceDetails({ LIST }) {
                     </Typography>
                     <Typography variant="body2">
 
-                    {values.billingperson}
+                    {values.invoiceid}
                     </Typography>
                   </Stack>
                 </Grid>
@@ -239,7 +252,6 @@ function InvoiceDetails({ LIST }) {
                     <Typography variant="body2"> 
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat obcaecati dignissimos explicabo,
                     </Typography>
-                   
                   </Stack>
                 </Grid>
                 <Grid item md={12}ml={1.5}>

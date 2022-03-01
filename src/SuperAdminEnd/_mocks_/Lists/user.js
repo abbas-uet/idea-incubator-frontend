@@ -1,16 +1,9 @@
 // utils
-import {mockImgAvatar} from '../../utils/mockImages';
-import faker from 'faker';
+import axios from 'axios';
 // ----------------------------------------------------------------------
 
-const users = [...Array(24)].map((_, index) => ({
-    id: index,
-    username: faker.name.firstName(),
-    email: faker.internet.email(),
-    subscription: faker.name.firstName(),
-    lastinvoice: faker.name.lastName(),
-    status: faker.name.lastName(),
-    duedate: faker.name.firstName(),
-}));
-
-export default users;
+export const getUser=async()=>{
+    const response=await axios.get('http://localhost:5000/users/view_users');
+    console.log(response.data);
+    return await response.data;
+}

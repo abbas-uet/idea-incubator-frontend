@@ -1,18 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
-import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField, Typography,
-    List, ListItemAvatar, ListItem, Paper
-} from '@mui/material';
+import {useParams} from 'react-router-dom';
+import {Button, CardContent, CardHeader, Divider, Grid, List, ListItem, Paper, Typography} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -26,15 +15,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-
-
-import {deepOrange, green} from '@mui/material/colors';
-import {useState} from 'react';
 import Stack from "@mui/material/Stack";
-import {AvatarGroup} from "@mui/lab";
 
 
 import ListToolBar from '../ListToolBar';
+import axios from "axios";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -79,17 +64,27 @@ function SuperAdminUserDetail({pageName, LIST,}) {
     };
 
     const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
-        userId: listObj.id,
-        userName: listObj.username,
-        email: listObj.email,
-        Joindate:listObj.join,
-        managedby:listObj.manged,
-        projectid: listObj.projectid,
+        userId: '',
+        userName: '',
+        email: '',
+        Joindate: '',
+        managedby: '',
+        projectid: '',
     });
 
-    console.log(values);
+    useEffect(() => {
+        axios.get('http://localhost:5000/users/view_user/'+id)
+            .then(function (response) {
+                setValues({...values,["userId"]:response.data.userid,["userName"]:response.data.username,
+                    ["Joindate"]:response.data.joindate,["email"]:response.data.email,
+
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [])
 
     const handleChange = (event) => {
         setValues({

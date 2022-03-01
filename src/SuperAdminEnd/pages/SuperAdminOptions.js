@@ -4,12 +4,8 @@ import React, {useEffect, useState} from "react";
 import plusFill from "@iconify/icons-eva/plus-fill";
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-
 // material
 import {
-    Avatar,
     Button,
     Card,
     Checkbox,
@@ -28,26 +24,19 @@ import {
 // components
 import Page from "../components/Page";
 import SearchNotFound from "../components/SearchNotFound";
-import {
-    UserListHead,
-    UserListToolbar,
-    UserMoreMenu,
-} from "../components/_dashboard/user";
+import {UserListHead, UserListToolbar, UserMoreMenu,} from "../components/_dashboard/user";
 //
 import BreadCrumb from "../components/_dashboard/BreadCrumb";
 import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 import AddNew from "../components/_dashboard/Create New/AddNew";
 
-import {SuperAdminListofTableContent} from "../_mocks_/SuperAdminListofTableContent";
-
-import TableItemDetails from "./TableItemDetails";
-
 // ----------------------------------------------------------------------
+import axios from 'axios';
 
 const TABLE_HEAD = [
     [
         {id: "id", label: "ID", alignRight: false},
-        {id: "username", label: "User Name", alignRight: false},
+        {id: "username", label: "User_SuperAdminEnd Name", alignRight: false},
         {id: "department", label: "Department Name", alignRight: false},
         {id: "email", label: "Email", alignRight: false},
         {id: ""},
@@ -60,7 +49,7 @@ const TABLE_HEAD = [
     ],
     [
         {id: "id", label: "Id", alignRight: false},
-        {id: "username", label: "User Name", alignRight: false},
+        {id: "username", label: "User_SuperAdminEnd Name", alignRight: false},
         {id: "email", label: "Email", alignRight: false},
         {id: "subscription", label: "Subscription", alignRight: false},
         {id: "lastinvoice", label: "Last Invoice", alignRight: false},
@@ -83,12 +72,12 @@ const TABLE_HEAD = [
 const SEARCH_BY_LIST = [
     [
         {id: "id", label: "ID"},
-        {id: "username", label: "User Name"},
+        {id: "username", label: "User_SuperAdminEnd Name"},
     ],
     [{id: "id", label: "ID"}],
     [
         {id: "id", label: "ID"},
-        {id: "username", label: "User Name"},
+        {id: "username", label: "User_SuperAdminEnd Name"},
     ],
     [{id: "id", label: "Invoice ID"}],
 ];
@@ -206,13 +195,13 @@ function renderTableContent(pageName, row, selected, handleClick) {
             </TableRow>
         );
     } else if (pageName === "Users") {
-        let {id, username, email, subscription, lastinvoice, status, duedate} =
+        let {userid, username, email, subscription, lastinvoice, status, duedate} =
             row;
         let isItemSelected = selected.indexOf(username) !== -1;
         return (
             <TableRow
                 hover
-                key={id}
+                key={userid}
                 tabIndex={-1}
                 role="checkbox"
                 selected={isItemSelected}
@@ -224,7 +213,7 @@ function renderTableContent(pageName, row, selected, handleClick) {
                         onChange={(event) => handleClick(event, username)}
                     />
                 </TableCell>
-                <TableCell align="left">{id}</TableCell>
+                <TableCell align="left">{userid}</TableCell>
                 <TableCell align="left">{username}</TableCell>
                 <TableCell align="left">{email}</TableCell>
                 <TableCell align="left">{subscription}</TableCell>
@@ -232,8 +221,9 @@ function renderTableContent(pageName, row, selected, handleClick) {
                 <TableCell align="left">{status}</TableCell>
                 <TableCell align="left">{duedate}</TableCell>
 
+
                 <TableCell align="right">
-                    <UserMoreMenu pageName={pageName} id={id}/>
+                    <UserMoreMenu pageName={pageName} id={userid}/>
                 </TableCell>
             </TableRow>
         );
@@ -287,7 +277,7 @@ export default function SuperAdminOptions({pageName, cardObj}) {
     //LIST OF TABLE CONTENT
 
 
-    const LIST = SuperAdminListofTableContent(pageName);
+    const [LIST,setLIST]=useState([]);
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
@@ -298,16 +288,14 @@ export default function SuperAdminOptions({pageName, cardObj}) {
 
 
     useEffect(() => {
-        return () => {
-            setPage(0);
-            setOrder('asc');
-            setSelected([]);
-            setOrderBy('name');
-            setFilterName('');
-            setselectSearchBy(SEARCH_BY_OPTIONS[0].id)
-            setRowsPerPage(5);
-        };
-    }, []);
+            axios.get('http://localhost:5000/'+pageName.toLowerCase()+'/view_'+pageName.toLowerCase())
+                .then(function (response) {
+                    setLIST(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+    }, [])
 
 
     const [open, setOpen] = React.useState(false);

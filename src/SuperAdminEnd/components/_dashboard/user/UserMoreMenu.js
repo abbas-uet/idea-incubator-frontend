@@ -30,7 +30,6 @@ export default function UserMoreMenu({pageName, id}) {
                 anchorOrigin={{vertical: 'top', horizontal: 'right'}}
                 transformOrigin={{vertical: 'top', horizontal: 'right'}}
             >
-                {console.log(pageName.page)}
                 {
                     pageName.page==="UserInvoice"?
                     <MenuItem onClick={pageName.function} sx={{color: 'text.secondary'}}>

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
     Box,
     Button,
@@ -9,24 +9,23 @@ import {
     Grid,
     TextField, Typography
 } from '@mui/material';
+import axios from "axios";
 
 
-export const CreateNewAdmin = (props) => {
-    const [values, setValues] = useState({
-        fullName: '',
-        email: '',
-        password: '',
-        id:'',
-        username:'',
-        confirm: ''
-    });
+export const CreateNewAdmin = ({values,handleChange,setValues}) => {
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-        });
-    };
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/admins/getLastId')
+            .then(function (response) {
+                setValues({...values,["id"]:response.data.id+1});
+                console.log(values.id)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [])
+
 
     return (
         <Grid
@@ -52,6 +51,7 @@ export const CreateNewAdmin = (props) => {
                 <TextField
                     name="ID"
                     onChange={handleChange}
+                    disabled={true}
                     required
                     color={'grey'}
                     value={values.id}
@@ -74,11 +74,11 @@ export const CreateNewAdmin = (props) => {
                 xs={6}
             >
                 <TextField
-                    name="fullName"
+                    name="fullname"
                     onChange={handleChange}
                     required
                     color={'grey'}
-                    value={values.fullName}
+                    value={values.fullname}
                     variant="filled"
                 />
             </Grid>

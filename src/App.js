@@ -37,10 +37,9 @@ import MentorDetails from "./AdminEnd/components/_dashboard/Component Details/Me
 import SuperAdminIndex from "./SuperAdminEnd/SuperAdminIndex";
 import SuperAdminDashboardLayout from "./SuperAdminEnd/layouts/dashboard";
 import SuperAdminDashboardApp from './SuperAdminEnd/pages/SuperAdiminDashboardApp';
-import SuperAdminOptions from './SuperAdminEnd/pages/SuperAdminOptions';
 import Subscription from "./SuperAdminEnd/pages/Subscription";
 import Logout from "./SuperAdminEnd/pages/Logout";
-import SuperAdminUserDetail from "./SuperAdminEnd/components/_dashboard/Component Details/User Details/UserDetails";
+import SuperAdminUserDetail from "./SuperAdminEnd/components/_dashboard/Component Details/User Details/User_Details";
 
 
 import InvoiceDetails from './SuperAdminEnd/components/_dashboard/Component Details/Invoice Details/InvoiceDetails'
@@ -48,7 +47,10 @@ import CreateSubscription from "./SuperAdminEnd/components/_dashboard/Create New
 import DepartmentDetails
     from "./SuperAdminEnd/components/_dashboard/Component Details/Department Details/DepartmentDetails";
 import AdminDetails from "./SuperAdminEnd/components/_dashboard/Component Details/Admin Details/AdminDetails";
-import {SuperAdminListofTableContent} from "./SuperAdminEnd/_mocks_/SuperAdminListofTableContent";
+import User_SuperAdminEnd from "./SuperAdminEnd/pages/User_SuperAdminEnd";
+import Admin_SuperAdminEnd from "./SuperAdminEnd/pages/Admin_SuperAdminEnd";
+import Department_SuperAdminEnd from "./SuperAdminEnd/pages/Department_SuperAdminEnd";
+import Invoice_SuperAdminEnd from "./SuperAdminEnd/pages/Invoice_SuperAdminEnd";
 
 
 const cardObj = [
@@ -91,27 +93,22 @@ function App() {
 
 
                             <Route path={'admins'}
-                                   element={<SuperAdminOptions pageName={'Admins'}
-                                                               cardObj={cardObj[1][0]}/> /*<Products />*/}/>
-                            <Route path={'admins/detailsAdmins/:id'} element={<AdminDetails
-                                LIST={SuperAdminListofTableContent('Admins')}/>}/>
+                                   element={<Admin_SuperAdminEnd/> /*<Products />*/}/>
+                            <Route path={'admins/detailsAdmins/:id'} element={<AdminDetails/>}/>
 
                             <Route path={'departments'}
-                                   element={<SuperAdminOptions pageName={'Departments'}
-                                                               cardObj={cardObj[1][0]}/> /*<Products />*/}/>
-                            <Route path={'departments/detailsDepartments/:id'} element={<DepartmentDetails
-                                LIST={SuperAdminListofTableContent('Departments')}/>}/>
+                                   element={<Department_SuperAdminEnd/> /*<Products />*/}/>
+                            <Route path={'departments/detailsDepartments/:id'} element={<DepartmentDetails/>}/>
 
                             <Route path={'users'}
-                                   element={<SuperAdminOptions pageName={'Users'} cardObj={cardObj[0][0]}/>}/>
+                                   element={<User_SuperAdminEnd/>}/>
                             <Route path={'users/detailsUsers/:id'}
-                                   element={<SuperAdminUserDetail LIST={SuperAdminListofTableContent('Users')}/>}/>
+                                   element={<SuperAdminUserDetail/>}/>
 
                             <Route path={'invoices'}
-                                   element={<SuperAdminOptions pageName={'Invoices'}
-                                                               cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
+                                   element={<Invoice_SuperAdminEnd/>/*<Blog />*/}/>
                             <Route path={'invoices/detailsInvoices/:id'}
-                                   element={<InvoiceDetails LIST={SuperAdminListofTableContent('Invoices')}/>}/>
+                                   element={<InvoiceDetails />}/>
                             <Route path={'subscriptions'}
                                    element={<Subscription/>}/>
                             <Route path={'subscriptions/create'}

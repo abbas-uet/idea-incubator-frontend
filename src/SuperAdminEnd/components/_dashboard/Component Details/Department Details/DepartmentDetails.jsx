@@ -1,20 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Page from "../../../Page";
-import { useHistory, useParams } from "react-router-dom";
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField,
-  Typography,
-  List,
-  ListItem,
-} from "@mui/material";
+import {useParams} from "react-router-dom";
+import {Button, Card, CardContent, CardHeader, Divider, Grid, ListItem, TextField, Typography,} from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -28,21 +15,13 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-
-import { deepOrange, green } from "@mui/material/colors";
-import { useState } from "react";
 import Stack from "@mui/material/Stack";
-import { AvatarGroup } from "@mui/lab";
-
-import ListToolBar from "../ListToolBar";
-import { Icon } from "@iconify/react/dist/iconify";
-import plusFill from "@iconify/icons-eva/plus-fill";
 import Checkbox from '@mui/material/Checkbox';
 
 import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { arrayOf } from "prop-types";
+import axios from "axios";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -94,8 +73,24 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
   );
 }
 
-function DepartmentDetails({ LIST }) {
+function DepartmentDetails(props) {
   const [open, setOpen] = React.useState(false);
+  const { id } = useParams();
+  const [values, setValues] = useState({
+    id: '',
+    name: '',
+    noofadmins: '',
+    selectedAdmin:[]
+  });
+  useEffect(() => {
+    axios.get('http://localhost:5000/departments/view_department/'+id)
+        .then(function (response) {
+          setValues({...values,["id"]:response.data.id,["name"]:response.data.departmentname,["noofadmins"]:response.data.admins})
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }, [])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -105,14 +100,8 @@ function DepartmentDetails({ LIST }) {
     setOpen(false);
   };
 
-  const { id } = useParams();
-  const listObj = LIST[parseInt(id)];
-  const [values, setValues] = useState({
-    id: listObj.id,
-    name: listObj.departmentname,
-    noofadmins: listObj.noofadmins,
-    selectedAdmin:[]
-  });
+
+
 
   console.log(values);
 
@@ -123,12 +112,6 @@ function DepartmentDetails({ LIST }) {
     });
   };
   const [disabled, setdisabled] = React.useState(true);
-  const FILTER_BY_OPTION = [
-    { id: "approved", label: "Approved" },
-    { id: "pending", label: "Pending" },
-    { id: "thisweek", label: "This Week" },
-  ];
-  const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
  
   return (
 
@@ -155,7 +138,7 @@ function DepartmentDetails({ LIST }) {
                       name='id'
                       value={values.id}
                       size="small"
-                    ></TextField>
+                    />
                   </Stack>
                 </Grid>
                 <Grid item md={12}>
@@ -173,8 +156,7 @@ function DepartmentDetails({ LIST }) {
                       value={values.name}
                       name='name'
                       size="small"
-                      
-                    ></TextField>
+                    />
                   </Stack>
                 </Grid>
                 <Grid item md={12}>
@@ -193,7 +175,7 @@ function DepartmentDetails({ LIST }) {
                       disabled={disabled}
                       label='No of Admins'
                       size="small"
-                    ></TextField>
+                    />
                   </Stack>
                 </Grid>
                 <Grid item md={12}>
@@ -277,7 +259,7 @@ function DepartmentDetails({ LIST }) {
           <DialogContentText id="scroll-dialog-description">
             <Stack direction={"row"} spacing={2} alignItems='center' mr={1}ml={1}mt={4}mb={4}>
               <Typography variant={"subtitle1"}>Admin:</Typography>
-              <TextField variant="outlined" label='Enter Name' fullWidth></TextField>
+              <TextField variant="outlined" label='Enter Name' fullWidth/>
             </Stack>
            
           </DialogContentText>

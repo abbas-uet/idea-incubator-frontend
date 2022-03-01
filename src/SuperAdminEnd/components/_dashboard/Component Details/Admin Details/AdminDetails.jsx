@@ -1,18 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
-import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField, Typography,
-    List, ListItemAvatar, ListItem
-} from '@mui/material';
+import {useParams} from 'react-router-dom';
+import {Button, Card, CardContent, CardHeader, Divider, Grid, List, ListItem, Typography} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -25,16 +14,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-
-
-import {deepOrange, green} from '@mui/material/colors';
-import {useState} from 'react';
 import Stack from "@mui/material/Stack";
-import {AvatarGroup} from "@mui/lab";
 
 
 import ListToolBar from '../ListToolBar';
+import axios from "axios";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -79,15 +63,12 @@ function AdminDetails({LIST}) {
     };
 
     const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
-        userId: listObj.id,
-        userName: listObj.username,
-        email: listObj.email,
-        department: listObj.department,
+        userId: "",
+        userName: '',
+        email: '',
+        department: '',
     });
-
-    console.log(values);
 
     const handleChange = (event) => {
         setValues({
@@ -95,6 +76,16 @@ function AdminDetails({LIST}) {
             [event.target.name]: event.target.value
         });
     };
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/admins/view_admin/'+id)
+            .then(function (response) {
+                setValues({...values,["userId"]:response.data.id,["userName"]:response.data.username})
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [])
     const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'},
         {id: 'pending', label: 'Pending'},
         {id: 'thisweek', label: 'This Week'}];
