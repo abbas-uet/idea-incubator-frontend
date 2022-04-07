@@ -7,7 +7,7 @@ export default function FabButton(props) {
     return (
         <Paper elevation={10} sx={{ borderRadius: 10 }}>
             <Avatar sx={{ backgroundColor: 'purple' }}>
-                <IconButton size='small' onClick={props.popUpFunction} >
+                <IconButton size='small' onClick={()=>props.popUpFunction(props.pageName)} >
                     <AddIcon fontSize="small" sx={{ color: 'white' }} />
                 </IconButton>
             </Avatar>
