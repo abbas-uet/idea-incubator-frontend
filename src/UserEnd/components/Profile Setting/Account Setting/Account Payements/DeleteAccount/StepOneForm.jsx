@@ -1,5 +1,17 @@
 import React from 'react'
-import { Grid, FormControl, Select, FormControlLabel, RadioGroup, MenuItem, Radio, Typography, InputLabel, Slider, TextField } from '@mui/material'
+import {
+    FormControl,
+    FormControlLabel,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Radio,
+    RadioGroup,
+    Select,
+    Slider,
+    TextField,
+    Typography
+} from '@mui/material'
 
 
 const Fields = [{
@@ -54,6 +66,7 @@ export default function StepOneForm() {
                         aria-label="gender"
                         defaultValue="female"
                         name="radio-buttons-group"
+                        value={SelectedReason}
                     >
                         {Fields.map(item => {
                             return <FormControlLabel value={item.value} control={<Radio />} label={item.label} onChange={handleReasonChange} />

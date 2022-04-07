@@ -2,9 +2,9 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, Avatar } from '@mui/material';
-import { Email } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
+import {Avatar, Button, CardActionArea, CardActions} from '@mui/material';
+import {Email} from '@material-ui/icons';
+import {Link} from 'react-router-dom';
 
 export default function ProfileCard(props) {
     return (

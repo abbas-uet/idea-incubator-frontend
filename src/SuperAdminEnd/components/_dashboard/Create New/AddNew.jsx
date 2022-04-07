@@ -3,11 +3,14 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle,} from "@mui/m
 import {CreateNewAdmin} from "./New Admin/CreateNewAdmin";
 import {CreateNewDepartment} from "./New Department/CreateNewDepartment";
 import {Create} from "../../../../ApiServices/create";
-
-
+import {useNavigate} from "react-router-dom";
+import CustomSnackbar from "../../../../Utils/SnakBar";
 
 
 function AddNew({open, handleClose, pageName}) {
+    const navigate =useNavigate();
+    const [statusCode,setStatusCode]=useState({cond:false,res:0});
+
     const [values, setValues] = useState(pageName==="Admins"?{
         fullname: '',
         email: '',
@@ -16,12 +19,9 @@ function AddNew({open, handleClose, pageName}) {
         username:'',
         confirm: ''
     }:{
-        fullname: '',
-        email: '',
-        password: '',
+        departmentname: '',
+        admins: '',
         id:'',
-        username:'',
-        confirm: ''
     })
 
     const handleChange = (event) => {
@@ -32,20 +32,40 @@ function AddNew({open, handleClose, pageName}) {
     };
 
     const create=async ()=>{
-        const response=await Create('admin',values);
-        if(response.status===200){
-            setValues({...values,["fullname"]: '',
-                ["email"]: '',
-                ["password"]: '',
-                ["id"]:'',
-                ["username"]:'',
-                ["confirm"]: ''});
-            handleClose();
+        if(pageName==='Admins'){
+            const response=await Create('admin',values);
+            if(response.status===200){
+                setStatusCode({...statusCode,['cond']:true,["res"]:200})
+                setTimeout(function(){
+                    handleClose();
+                    navigate('/superadmin/dashboard');
+                    navigate('/superadmin/dashboard/admins');
+                }, 1500);
+
+            }else{
+                setStatusCode({...statusCode,['cond']:true,["res"]:response.status})
+            }
+        }else{
+            const response=await Create('department',values);
+            if(response.status===200){
+                setStatusCode({...statusCode,['cond']:true,["res"]:200})
+                setTimeout(function(){
+                    handleClose();
+                    navigate('/superadmin/dashboard');
+                    navigate('/superadmin/dashboard/departments');
+                }, 1500);
+
+            }else{
+                setStatusCode({...statusCode,['cond']:true,["res"]:response.status})
+            }
         }
+
+
     }
 
 
     return (
+        <>
         <Dialog
             open={open}
             onClose={handleClose}
@@ -57,7 +77,8 @@ function AddNew({open, handleClose, pageName}) {
             <DialogContent dividers={true}>
                 {pageName === 'Admins' ? <CreateNewAdmin values={values} handleChange={handleChange}
                 setValues={setValues}/> : pageName === 'Departments' ?
-                    <CreateNewDepartment/> : ''}
+                    <CreateNewDepartment values={values} handleChange={handleChange}
+                                         setValues={setValues}/> : ''}
             </DialogContent>
 
             <DialogActions>
@@ -65,6 +86,17 @@ function AddNew({open, handleClose, pageName}) {
                 <Button onClick={create} variant={'contained'} color={'primary'} >Create</Button>
             </DialogActions>
         </Dialog>
+            {statusCode.cond&&pageName==='Admins'&&(
+                statusCode.res===200?
+                    <CustomSnackbar message={"Successfully Created the Admin"} type={'primary'}/>
+                    :
+                    <CustomSnackbar message={"Error While Adding the Admin"} type={'error'}/>)}
+            {statusCode.cond&&pageName==='Departments'&&(
+                statusCode.res===200?
+                    <CustomSnackbar message={"Successfully Created the Department"} type={'primary'}/>
+                    :
+                    <CustomSnackbar message={"Error While Adding the Department"} type={'error'}/>)}
+        </>
     );
 }
 

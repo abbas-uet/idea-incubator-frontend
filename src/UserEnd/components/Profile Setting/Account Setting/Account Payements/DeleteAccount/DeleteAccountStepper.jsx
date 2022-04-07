@@ -1,13 +1,13 @@
 import * as React from 'react';
+import {useState} from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
-import { useState } from 'react';
-import { Typography, Button, Box, Container } from '@mui/material';
+import StepConnector, {stepConnectorClasses} from '@mui/material/StepConnector';
+import {Box, Button, Container} from '@mui/material';
 import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
@@ -125,7 +125,6 @@ export default function DeleteAccountStepper() {
                     disabled={activeStep === 0}
                     onClick={moveBackWard}
                     sx={{ mr: 1 }}
-                    color='primary'
                 >
                     Back
                 </Button>

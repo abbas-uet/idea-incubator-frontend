@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import { ListItem, ListItemText, Badge, IconButton, Divider, Box } from '@mui/material';
+import {Badge, Box, Divider, IconButton, ListItem, ListItemText} from '@mui/material';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import Tooltip from '@mui/material/Tooltip';
 

@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import { Paper, Typography, Grid, Divider, Avatar, TextField } from '@mui/material';
+import {DataGrid} from '@mui/x-data-grid';
 
 
-import {
-    randomCreatedDate,
-    randomQuantity,
-} from '@mui/x-data-grid-generator';
+import {randomCreatedDate,} from '@mui/x-data-grid-generator';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 150 },

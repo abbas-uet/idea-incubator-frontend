@@ -44,7 +44,7 @@ const sidebarConfig = [
     },
     {
         title: 'mentors',
-        path: '/admin/dashboard/invoice',
+        path: '/admin/dashboard/mentors',
         icon: getIcon(alertTriangleFill)
     }
 ];

@@ -1,17 +1,17 @@
 import React from 'react';
 import {
-    Paper,
-    Grid,
     Avatar,
-    Typography,
     Badge,
-    Button,
     Box,
-    IconButton,
-    FormControl,
-    InputLabel,
+    Button,
     FilledInput,
-    InputAdornment
+    FormControl,
+    Grid,
+    IconButton,
+    InputAdornment,
+    InputLabel,
+    Paper,
+    Typography
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from "@mui/icons-material/Edit";
@@ -23,6 +23,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
 import SubUsersList from './SubUsersList.jsx';
 import {blue} from '@mui/material/colors';
+import Page from "../../../../../SuperAdminEnd/components/Page";
+import Container from "@mui/material/Container";
 
 
 const SmallAvatar = styled(Avatar)(({theme}) => ({
@@ -76,7 +78,8 @@ export default function AccountDetailsUser() {
         event.preventDefault();
     };
     return (
-        <Paper elevation={5} sx={{p: 2}}>
+        <Page title={"Account Payment | Idea Incubator"} >
+            <Container>
 
             <Grid conainer spacing={2} direction={'row'}>
                 <Typography variant="h4" xs={12} md={12} sm={12}>
@@ -221,6 +224,7 @@ export default function AccountDetailsUser() {
                     <SubUsersList/>
                 </Grid>
             </Grid>
-        </Paper>
+            </Container>
+        </Page>
     )
 }

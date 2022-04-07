@@ -3,8 +3,8 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from './event-utils'
-import { Grid, Paper, Box, Typography } from '@mui/material';
+import {createEventId, INITIAL_EVENTS} from './event-utils'
+import {Box, Grid, Paper, Typography} from '@mui/material';
 
 export default class CalenderCard extends React.Component {
 

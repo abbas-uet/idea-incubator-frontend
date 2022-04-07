@@ -1,7 +1,7 @@
 import React from 'react';
 import './TalentPoolProfile.css';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Grid } from '@mui/material'
+import {Grid} from '@mui/material'
 
 
 export default function TalentPoolProfile() {
@@ -11,7 +11,7 @@ export default function TalentPoolProfile() {
                 <div className="col-sm-3 bg-c-lite-green user-profile">
                     <div className="card-block text-center text-white">
                         <div className="m-b-25">
-                            <img src={'https://raw.githubusercontent.com/ritaxcorreia/react-profile-card/master/src/images/image-rita.png'} className="img-radius" /> </div>
+                            <img alt={'img'} src={'https://raw.githubusercontent.com/ritaxcorreia/react-profile-card/master/src/images/image-rita.png'} className="img-radius" /> </div>
                         <h6 className="f-w-600">Abbas Ali</h6>
                         <p>Associate Software Engineer</p>
                     </div>

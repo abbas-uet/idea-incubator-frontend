@@ -1,7 +1,7 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core'
+import {Grid, makeStyles} from '@material-ui/core'
 import IndustryPage from './IndustryPage'
+
 const useStyle = makeStyles({
     container: {
         margin: '15px'

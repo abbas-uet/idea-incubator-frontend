@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, ListItem, IconButton, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import {Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText} from '@mui/material';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import DeleteIcon from '@mui/icons-material/Delete';
 

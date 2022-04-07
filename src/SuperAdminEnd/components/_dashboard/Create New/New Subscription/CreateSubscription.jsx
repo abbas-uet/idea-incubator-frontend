@@ -1,5 +1,5 @@
 import { Card } from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
 import { Grid } from "@mui/material";
 import { TextField, Typography } from "@mui/material";
 import { useState } from "react";
@@ -13,8 +13,11 @@ import { Box } from "@mui/material";
 import { FormControl } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import CancelPresentationOutlinedIcon from "@mui/icons-material/CancelPresentationOutlined";
 import Promocode from "./promocode";
+import {getTableData, getTwoTableAll} from "../../../../../ApiServices/getData";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
+import Page from "../../../Page";
+import {Create} from "../../../../../ApiServices/create";
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -25,9 +28,8 @@ const MenuProps = {
     },
   },
 };
-const names = ["Basic", "Standard", "Pro", "Plus"];
+const types = ["Basic", "Standard", "Pro", "Plus"];
 const period=['Monthly','6 Months','Yearly'];
-const currency=['$','PKR','EURO']
 function getStyles(name, planName, theme) {
   return {
     fontWeight:
@@ -40,9 +42,10 @@ function getStyles(name, planName, theme) {
 export default function CreateSubscription(props) {
   const theme = useTheme();
   const [values, setValues] = useState({
-    name: "",
+    planName: "",
     amount: "",
-    totalamount:"",
+    totalAmmount:"",
+    currency:[],
   });
 
   const handleChange = (event) => {
@@ -51,15 +54,17 @@ export default function CreateSubscription(props) {
       [event.target.name]: event.target.value,
     });
   };
-  const [planName, setplanName] = React.useState([]);
+  const [planType, setplanType] = React.useState([]);
   const [bilingperiod, setbilingperiod] = React.useState([]);
   const [dcurrency, setdcurrency] = React.useState([]);
+  const [promoId, setPromoId] = React.useState(null);
 
-  const handleChangeplanName = (event) => {
+
+  const handleChangeplanType = (event) => {
     const {
       target: { value },
     } = event;
-    setplanName(
+    setplanType(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
@@ -88,7 +93,48 @@ export default function CreateSubscription(props) {
   const handleCancelChange = (event) => {
     settoggleCancel(event.target.checked);
   };
+
+
+  const [status,setStatus]=useState({'promoCode':null,'status':0,'subscription':null,'subStatus':0});
+
+
+
+  useEffect(async() => {
+    const response = await getTableData('currency_unit');
+    if(response.status===200) {
+      setValues({...values,["currency"]:response.data});
+    }else{
+      console.log(response.status);
+    }
+  }, [])
+
+
+  const handleSaveSubscription=async()=>{
+    const data={
+      planname: values.planName,
+      type:planType[0],
+      billingperiod: bilingperiod[0],
+      ammount:values.totalAmmount,
+      unit:dcurrency.id
+    };
+    const response=await Create('subscription',data);
+    if(response.status===200){
+      setStatus({...status,["subscription"]:true,['subStatus']:response.data});
+    }else{
+      setStatus({...status,["subscription"]:true,['subStatus']:response.data});
+    }
+    if(promoId){
+      console.log(promoId);
+      const data={
+
+      }
+
+    }
+  }
+
+
   return (
+      <Page>
     <Card>
       <CardContent>
         <Grid container spacing={3} justifyContent="center">
@@ -109,11 +155,11 @@ export default function CreateSubscription(props) {
               <TextField
                 id="outlined-basic"
                 label="Name"
-                name="name"
+                name="planName"
                 variant="outlined"
                 size="small"
                 onChange={handleChange}
-                value={values.name}
+                value={values.planName}
                 sx={{ minWidth: 300 }}
               />
             </Stack>
@@ -139,16 +185,16 @@ export default function CreateSubscription(props) {
                   <Select
                     labelId="demo-multiple-name-label"
                     id="demo-multiple-name"
-                    value={planName}
-                    onChange={handleChangeplanName}
+                    value={planType}
+                    onChange={handleChangeplanType}
                     input={<OutlinedInput label="Name" />}
                     MenuProps={MenuProps}
                   >
-                    {names.map((name) => (
+                    {types.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}
-                        style={getStyles(name, planName, theme)}
+                        style={getStyles(name, planType, theme)}
                       >
                         {name}
                       </MenuItem>
@@ -235,13 +281,12 @@ export default function CreateSubscription(props) {
                       input={<OutlinedInput label="Name" />}
                       MenuProps={MenuProps}
                     >
-                      {currency.map((name) => (
+                      {values.currency.map((name) => (
                         <MenuItem
-                          key={name}
+                          key={name.id}
                           value={name}
-                          style={getStyles(name, dcurrency, theme)}
                         >
-                          {name}
+                          {name.name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -257,16 +302,16 @@ export default function CreateSubscription(props) {
               p: 1,
             }}>
             <FormControlLabel
-            
               control={
                 <Checkbox checked={toggleCancel} onChange={handleCancelChange} />
               }
               label="Apply a promo code"
-            ></FormControlLabel>
+            />
           </Grid>
           <Grid item md={3}></Grid>
           <Grid item xs={12} md={12}>
-            {toggleCancel && <Promocode />}
+            {toggleCancel && <Promocode setPromoId={setPromoId} currency={values.currency}
+            status={status} setStatus={setStatus}/>}
           </Grid>
           <Grid item md={12}>
             <Stack
@@ -287,9 +332,9 @@ export default function CreateSubscription(props) {
                 label="Total Amount"
                 variant="outlined"
                 size="small"
-                name="totalamount"
+                name="totalAmmount"
                 onChange={handleChange}
-                value={values.totalamount}
+                value={values.totalAmmount}
                 sx={{ minWidth: 300 }}
               />
             </Stack>
@@ -305,7 +350,8 @@ export default function CreateSubscription(props) {
                 p: 1,
               }}
             >
-              <Button color="inherit" variant="contained" sx={{ml:2}}>
+              <Button color="inherit" variant="contained" sx={{ml:2}}
+              onClick={handleSaveSubscription}>
                 Update
               </Button>
               
@@ -317,5 +363,10 @@ export default function CreateSubscription(props) {
         </Grid>
       </CardContent>
     </Card>
+        {status.promoCode&&(status.status===200?
+            <CustomSnackbar message={"Successfully Created the PromoCode"} type={'primary'}/>
+            :
+            <CustomSnackbar message={"Error While Creating the PromoCode"} type={'error'}/>)}
+      </Page>
   );
 }

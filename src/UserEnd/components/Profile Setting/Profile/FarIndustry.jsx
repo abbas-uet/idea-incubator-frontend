@@ -1,18 +1,16 @@
 import React from "react";
 import Checkbox from "@mui/material/Checkbox";
-import { FormGroup, FormControlLabel } from "@mui/material";
+import {Avatar, Button, FormControlLabel, FormGroup, TextField} from "@mui/material";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import { Button } from "@mui/material";
-import { Avatar } from "@mui/material";
-import { Box } from "@mui/system";
-import { TextField } from "@mui/material";
+import {Box} from "@mui/system";
 import Typography from "@mui/material/Typography";
 import PersonIcon from "@mui/icons-material/Person";
 import SaveIcon from "@mui/icons-material/Save";
-import { styled } from "@mui/material/styles";
+import {styled} from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import EditIcon from "@mui/icons-material/Edit";
+
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
   width: 40,
   height: 40,

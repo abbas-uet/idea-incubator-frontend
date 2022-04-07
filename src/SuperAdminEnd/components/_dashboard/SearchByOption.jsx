@@ -51,6 +51,7 @@ export default function SearchByOption({select, setselectSearchBy, SEARCH_BY_OPT
                         selected={option.id === select}
                         onClick={(event) => handleMenuItemClick(event, option.id)}
                         sx={{typography: 'body2'}}
+                        onChange={setselectSearchBy}
                     >
                         {option.label}
                     </MenuItem>

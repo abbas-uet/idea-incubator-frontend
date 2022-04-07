@@ -11,13 +11,11 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
-import { Paper } from '@mui/material';
+import {Link} from 'react-router-dom';
+import {Paper} from '@mui/material';
 import ProfileCard from '../Utils/ProfileCard.jsx';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationSection from './NotificationSection';
-import ChatIcon from '@mui/icons-material/Chat';
 
 
 const ResponsiveAppBar = (props) => {
@@ -45,7 +43,7 @@ const ResponsiveAppBar = (props) => {
   return (
 
     <Paper elevation={2} >
-      <AppBar position="fixed" color='secondary'>
+      <AppBar position="fixed" color='info'>
         <Container maxWidth="100%">
           <Toolbar disableGutters>
             <Link to="/" style={{ textDecoration: 'none', color: 'white', backgroundImage: '' }}>

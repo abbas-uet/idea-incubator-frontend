@@ -1,4 +1,4 @@
-import {Box, Grid, Paper, Typography} from '@mui/material'
+import {Box, Grid, Paper} from '@mui/material'
 import React from 'react'
 import TalentPoolProfileCard from './TalentPoolProfileCard/TalentPoolProfileCard.jsx'
 
@@ -6,7 +6,8 @@ import TalentPoolProfileCard from './TalentPoolProfileCard/TalentPoolProfileCard
 export default function TalentPool() {
     return (
         <Box sx={{ mt: 10, ml: 10, mr: 10 }}>
-            <Paper elevation={5}></Paper>
+            <Paper elevation={5}>
+            </Paper>
             <Grid container justifyContent='center' spacing={4}>
                 <Grid item xs={12} sm={6} md={3} lg={3}><TalentPoolProfileCard name={'Abbas Ali'} age={'21'} city={'CS Department UET Lahore'} followers={'23.5k'}
                     likes={'32.1k'} photos={'43.1k'} /></Grid>

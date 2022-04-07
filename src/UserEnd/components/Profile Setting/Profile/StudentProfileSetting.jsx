@@ -1,10 +1,10 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import {Grid, makeStyles} from '@material-ui/core'
 import ForStudent from './ForStudent'
-import { makeStyles } from '@material-ui/core'
-import ForMentors from './ForMentors'
-import ForIndustry from './FarIndustry'
 import Paper from "@mui/material/Paper"
+import Page from "../../../../SuperAdminEnd/components/Page";
+import Container from "@mui/material/Container";
+import ForMentors from "./ForMentors";
 
 const useStyle = makeStyles({
     container: {
@@ -14,9 +14,9 @@ const useStyle = makeStyles({
 })
 export default function ProfileSetting() {
     const classes = useStyle()
-
-
     return (
+        <Page title={"Account Payment | Idea Incubator"} >
+            <Container>
         <Paper elevation={22}>
 
             <Grid container justifyContent='center' >
@@ -27,6 +27,8 @@ export default function ProfileSetting() {
                 </Grid>
             </Grid>
         </Paper>
+            </Container>
+        </Page>
     )
 }
 

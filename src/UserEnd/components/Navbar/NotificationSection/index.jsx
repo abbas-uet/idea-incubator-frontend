@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {useEffect, useRef, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
+import {useTheme} from '@mui/material/styles';
 import {
     Avatar,
     Box,
@@ -30,7 +30,7 @@ import MainCard from '../../Utils/MainCard.jsx'
 import NotificationList from './NotificationList';
 
 // assets
-import { IconBell, IconMessage } from '@tabler/icons';
+import {IconBell, IconMessage} from '@tabler/icons';
 import MessageNotificationList from './MessageNotificationList.jsx';
 
 // notification status options

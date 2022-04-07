@@ -1,14 +1,10 @@
-import {filter} from 'lodash';
 import {Icon} from '@iconify/react';
 import React, {useState} from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
 
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
-
 
 // material
 import {
-    Avatar,
     Button,
     Card,
     Checkbox,
@@ -20,8 +16,7 @@ import {
     TableCell,
     TableContainer,
     TablePagination,
-    TableRow,
-    Typography
+    TableRow
 } from '@mui/material';
 // components
 import Page from '../components/Page';
@@ -32,7 +27,7 @@ import BreadCrumb from "../components/_dashboard/BreadCrumb";
 import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 import AddNew from "../components/_dashboard/Create New/AddNew";
 import {ListofTableContent} from "../_mocks_/ListofTableContent";
-import TableItemDetails from "./TableItemDetails";
+import {applySortFilter, getComparator} from "../../Utils/SortUtilityFunctions";
 
 // ----------------------------------------------------------------------
 
@@ -95,40 +90,7 @@ const SEARCH_BY_LIST = [
 
 // ----------------------------------------------------------------------
 
-function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
 
-function getComparator(order, orderBy) {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-function applySortFilter(array, comparator, query, filterSearchBy) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) return order;
-        return a[1] - b[1];
-    });
-    console.log(filterSearchBy);
-
-    if (query) {
-        return filterSearchBy === 'id' ? filter(array, (_user) => _user.id === parseInt(query)) :
-            filterSearchBy === 'name' ? filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1) :
-                filterSearchBy === 'projectname' ? filter(array, (_user) => _user.projectname.toLowerCase().indexOf(query.toLowerCase()) !== -1) :
-                    filter(array, (_user) => _user.companyname.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-
-    }
-    return stabilizedThis.map((el) => el[0]);
-}
 
 function getTableHeadlist(pageName) {
     return pageName === 'User' ? TABLE_HEAD[0] : pageName === 'Ideas' ? TABLE_HEAD[1] :
@@ -331,9 +293,9 @@ function renderTableContent(pageName, row, selected, handleClick) {
 
 export default function AdminOptions({pageName, cardObj}) {
 
-
     const SEARCH_BY_OPTIONS = getSearchByOption(pageName);
     //LIST OF TABLE CONTENT
+
 
 
     const LIST = ListofTableContent(pageName);

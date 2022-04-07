@@ -1,58 +1,111 @@
 import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
 import {useParams} from 'react-router-dom';
-import {Button, CardContent, CardHeader, Divider, Grid, List, ListItem, Paper, Typography} from '@mui/material';
+import {
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    Checkbox,
+    Divider,
+    Grid,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TablePagination,
+    TableRow,
+    Typography
+} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
-import faker from 'faker';
-
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import Stack from "@mui/material/Stack";
+import {UserListHead, UserMoreMenu} from "../../user";
+import SearchNotFound from "../../../SearchNotFound";
+import {getThreeTableAllById} from "../../../../../ApiServices/getData";
 
 
-import ListToolBar from '../ListToolBar';
-import axios from "axios";
+const UserTableHead = [
+    {id: "id", label: "Id", alignRight: false},
+    {id: "createdon", label: "Created On", alignRight: false},
+    {id: "duedate", label: "Due Date", alignRight: false},
+    {id: "paymentmethod", label: "Payment Method", alignRight: false},
+    {id: "ammount", label: "Ammount", alignRight: false},
+    {id: "status", label: "Status", alignRight: false},
+    {id: ""},
+];
 
 
-const QUERIES_LIST = [...Array(24)].map((_, index) => ({
-    id: index,
-    title: faker.name.lastName(),
-    description: faker.lorem.paragraphs(),
-}));
+function SuperAdminUserDetail() {
 
 
-function ListItemRender(id, title, body, handleDialogueOpen) {
-    return <ListItem key={id} onClick={handleDialogueOpen}>
-        <ListItemButton>
-            <ListItemIcon>
-                <FiberManualRecordIcon sx={{fontSize: 10}}/>
-            </ListItemIcon>
-            <ListItemText primary={
-                <Stack direction={'row'} spacing={1}>
-                    <Typography variant={'subtitle2'}>{title}</Typography>
-                    <ArrowRightIcon/>
-                    <Typography variant={'body1'} sx={{
-                        display: "block",
-                        width: "750px",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden"
-                    }}>{body}</Typography>
-                </Stack>
-            }/>
-        </ListItemButton>
-    </ListItem>;
-}
+    const [LIST, setLIST] = useState([]);
+    const [page, setPage] = useState(0);
+    const [order, setOrder] = useState('asc');
+    const [selected, setSelected] = useState([]);
+    const [orderBy, setOrderBy] = useState('username');
+    const [filterName, setFilterName] = useState('');
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
 
-function SuperAdminUserDetail({pageName, LIST,}) {
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === "asc";
+        setOrder(isAsc ? "desc" : "asc");
+        setOrderBy(property);
+    };
+
+
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelecteds = LIST.map((n) => n.id);
+            setSelected(newSelecteds);
+            return;
+        }
+        setSelected([]);
+    };
+
+    const handleClick = (event, name) => {
+        const selectedIndex = selected.indexOf(name);
+        let newSelected = [];
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, name);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1)
+            );
+        }
+        setSelected(newSelected);
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const handleFilterByName = (event) => {
+        setFilterName(event.target.value);
+    };
+
+    const emptyRows =
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - LIST.length) : 0;
+
+
+    const isUserNotFound = LIST.length === 0;
+
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -71,31 +124,24 @@ function SuperAdminUserDetail({pageName, LIST,}) {
         Joindate: '',
         managedby: '',
         projectid: '',
+        subscription: ''
     });
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/users/view_user/'+id)
-            .then(function (response) {
-                setValues({...values,["userId"]:response.data.userid,["userName"]:response.data.username,
-                    ["Joindate"]:response.data.joindate,["email"]:response.data.email,
-
-                })
+    useEffect(async () => {
+        const response = await getThreeTableAllById("user", 'subscription', "invoice", id);
+        if (response.status === 200) {
+            setValues({
+                ...values, ["userId"]: response.data.userid, ["userName"]: response.data.username,
+                ["Joindate"]: response.data.joindate, ["email"]: response.data.email,
+                ['managedby']: response.data.fullname,
+                ['subscription']: response.data.Subscription,
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+            setLIST(response.data.Invoices);
+        } else {
+            console.log(response.data);
+        }
     }, [])
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-        });
-    };
-    const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'},
-        {id: 'pending', label: 'Pending'},
-        {id: 'thisweek', label: 'This Week'}];
-    const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
 
     return (
         <div>
@@ -106,170 +152,247 @@ function SuperAdminUserDetail({pageName, LIST,}) {
                 >
                     <Paper>
                         <CardHeader
-     
+
                             title="User Details"
                         />
                         <Divider/>
                         <CardContent>
-                           
-                           <Stack direction={'row'}>
 
-                            <Grid
-                                container
-                                spacing={3}
-                                md={6}
+                            <Stack direction={'row'}>
+
+                                <Grid
+                                    container
+                                    spacing={3}
+                                    md={6}
                                 >
-                              <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={9}>
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={9}>
 
-                                        <Typography variant='body2'
-                                                    sx={{ml: 1, fontWeight: 'bold'}}>UserID:</Typography>
-                                        <Typography variant='body2'>{values.userId}</Typography>
-                                    </Stack>
+                                            <Typography variant='body2'
+                                                        sx={{ml: 1, fontWeight: 'bold'}}>UserID:</Typography>
+                                            <Typography variant='body2'>{values.userId}</Typography>
+                                        </Stack>
+                                    </Grid>
+
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={5.3}>
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
+                                                Name:</Typography>
+                                            <Typography variant='body2'>{values.userName}</Typography>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={4.9}>
+                                            <Typography variant='body2'
+                                                        sx={{ml: 1, fontWeight: 'bold'}}>ProjectID:</Typography>
+                                            <Typography variant='body2'>{values.projectid}</Typography>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item md={12}>
+
+                                        <Stack direction={"row"} spacing={9.9}>
+
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Managed
+                                                By:</Typography>
+                                            <Typography variant='body2'>{values.managedby}</Typography>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={9}>
+
+                                            <Typography variant='body2'
+                                                        sx={{ml: 1, fontWeight: 'bold'}}>Join Date:</Typography>
+                                            <Typography variant='body2'>{values.Joindate}</Typography>
+                                        </Stack>
+                                    </Grid>
+
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={5.3}>
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>
+                                                Email:</Typography>
+                                            <Typography variant='body2'>{values.email}</Typography>
+                                        </Stack>
+                                    </Grid>
                                 </Grid>
-
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={5.3}>
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
-                                            Name:</Typography>
-                                        <Typography variant='body2'>{values.userName}</Typography>
-                                    </Stack>
-                                </Grid>
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={4.9}>
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>ProjectID:</Typography>
-                                        <Typography variant='body2'>{values.projectid}</Typography>
-                                    </Stack>
-                                </Grid>
-                                <Grid item md={12}>
-
-                                    <Stack direction={"row"} spacing={9.9}>
-
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Managed By:</Typography>
-                                        <Typography variant='body2'></Typography>{values.managedby}
-                                    </Stack>
-                                </Grid>
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={9}>
-
-                                        <Typography variant='body2'
-                                                    sx={{ml: 1, fontWeight: 'bold'}}>Join Date:</Typography>
-                                        <Typography variant='body2'>{values.Joindate}</Typography>
-                                    </Stack>
-                                </Grid>
-
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={5.3}>
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>
-                                            Email:</Typography>
-                                        <Typography variant='body2'>{values.email}</Typography>
-                                    </Stack>
-                                </Grid>
-                               
-
-
-                               
-                               
-                            </Grid>      
-                            <Grid
-                               container
-                               md={6}
-                                spacing={3}
+                                <Grid
+                                    container
+                                    md={6}
+                                    spacing={3}
                                 >
-                              <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={9}>
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={9}>
 
-                                        <Typography variant='body2'
-                                                    sx={{ml: 1, fontWeight: 'bold'}}>Standard Annual:</Typography>
-                                        <Typography variant='body2'>{values.userId}</Typography>
-                                    </Stack>
+                                            <Typography variant='h3'
+                                                        sx={{ml: 1, fontWeight: 'bold'}}>Subscription Info:</Typography>
+                                        </Stack>
+                                    </Grid>
+
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={5.3}>
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Subscription
+                                                Plan
+                                            </Typography>
+                                            <Typography
+                                                variant='body2'>{values.subscription && values.subscription.planname}</Typography>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={5.3}>
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Ammount
+                                            </Typography>
+                                            <Typography
+                                                variant='body2'>{values.subscription && values.subscription.ammount}</Typography>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={4.9}>
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Billing
+                                                Date:</Typography>
+                                            <Typography
+                                                variant='body2'>{LIST.length > 0 && LIST[0].createdon}</Typography>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item md={12}>
+
+                                        <Stack direction={"row"} spacing={9.9}>
+
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Contract
+                                                Date:</Typography>
+                                            <Typography
+                                                variant='body2'>{LIST.length > 0 && LIST[0].createdon}</Typography>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item md={12}>
+                                        <Stack direction={"row"} spacing={9}>
+
+                                            <Typography variant='body2'
+                                                        sx={{ml: 1, fontWeight: 'bold'}}>Contract End:</Typography>
+                                            <Typography
+                                                variant='body2'>{LIST.length > 0 && LIST[0].createdon}</Typography>
+                                        </Stack>
+                                    </Grid>
+
                                 </Grid>
-
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={5.3}>
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
-                                        </Typography>
-                                        <Typography variant='body2'>{values.userName}</Typography>
-                                    </Stack>
-                                </Grid>
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={4.9}>
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>ProjectID:</Typography>
-                                        <Typography variant='body2'>{values.projectid}</Typography>
-                                    </Stack>
-                                </Grid>
-                                <Grid item md={12}>
-
-                                    <Stack direction={"row"} spacing={9.9}>
-
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Managed By:</Typography>
-                                        <Typography variant='body2'></Typography>{values.managedby}
-                                    </Stack>
-                                </Grid>
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={9}>
-
-                                        <Typography variant='body2'
-                                                    sx={{ml: 1, fontWeight: 'bold'}}>Join Date:</Typography>
-                                        <Typography variant='body2'>{values.Joindate}</Typography>
-                                    </Stack>
-                                </Grid>
-
-                                <Grid item md={12}>
-                                    <Stack direction={"row"} spacing={5.3}>
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>
-                                            Email:</Typography>
-                                        <Typography variant='body2'>{values.email}</Typography>
-                                    </Stack>
-                                </Grid>
-                               
+                            </Stack>
 
 
-                               
-                               
-                            </Grid>
-                                                </Stack>
-                       
-                        
-                          
-
-                                         
                         </CardContent>
-
                         <Divider/>
-                        <ListToolBar filterSearcBy={filter} onFilterSearchBy={setFilter}
-                                     searchByOptionList={FILTER_BY_OPTION}/>
-                        <List
-                            sx={{width: '100%', bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto', mt: -3}}
-                            aria-label="contacts"
+                        <Typography component="div" variant="h6" sx={{m: 2}}>
+                            Last Invoices
+                        </Typography>
+                        <Card sx={{mt: 2}}>
+                            <TableContainer
+                                sx={{minWidth: 800, maxHeight: 500, overflow: "auto"}}
+                            >
 
-                        >
-                            {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
-                        </List>
+                                <Table>
+                                    <UserListHead
+                                        order={order}
+                                        orderBy={orderBy}
+                                        headLabel={UserTableHead}
+                                        rowCount={LIST.length}
+                                        numSelected={selected.length}
+                                        onRequestSort={handleRequestSort}
+                                        onSelectAllClick={handleSelectAllClick}
+                                    />
+
+                                    <TableBody>
+                                        {LIST
+                                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                            .map((row) => {
+                                                    let {
+                                                        invoiceid,
+                                                        createdon,
+                                                        duedate,
+                                                        paymentMethod,
+                                                        ammount,
+                                                        status,
+                                                    } = row;
+                                                    let isItemSelected = selected.indexOf(invoiceid) !== -1;
+                                                    return (
+                                                        <TableRow
+                                                            hover
+                                                            key={invoiceid}
+                                                            tabIndex={-1}
+                                                            role="checkbox"
+                                                            selected={isItemSelected}
+                                                            aria-checked={isItemSelected}
+                                                        >
+                                                            <TableCell padding="checkbox">
+                                                                <Checkbox
+                                                                    checked={isItemSelected}
+                                                                    onChange={(event) => handleClick(event, invoiceid)}
+                                                                />
+                                                            </TableCell>
+                                                            <TableCell align="left">{invoiceid}</TableCell>
+                                                            <TableCell align="left">{createdon}</TableCell>
+                                                            <TableCell align="left">{duedate}</TableCell>
+                                                            <TableCell align="left">{paymentMethod}</TableCell>
+                                                            <TableCell align="left">{ammount}</TableCell>
+                                                            <TableCell align="left">
+                                                                {status}
+                                                            </TableCell>
+                                                            <TableCell align="right">
+                                                                {
+
+                                                                } <UserMoreMenu pageName={"Invoices"} id={invoiceid}/>
+                                                            </TableCell>
+                                                        </TableRow>)
+                                                }
+                                            )}
+                                        {emptyRows > 0 && (
+                                            <TableRow style={{height: 53 * emptyRows}}>
+                                                <TableCell colSpan={6}/>
+                                            </TableRow>
+                                        )}
+                                    </TableBody>
+                                    {isUserNotFound && (
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell align="center" colSpan={6} sx={{py: 3}}>
+                                                    <SearchNotFound searchQuery={filterName}/>
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    )}
+                                </Table>
+                            </TableContainer>
+
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={LIST.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                        </Card>
                         <Grid item
-                                      md={12}
-                                      xs={12}>
-                                    <Stack direction={'row'} spacing={7} sx={{
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        pb: 2,
-                                        pt:2,
-                                    }}>
-                                        <Button
-                                            color="inherit"
-                                            variant="contained"
-                                            >
-                                            Message User
-                                        </Button>
-                                        <Button
-                                            color="error"
-                                            variant="outlined"
-                                            >
-                                            Delete User
-                                        </Button>
-                                        
-                                    </Stack>
-                                </Grid>
+                              md={12}
+                              xs={12}>
+                            <Stack direction={'row'} spacing={7} sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                pb: 2,
+                                pt: 2,
+                            }}>
+                                <Button
+                                    color="inherit"
+                                    variant="contained"
+                                >
+                                    Message User
+                                </Button>
+                                <Button
+                                    color="error"
+                                    variant="outlined"
+                                >
+                                    Delete User
+                                </Button>
+
+                            </Stack>
+                        </Grid>
                     </Paper>
                 </form>
 

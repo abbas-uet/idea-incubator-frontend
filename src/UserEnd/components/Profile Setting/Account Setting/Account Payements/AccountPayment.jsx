@@ -5,13 +5,14 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Pricing from './PricingPage/Pricing.jsx';
-import Grid from '@mui/material/Grid';
 import PaymentInformationForm from './AccountPaymentInformation/PaymentInformationForm.jsx';
 import InvoiceHistory from './Invoice History/InvoiceHistory.jsx';
 import DeleteAccountStepper from './DeleteAccount/DeleteAccountStepper.jsx';
+import Page from "../../../../../SuperAdminEnd/components/Page";
+import Container from "@mui/material/Container";
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+    const {children, value, index, ...other} = props;
 
     return (
         <div
@@ -22,11 +23,12 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
+                <Box sx={{p: 3}}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
         </div>
+
     );
 }
 
@@ -49,29 +51,31 @@ export default function AccountPayment() {
         setValue(newValue);
     };
     return (
-        <Grid container xs={12} >
-            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider', minWidth: 1070 }}>
-                    <Tabs value={value} onChange={handleChange} centered >
-                        <Tab label="Subscription Plan" {...a11yProps(0)} sx={{ textTransform: "none" }} />
-                        <Tab label="Payment Information" {...a11yProps(1)} sx={{ textTransform: "none" }} />
-                        <Tab label="Invoice History" {...a11yProps(2)} sx={{ textTransform: "none" }} />
-                        <Tab label="Delete Account" {...a11yProps(3)} sx={{ textTransform: "none" }} />
-                    </Tabs>
+        <Page title={"Account Payment | Idea Incubator"} >
+            <Container>
+                <Box sx={{width: '100%', bgcolor: 'background.paper'}}>
+                    <Box sx={{borderBottom: 1, borderColor: 'divider', minWidth: 1070}}>
+                        <Tabs value={value} onChange={handleChange} centered>
+                            <Tab label="Subscription Plan" {...a11yProps(0)} sx={{textTransform: "none"}}/>
+                            <Tab label="Payment Information" {...a11yProps(1)} sx={{textTransform: "none"}}/>
+                            <Tab label="Invoice History" {...a11yProps(2)} sx={{textTransform: "none"}}/>
+                            <Tab label="Delete Account" {...a11yProps(3)} sx={{textTransform: "none"}}/>
+                        </Tabs>
+                    </Box>
+                    <TabPanel value={value} index={0}>
+                        <Pricing/>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        <PaymentInformationForm/>
+                    </TabPanel>
+                    <TabPanel value={value} index={2}>
+                        <InvoiceHistory/>
+                    </TabPanel>
+                    <TabPanel value={value} index={3}>
+                        <DeleteAccountStepper/>
+                    </TabPanel>
                 </Box>
-                <TabPanel value={value} index={0}>
-                    <Pricing />
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <PaymentInformationForm />
-                </TabPanel>
-                <TabPanel value={value} index={2}>
-                    <InvoiceHistory />
-                </TabPanel>
-                <TabPanel value={value} index={3}>
-                    <DeleteAccountStepper />
-                </TabPanel>
-            </Box>
-        </Grid>
+            </Container>
+        </Page>
     );
 }

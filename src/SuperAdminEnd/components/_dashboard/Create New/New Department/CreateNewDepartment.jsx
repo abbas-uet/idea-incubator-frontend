@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
     Box,
     Button,
@@ -9,21 +9,18 @@ import {
     Grid,
     TextField, Typography
 } from '@mui/material';
+import axios from "axios";
+import {getLastId} from "../../../../../ApiServices/getData";
 
 
-export const CreateNewDepartment = (props) => {
-    const [values, setValues] = useState({
-        id: '',
-        name: '',
-        no: ''
-    });
+export const CreateNewDepartment = ({values,handleChange,setValues}) => {
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-        });
-    };
+    useEffect(async() => {
+        const response=await getLastId('department')
+        if(response.status===200){
+            setValues({...values,["id"]:response.data.id+1});
+        }
+    }, [])
 
     return (
         <Grid
@@ -49,8 +46,8 @@ export const CreateNewDepartment = (props) => {
                 <TextField
                     name="id"
                     onChange={handleChange}
-                    required
                     color={'grey'}
+                    disabled={true}
                     value={values.id}
                     variant="filled"
                 />
@@ -71,11 +68,11 @@ export const CreateNewDepartment = (props) => {
                 xs={6}
             >
                 <TextField
-                    name="name"
+                    name="departmentname"
                     onChange={handleChange}
                     required
                     color={'grey'}
-                    value={values.name}
+                    value={values.departmentname}
                     variant="filled"
                 />
             </Grid>
@@ -96,9 +93,9 @@ export const CreateNewDepartment = (props) => {
             >
                 <TextField
                     color={'grey'}
-                    name="no of admins"
+                    name="admins"
                     onChange={handleChange}
-                    value={values.no}
+                    value={values.admins}
                     variant="filled"
                 />
             </Grid>

@@ -1,14 +1,8 @@
 import React from 'react'
-import {
-    DataGrid, GridToolbarContainer,
-    GridToolbarExport,
-    gridClasses,
-} from '@mui/x-data-grid';
-import { Chip } from '@mui/material';
-import {
-    randomCreatedDate,
-    randomQuantity,
-} from '@mui/x-data-grid-generator';
+import {DataGrid, gridClasses, GridToolbarContainer, GridToolbarExport,} from '@mui/x-data-grid';
+import {Chip} from '@mui/material';
+import {randomCreatedDate, randomQuantity,} from '@mui/x-data-grid-generator';
+
 const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',

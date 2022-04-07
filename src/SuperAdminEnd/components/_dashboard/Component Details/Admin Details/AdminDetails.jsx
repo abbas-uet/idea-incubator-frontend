@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
-import {useParams} from 'react-router-dom';
-import {Button, Card, CardContent, CardHeader, Divider, Grid, List, ListItem, Typography} from '@mui/material';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Button, Card, CardContent, CardHeader, Chip, Divider, Grid, List, ListItem, Typography} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -18,13 +18,13 @@ import Stack from "@mui/material/Stack";
 
 
 import ListToolBar from '../ListToolBar';
-import axios from "axios";
+import {deleteSingle} from "../../../../../ApiServices/delete";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
+import {getTableSingle} from "../../../../../ApiServices/getData";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
-    id: index,
-    title: faker.name.lastName(),
-    description: faker.lorem.paragraphs(),
+    id: index, title: faker.name.lastName(), description: faker.lorem.paragraphs(),
 }));
 
 
@@ -40,10 +40,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 
 
             } secondary={<Typography variant={'body1'} sx={{
-                display: "block",
-                width: "910px",
-                whiteSpace: "nowrap",
-                overflow: "hidden"
+                display: "block", width: "910px", whiteSpace: "nowrap", overflow: "hidden"
             }}>{body}</Typography>}/><Typography sx={{mt: 2}}>{"..."}</Typography>
 
         </ListItemButton>
@@ -52,6 +49,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 
 
 function AdminDetails({LIST}) {
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -64,35 +62,47 @@ function AdminDetails({LIST}) {
 
     const {id} = useParams()
     const [values, setValues] = useState({
-        userId: "",
-        userName: '',
-        email: '',
-        department: '',
+        userId: "", userName: '', email: '', department: [], queries: []
     });
+    const [statusCode,setStatusCode]=useState({cond:false,res:0});
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-        });
-    };
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/admins/view_admin/'+id)
-            .then(function (response) {
-                setValues({...values,["userId"]:response.data.id,["userName"]:response.data.username})
+
+    const handleDelete=async ()=>{
+        const response = await deleteSingle('admin', id);
+        if (response.status === 200) {
+            setStatusCode({...statusCode,['cond']:true,["res"]:200})
+            setTimeout(function(){
+                navigate('/superadmin/dashboard/admins')
+            }, 1500);
+        } else {
+            setStatusCode({...statusCode,['cond']:true,["res"]:response.status})
+        }
+    }
+
+    useEffect(async () => {
+        const response = await getTableSingle('department', id);
+        if (response.status === 200) {
+
+            setValues({
+                ...values,
+                ["userId"]: response.data.id,
+                ["userName"]: response.data.username,
+                ["department"]: response.data.DepartmentAdmins,
+                ['email']: response.data.email
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+        } else {
+            console.log(response.status);
+        }
     }, [])
-    const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'},
-        {id: 'pending', label: 'Pending'},
-        {id: 'thisweek', label: 'This Week'}];
+    const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'}, {id: 'pending', label: 'Pending'}, {
+        id: 'thisweek',
+        label: 'This Week'
+    }];
     const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
 
-    return (
-        <div>
+
+    return (<div>
             <Page>
                 <form
                     autoComplete="off"
@@ -127,31 +137,27 @@ function AdminDetails({LIST}) {
                                 </Grid>
                                 <Grid item md={12}>
                                     <Stack direction={"row"} spacing={4.9}>
-                                        <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Department:</Typography>
-                                        <Typography variant='body2'>{values.department}</Typography>
+                                        <Typography variant='body2'
+                                                    sx={{ml: 1, fontWeight: 'bold'}}>Department:</Typography>
+                                        <Typography variant='body2'>{values.department.map((e, index) => {
+                                            return <Chip label={e.Department.departmentname} key={index}/>
+                                        })}</Typography>
                                     </Stack>
                                 </Grid>
                                 <Grid item md={12}>
-
                                     <Stack direction={"row"} spacing={9.9}>
-
                                         <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Email:</Typography>
-                                        <Typography variant='body2'></Typography>{values.email}
+                                        <Typography variant='body2'>{values.email}</Typography>
                                     </Stack>
                                 </Grid>
 
-                               
 
-                               
-                                            
                                 <Grid item
                                       md={12}
                                       xs={12}>
                                     <Stack direction={'row'} spacing={4} sx={{
-                                        display: 'flex',
-                                        justifyContent: 'flex-end',
-                                        p: 1,
-   
+                                        display: 'flex', justifyContent: 'flex-end', p: 1,
+
                                     }}>
                                         <Button
                                             color="inherit"
@@ -162,9 +168,10 @@ function AdminDetails({LIST}) {
                                         <Button
                                             color="error"
                                             variant="outlined"
+                                            onClick={handleDelete}
                                         >
                                             Delete Admin
-                                        </Button>
+                                        </Button >
                                     </Stack>
                                 </Grid>
                             </Grid>
@@ -176,7 +183,6 @@ function AdminDetails({LIST}) {
                         <List
                             sx={{width: '100%', bgcolor: 'background.paper', maxHeight: 400, overflow: 'auto', mt: -3}}
                             aria-label="contacts"
-
                         >
                             {QUERIES_LIST.map(e => ListItemRender(e.id, e.title, e.description, handleClickOpen))}
                         </List>
@@ -184,6 +190,11 @@ function AdminDetails({LIST}) {
                 </form>
 
             </Page>
+        {statusCode.cond&&(
+            statusCode.res===200?
+                <CustomSnackbar message={"Successfully Deleted the Admin"} type={'primary'}/>
+                :
+            <CustomSnackbar message={"Error While Deleting the Admin"} type={'error'}/>)}
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -219,8 +230,7 @@ function AdminDetails({LIST}) {
                     <Button onClick={handleClose} variant={'contained'} color={'inherit'}>Reply</Button>
                 </DialogActions>
             </Dialog>
-        </div>
-    );
+        </div>);
 }
 
 export default AdminDetails;

@@ -1,19 +1,9 @@
 import React from "react";
-import { Paper } from "@mui/material";
+import {Avatar, Card, CardContent, Checkbox, Grid, Paper, Typography} from "@mui/material";
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
-import {
-  Grid,
-  Typography,
-  Avatar,
-  Card,
-  CardContent,
-  Checkbox,
-  CardActions,
-} from "@mui/material";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
-
 
 
 export default function IndustryData() {

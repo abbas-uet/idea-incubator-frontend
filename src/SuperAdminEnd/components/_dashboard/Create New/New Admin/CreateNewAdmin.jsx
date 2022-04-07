@@ -10,20 +10,17 @@ import {
     TextField, Typography
 } from '@mui/material';
 import axios from "axios";
+import {getLastId} from "../../../../../ApiServices/getData";
 
 
 export const CreateNewAdmin = ({values,handleChange,setValues}) => {
 
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/admins/getLastId')
-            .then(function (response) {
-                setValues({...values,["id"]:response.data.id+1});
-                console.log(values.id)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    useEffect(async() => {
+        const response=await getLastId('admin')
+        if(response.status===200){
+            setValues({...values,["id"]:response.data.id+1});
+        }
     }, [])
 
 

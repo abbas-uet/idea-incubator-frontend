@@ -95,8 +95,10 @@ export default function UserListToolbar({
                         </IconButton>
                     </Tooltip>
                 ) : ""}
-                <SearchByOption select={filterSearcBy} setselectSearchBy={onFilterSearchBy}
-                                SEARCH_BY_OPTIONS={searchByOptionList}/>
+                {
+                    searchByOptionList&&<SearchByOption select={filterSearcBy} setselectSearchBy={onFilterSearchBy}
+                                    SEARCH_BY_OPTIONS={searchByOptionList}/>
+                }
             </Stack>
         </RootStyle>
     );

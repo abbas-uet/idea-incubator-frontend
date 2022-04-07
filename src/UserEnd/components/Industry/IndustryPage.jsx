@@ -1,14 +1,10 @@
 import React from "react";
 import Pagination from '@mui/material/Pagination';
-import { Grid } from "@mui/material";
+import {Grid} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import SearchBar from "../Mentors/SearchBar/SearchBar";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import IndustryData from "../Utils/IndustryData";
-
-
 
 
 export default function IndustryPage() {
@@ -27,7 +23,7 @@ export default function IndustryPage() {
             variant="contained"
             color="secondary"
             disableElevation
-            sx={{ textTransform: "none" }}
+
           >
             <FavoriteIcon />
           </Button>

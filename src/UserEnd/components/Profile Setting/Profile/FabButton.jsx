@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Avatar, Paper, IconButton } from "@mui/material";
+import {Avatar, IconButton, Paper} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 
 export default function FabButton(props) {

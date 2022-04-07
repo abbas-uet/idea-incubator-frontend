@@ -1,20 +1,10 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import { Button } from "@mui/material";
-import { Avatar, Paper } from "@mui/material";
-import { Box } from "@mui/system";
-import { TextField } from "@mui/material";
+import {Button, TextField} from "@mui/material";
+import {Box} from "@mui/system";
 import Typography from "@mui/material/Typography";
-import PersonIcon from '@mui/icons-material/Person';
 import SaveIcon from '@mui/icons-material/Save';
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
-import EditIcon from '@mui/icons-material/Edit';
-const SmallAvatar = styled(Avatar)(({ theme }) => ({
-    width: 40,
-    height: 40,
-    border: `2px solid ${theme.palette.background.paper}`,
-}))
+
 export default function Help() {
     return (
 

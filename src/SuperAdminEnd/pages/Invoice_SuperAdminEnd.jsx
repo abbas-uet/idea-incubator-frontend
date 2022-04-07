@@ -26,8 +26,9 @@ import BreadCrumb from "../components/_dashboard/BreadCrumb";
 
 // ----------------------------------------------------------------------
 import axios from 'axios';
-import {getComparator} from '../components/SortUtilityFunctions';
+import {getComparator} from '../../Utils/SortUtilityFunctions';
 import FormControlLabel from "@mui/material/FormControlLabel";
+import {getThreeTableLimit, getTwoTableAll} from "../../ApiServices/getData";
 
 
 const UserTableHead=[
@@ -73,14 +74,13 @@ function Invoice_SuperAdminEnd(props) {
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/Invoices/view_Invoices')
-            .then(function (response) {
-                setLIST(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    useEffect(async() => {
+        const response = await getTwoTableAll('invoice','user');
+        if(response.status===200) {
+            setLIST(response.data);
+        }else{
+            console.log(response.status);
+        }
     }, [])
 
     const handleRequestSort = (event, property) => {
@@ -213,11 +213,11 @@ function Invoice_SuperAdminEnd(props) {
                                             let {
                                                 invoiceid,
                                                 createdon,
-                                                billingperson,
                                                 duedate,
                                                 paymentMethod,
                                                 ammount,
                                                 status,
+                                                User,
                                             } = row;
                                             let isItemSelected = selected.indexOf(invoiceid) !== -1;
                                             return (
@@ -238,7 +238,7 @@ function Invoice_SuperAdminEnd(props) {
                                                     <TableCell align="left">{invoiceid}</TableCell>
                                                     <TableCell align="left">{createdon}</TableCell>
                                                     <TableCell align="left">{duedate}</TableCell>
-                                                    <TableCell align="left">{billingperson}</TableCell>
+                                                    <TableCell align="left">{User.fullname}</TableCell>
                                                     <TableCell align="left">{paymentMethod}</TableCell>
                                                     <TableCell align="left">{ammount}</TableCell>
                                                     <TableCell align="left">

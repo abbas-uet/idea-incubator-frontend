@@ -1,15 +1,16 @@
 import React from 'react'
 import SubUsersCardComponent from './SubUsersCardComponent.jsx'
 import Grid from "@mui/material/Grid";
-import { Button } from '@mui/material';
+import {Button, TextField} from '@mui/material';
 import AddModeratorOutlinedIcon from '@mui/icons-material/AddModeratorOutlined';
-import { TextField } from "@mui/material";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Page from "../../../../../SuperAdminEnd/components/Page";
+import Container from "@mui/material/Container";
 
 const CustomDialogTitle = (props) => {
     const { children, onClose, ...other } = props;
@@ -57,7 +58,8 @@ export default function SubUsersMain() {
     }, [open]);
 
     return (
-        <div>
+        <Page title={"Account Payment | Idea Incubator"} >
+            <Container>
             <Grid container spacing={2} direction={'row'}>
                 <Grid item xs={12} container justifyContent="flex-end" >
                     < Button variant='contained' color='secondary' startIcon={<AddModeratorOutlinedIcon />} size='large' onClick={handleClickOpen}>
@@ -98,6 +100,7 @@ export default function SubUsersMain() {
                     <Button onClick={handleClose} variant='contained' color='secondary' size="small" sx={{ m: 1 }}>Send Invite</Button>
                 </DialogActions>
             </Dialog>
-        </div >
+            </Container>
+        </Page>
     )
 }

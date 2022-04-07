@@ -1,19 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Paper } from "@mui/material";
+import {Link} from "react-router-dom";
+import {Avatar, Card, CardContent, Checkbox, Grid, Paper, Typography} from "@mui/material";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
-import {
-  Grid,
-  Typography,
-  Avatar,
-  Card,
-  CardContent,
-  Checkbox,
-  CardActions,
-} from "@mui/material";
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
+
 export default function AssestsData() {
   return (
     <Paper sx={{ ml: 1.2, mr: 0.7 }}>

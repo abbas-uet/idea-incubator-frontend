@@ -51,6 +51,12 @@ import User_SuperAdminEnd from "./SuperAdminEnd/pages/User_SuperAdminEnd";
 import Admin_SuperAdminEnd from "./SuperAdminEnd/pages/Admin_SuperAdminEnd";
 import Department_SuperAdminEnd from "./SuperAdminEnd/pages/Department_SuperAdminEnd";
 import Invoice_SuperAdminEnd from "./SuperAdminEnd/pages/Invoice_SuperAdminEnd";
+import AdminUsers from "./AdminEnd/pages/AdminUsers";
+import AccountPayment from "./UserEnd/components/Profile Setting/Account Setting/Account Payements/AccountPayment";
+import AccountDetailsUser from "./UserEnd/components/Profile Setting/Account Setting/AccountDetails/AccountDetailsUser";
+import SubUsersMain from "./UserEnd/components/Profile Setting/Account Setting/SubUsers/SubUsersMain";
+import NotificationSettings
+    from "./UserEnd/components/Profile Setting/Account Setting/NotificationSettings/NotificationSettings";
 
 
 const cardObj = [
@@ -129,16 +135,24 @@ function App() {
                         <Route path="ideaPool" element={<IdeaPool/>}/>
                         <Route path="talentPool" element={<TalentPool/>}/>
                         <Route path="help" element={<Help/>}/>
-                        <Route path="studentAccountSettings" element={<StudentAccountSetting/>}/>
+
                         <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
-                        <Route path="viewProfile" element={<ViewProfile/>}/>
+                        <Route path="studentAccountSettings" element={<StudentAccountSetting/>}>
+                            <Route path="account_details" element={<AccountDetailsUser/>}/>
+                            <Route path="profile_details" element={<StudentProfileSetting/>}/>
+                            <Route path="sub_users" element={<SubUsersMain/>}/>
+                            <Route path="account_billing" element={<AccountPayment/>}/>
+                            <Route path="notifications" element={<NotificationSettings/>}/>
+                            <Route path="account_history" element={<ViewProfile/>}/>
+                        </Route>
+
                     </Route>
                     <Route path={'admin'} element={<AdminIndex/>}>
                         <Route path={'dashboard'} element={<DashboardLayout/>}>
                             <Route element={<Navigate to="dashboard/app" replace/>}/>
                             <Route path={'app'} element={<DashboardApp/>}/>
                             <Route path={'user'}
-                                   element={<AdminOptions pageName={'User'} cardObj={cardObj[0][0]}/>}/>
+                                   element={<AdminUsers  cardObj={cardObj[0][0]}/>}/>
                             <Route path={'user/detailsUser/:id'}
                                    element={<UserDetails LIST={ListofTableContent('User')}/>}/>
                             <Route path={'ideas'}
@@ -155,6 +169,7 @@ function App() {
                             <Route path={'talent/detailsTalent/:id'} element={<TalentDetails
                                 LIST={ListofTableContent('Talent')}/>}/>
                             <Route path={'industry'}
+
                                    element={<AdminOptions pageName={'Industry'}
                                                           cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
                             <Route path={'industry/detailsIndustry/:id'} element={<IndustryDetails

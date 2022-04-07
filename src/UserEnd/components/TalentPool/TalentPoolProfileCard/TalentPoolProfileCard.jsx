@@ -1,8 +1,6 @@
 import React from "react";
 import "./TalentPoolProfileCard.css";
-import {
-    Dialog, DialogTitle, IconButton, DialogActions, DialogContent, TextField, Button
-} from '@mui/material'
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from '@mui/material'
 import CloseIcon from "@mui/icons-material/Close";
 import TalentPoolProfile from "../TalentPoolProfile/TalentPoolProfile.jsx";
 

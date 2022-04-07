@@ -1,13 +1,9 @@
 import React from 'react';
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DateFnsAdapter from "@mui/lab/AdapterDateFns";
-import {BrowserRouter, Route, Routes,Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Grid from "@mui/material/Grid";
-import Mentors from "./components/Mentors/Mentors";
-import Industry from "./components/Industry/Industry";
-import Assest from "./components/Assest/Assest";
-import Help from "./components/Help/Help";
 import ScrollToTop from "../AdminEnd/components/ScrollToTop";
 
 function UserIndex(props) {

@@ -1,75 +1,71 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import Pagination from '@mui/material/Pagination';
-import { Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import SearchBar from "./SearchBar/SearchBar";
 import Slider from "@mui/material/Slider";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import MentorData from "../Utils/MentorData";
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
-const mentorsProfilesData = [
-  {
-    name: "Abbas Ali",
-    location: "CS Department",
-    Hours: "9am to 12pm",
-    email: "ali7956@gmail.com",
-    study: "BS in computer science and PHD in Machine learning",
-    skills: ["Opp", "Data", "Structure"],
-  },
-  {
-    name: "Abbas Ali",
-    location: "CS Department",
-    Hours: "9am to 12pm",
-    email: "ali7956@gmail.com",
-    study: "BS in computer science and PHD in Machine learning",
-    skills: ["Opp", "Data", "Structure"],
-  },
-  {
-    name: "Abbas Ali",
-    location: "CS Department",
-    Hours: "9am to 12pm",
-    email: "ali7956@gmail.com",
-    study: "BS in computer science and PHD in Machine learning",
-    skills: ["Opp", "Data", "Structure"],
-  },
-  {
-    name: "Abbas Ali",
-    location: "CS Department",
-    Hours: "9am to 12pm",
-    email: "ali7956@gmail.com",
-    study: "BS in computer science and PHD in Machine learning",
-    skills: ["Opp", "Data", "Structure"],
-  },
-  {
-    name: "Abbas Ali",
-    location: "CS Department",
-    Hours: "9am to 12pm",
-    email: "ali7956@gmail.com",
-    study: "BS in computer science and PHD in Machine learning",
-    skills: ["Opp", "Data", "Structure"],
-  },
-  {
-    name: "Abbas Ali",
-    location: "CS Department",
-    Hours: "9am to 12pm",
-    email: "ali7956@gmail.com",
-    study: "BS in computer science and PHD in Machine learning",
-    skills: ["Opp", "Data", "Structure"],
-  },
-  {
-    name: "Abbas Ali",
-    location: "CS Department",
-    Hours: "9am to 12pm",
-    email: "ali7956@gmail.com",
-    study: "BS in computer science and PHD in Machine learning",
-    skills: ["Opp", "Data", "Structure"],
-  },
-];
+
+// const mentorsProfilesData = [
+//   {
+//     name: "Abbas Ali",
+//     location: "CS Department",
+//     Hours: "9am to 12pm",
+//     email: "ali7956@gmail.com",
+//     study: "BS in computer science and PHD in Machine learning",
+//     skills: ["Opp", "Data", "Structure"],
+//   },
+//   {
+//     name: "Abbas Ali",
+//     location: "CS Department",
+//     Hours: "9am to 12pm",
+//     email: "ali7956@gmail.com",
+//     study: "BS in computer science and PHD in Machine learning",
+//     skills: ["Opp", "Data", "Structure"],
+//   },
+//   {
+//     name: "Abbas Ali",
+//     location: "CS Department",
+//     Hours: "9am to 12pm",
+//     email: "ali7956@gmail.com",
+//     study: "BS in computer science and PHD in Machine learning",
+//     skills: ["Opp", "Data", "Structure"],
+//   },
+//   {
+//     name: "Abbas Ali",
+//     location: "CS Department",
+//     Hours: "9am to 12pm",
+//     email: "ali7956@gmail.com",
+//     study: "BS in computer science and PHD in Machine learning",
+//     skills: ["Opp", "Data", "Structure"],
+//   },
+//   {
+//     name: "Abbas Ali",
+//     location: "CS Department",
+//     Hours: "9am to 12pm",
+//     email: "ali7956@gmail.com",
+//     study: "BS in computer science and PHD in Machine learning",
+//     skills: ["Opp", "Data", "Structure"],
+//   },
+//   {
+//     name: "Abbas Ali",
+//     location: "CS Department",
+//     Hours: "9am to 12pm",
+//     email: "ali7956@gmail.com",
+//     study: "BS in computer science and PHD in Machine learning",
+//     skills: ["Opp", "Data", "Structure"],
+//   },
+//   {
+//     name: "Abbas Ali",
+//     location: "CS Department",
+//     Hours: "9am to 12pm",
+//     email: "ali7956@gmail.com",
+//     study: "BS in computer science and PHD in Machine learning",
+//     skills: ["Opp", "Data", "Structure"],
+//   },
+// ];
 
 
 
@@ -94,7 +90,6 @@ export default function MentorPage() {
               variant="contained"
               color="secondary"
               disableElevation
-              sx={{ textTransform: "none" }}
             >
               <FavoriteIcon />
             </Button>
@@ -120,13 +115,13 @@ export default function MentorPage() {
             <Typography sx={{ mt: 3.5, mb: 2, ml: 4, mr: 1 }}>
               {"(" + (value[0] > 12
                 ? value[0] - 12 + "PM"
-                : value[0] == 12
+                : value[0] === 12
                   ? value[0] + "PM"
                   : value[0] + "AM") +
                 "-" +
                 (value[1] > 12
                   ? value[1] - 12 + "PM"
-                  : value[1] == 12
+                  : value[1] === 12
                     ? value[1] + "PM"
                     : value[1] + "AM") + ")"}
             </Typography>

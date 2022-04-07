@@ -8,12 +8,11 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { Grid } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core'
-import { Paper } from "@mui/material";
+import {Grid, makeStyles} from '@material-ui/core'
+import {Avatar, Card, Checkbox, Paper} from "@mui/material";
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -25,14 +24,8 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
-import {
-  Avatar,
-  Card,
-  Checkbox,
-} from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const useStyle = makeStyles({
   container: {
@@ -116,11 +109,11 @@ export default function AssestDetail() {
             <Grid item container>
               <Grid item xs={5} md={5} justifyContent='center'>
                 <Avatar
-                  variant="rounded"
-                  sx={{ height: "250px", width: "250px", ml: 9, mt: 9, mr: 5, mb: 9 }}
-                  src="https://images.unsplash.com/photo-1529612700005-e35377bf1415?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                  alt="Paella dish"
-                ></Avatar>
+                variant="rounded"
+    sx={{height: "250px", width: "250px", ml: 9, mt: 9, mr: 5, mb: 9}}
+    src="https://images.unsplash.com/photo-1529612700005-e35377bf1415?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+    alt="Paella dish"
+    />
               </Grid>
               <Grid item xs={7} md={7}>
                 <Typography variant='body1' fontWeight={"fontWeightBold"} sx={{ mt: 10, mr: 4 }}>
@@ -242,7 +235,7 @@ export default function AssestDetail() {
                     </Stack>
                     <Stack direction="row" spacing={5} alignItems={'center'} sx={{ mt: 4, ml: 5, mb: 2 }}>
 
-                      <Typography gutterBottom gutterBottom sx={{ mt: 1 }} variant='body1' fontWeight={"fontWeightBold"}>
+                      <Typography  gutterBottom sx={{ mt: 1 }} variant='body1' fontWeight={"fontWeightBold"}>
                         Add Date:
                       </Typography>
                       <LocalizationProvider dateAdapter={AdapterDateFns}>

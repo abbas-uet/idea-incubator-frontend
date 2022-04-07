@@ -27,9 +27,10 @@ import AddNew from "../components/_dashboard/Create New/AddNew";
 
 // ----------------------------------------------------------------------
 import axios from 'axios';
-import {getComparator} from '../components/SortUtilityFunctions';
+import {getComparator} from '../../Utils/SortUtilityFunctions';
 import {Icon} from "@iconify/react/dist/iconify";
 import plusFill from "@iconify/icons-eva/plus-fill";
+import {getTableData, getTwoTableAll} from "../../ApiServices/getData";
 
 
 const UserTableHead=[
@@ -80,15 +81,15 @@ function Department_SuperAdminEnd(props) {
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/departments/view_departments')
-            .then(function (response) {
-                setLIST(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    useEffect(async () => {
+        const response = await getTableData('department');
+        if(response.status===200) {
+            setLIST(response.data);
+        }else{
+            console.log(response.status);
+        }
     }, [])
+
 
 
     const [open, setOpen] = React.useState(false);
@@ -180,7 +181,6 @@ function Department_SuperAdminEnd(props) {
                     </Button>
                 </Stack>
 
-                <Grid container spacing={2} justifyContent="space-between" mb={2}>
 
                     <Grid container spacing={2} justifyContent="space-between" mb={2}>
                         <Grid item lg={4} md={12} xl={12} xs={12}>
@@ -190,7 +190,7 @@ function Department_SuperAdminEnd(props) {
                                 value={"30k"}
                             />
                         </Grid>
-                    </Grid>
+
                 </Grid>
 
 

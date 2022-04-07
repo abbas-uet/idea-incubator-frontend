@@ -1,6 +1,6 @@
 import React from 'react'
 import Pagination from '@mui/material/Pagination';
-import { Grid } from "@mui/material";
+import {Grid} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import SearchBar from "../Mentors/SearchBar/SearchBar";
@@ -22,7 +22,6 @@ export default function AssestPage() {
           variant="contained"
           color="secondary"
           disableElevation
-          sx={{ textTransform: "none" }}
         >
           <FavoriteIcon />
         </Button>

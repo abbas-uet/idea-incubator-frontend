@@ -1,18 +1,23 @@
 import React from "react";
 import {
+
+  Avatar,
+  Badge,
   Button,
   Grid,
-  Avatar,
   List,
   ListItem,
-  ListItemText,
+  ListItemAvatar,
   ListItemSecondaryAction,
+  ListItemText,
+  styled,
+  TextField
 } from "@mui/material";
-import { Box } from "@mui/system";
-import ImageIcon from "@mui/icons-material/Image";
-import WorkIcon from "@mui/icons-material/Work";
-import BeachAccessIcon from "@mui/icons-material/BeachAccess";
-import { TextField, ListItemAvatar, styled, Badge, Paper } from "@mui/material";
+import {Box} from "@mui/system";
+import ImageIcon from '@mui/icons-material/Image';
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+
 import PersonIcon from "@mui/icons-material/Person";
 import SaveIcon from "@mui/icons-material/Save";
 import EditIcon from "@mui/icons-material/Edit";

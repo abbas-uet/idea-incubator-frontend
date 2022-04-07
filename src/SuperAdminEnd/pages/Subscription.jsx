@@ -1,13 +1,11 @@
 import React from 'react';
 import Page from "../components/Page";
-import {Button} from '@mui/material';
+import {Button, Paper} from '@mui/material';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import {Paper} from "@mui/material";
 import {purple} from '@mui/material/colors'
 import {Link} from 'react-router-dom';
 

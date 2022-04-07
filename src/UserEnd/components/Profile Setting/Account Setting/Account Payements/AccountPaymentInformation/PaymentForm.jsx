@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-    TextField,
-    Grid,
-    Typography
-} from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
+import {Grid, TextField, Typography} from '@mui/material';
 
 const PaymentForm = () => {
 
@@ -68,14 +63,3 @@ const PaymentForm = () => {
 
 export default PaymentForm;
 
-const currencies = [
-    {
-        "symbol": "AED",
-        "name": "United Arab Emirates Dirham",
-        "symbol_native": "USD",
-        "decimal_digits": 2,
-        "rounding": 0,
-        "code": "AED",
-        "name_plural": "UAE dirhams"
-    },
-]

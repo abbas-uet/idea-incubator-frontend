@@ -1,10 +1,6 @@
-import { useTheme, styled } from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
 import {
     Avatar,
-    Button,
-    Card,
-    CardContent,
-    Chip,
     Divider,
     Grid,
     List,
@@ -12,12 +8,11 @@ import {
     ListItemAvatar,
     ListItemSecondaryAction,
     ListItemText,
-    Stack,
     Typography
 } from '@mui/material';
 
 // assets
-import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@tabler/icons';
+import {IconBuildingStore, IconMailbox} from '@tabler/icons';
 
 
 // styles
@@ -37,29 +32,7 @@ const ListItemWrapper = styled('div')(({ theme }) => ({
 const MessageNotificationList = () => {
     const theme = useTheme();
 
-    const chipSX = {
-        height: 24,
-        padding: '0 6px'
-    };
-    const chipErrorSX = {
-        ...chipSX,
-        color: theme.palette.warning.dark,
-        backgroundColor: theme.palette.warning,
-        marginRight: '5px'
-    };
 
-    const chipWarningSX = {
-        ...chipSX,
-        color: theme.palette.warning.dark,
-        backgroundColor: theme.palette.warning
-    };
-
-    const chipSuccessSX = {
-        ...chipSX,
-        color: theme.palette.success.dark,
-        backgroundColor: theme.palette.success,
-        height: 28
-    };
 
     return (
         <List

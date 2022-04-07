@@ -6,6 +6,7 @@ import {
     Button,
     Card,
     Checkbox,
+    Chip,
     Container,
     Grid,
     Stack,
@@ -26,10 +27,11 @@ import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 import AddNew from "../components/_dashboard/Create New/AddNew";
 
 // ----------------------------------------------------------------------
-import axios from 'axios';
-import {getComparator} from '../components/SortUtilityFunctions';
+import {getComparator} from '../../Utils/SortUtilityFunctions';
 import {Icon} from "@iconify/react/dist/iconify";
 import plusFill from "@iconify/icons-eva/plus-fill";
+import {getTwoTableAll} from "../../ApiServices/getData";
+import CustomSnackbar from "../../Utils/SnakBar";
 
 
 const UserTableHead=[
@@ -77,20 +79,19 @@ function Admin_SuperAdminEnd(props) {
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
-    const [orderBy, setOrderBy] = useState('username');
+    const [orderBy, setOrderBy] = useState('');
     const [filterName, setFilterName] = useState('');
     const [selectSearchBy, setselectSearchBy] = useState(UserSearchByOptions[0].id)
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/admins/view_admins')
-            .then(function (response) {
-                setLIST(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    useEffect(async () => {
+        const response = await getTwoTableAll('admin','department');
+        if(response.status===200) {
+            setLIST(response.data);
+        }else{
+            console.log(response.status);
+        }
     }, [])
 
 
@@ -164,7 +165,7 @@ function Admin_SuperAdminEnd(props) {
     const isUserNotFound = filteredUsers.length === 0;
 
     return (
-        <Page title={"Departments | Idea Incubator"}>
+        <Page title={"Admin | Idea Incubator"}>
             <Container>
                 <Stack
                     direction="row"
@@ -184,16 +185,14 @@ function Admin_SuperAdminEnd(props) {
                 </Stack>
 
                 <Grid container spacing={2} justifyContent="space-between" mb={2}>
-
-                    <Grid container spacing={2} justifyContent="space-between" mb={2}>
-                        <Grid item lg={4} md={12} xl={12} xs={12}>
-                            <DashBoardCharts
-                                title={"TOTAL Admins"}
-                                color={"primary"}
-                                value={"30k"}
-                            />
-                        </Grid>
+                    <Grid item lg={4} md={12} xl={12} xs={12}>
+                        <DashBoardCharts
+                            title={"TOTAL Departments"}
+                            color={"primary"}
+                            value={"30k"}
+                        />
                     </Grid>
+
                 </Grid>
 
 
@@ -229,7 +228,8 @@ function Admin_SuperAdminEnd(props) {
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) =>
                                         {
-                                            let {id, username, email, department} = row;
+                                            let {id, username, email,DepartmentAdmins} = row;
+
                                             let isItemSelected = selected.indexOf(username) !== -1;
                                             return (
                                                 <TableRow
@@ -248,7 +248,12 @@ function Admin_SuperAdminEnd(props) {
                                                     </TableCell>
                                                     <TableCell align="left">{id}</TableCell>
                                                     <TableCell align="left">{username}</TableCell>
-                                                    <TableCell align="left">{department}</TableCell>
+                                                    <TableCell align="left">{
+                                                        DepartmentAdmins.map((e,index)=>{
+                                                            return <Chip key={index} label={e.Department.departmentname} />
+                                                        })
+                                                    }
+                                                    </TableCell>
                                                     <TableCell align="left">{email}</TableCell>
 
                                                     <TableCell align="right">

@@ -25,7 +25,8 @@ import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 
 // ----------------------------------------------------------------------
 import axios from 'axios';
-import {getComparator} from '../components/SortUtilityFunctions';
+import {getComparator} from '../../Utils/SortUtilityFunctions';
+import {getThreeTableLimit, getTwoTableAll} from "../../ApiServices/getData";
 
 
 const UserTableHead=[
@@ -53,7 +54,6 @@ function applySortFilter(array, comparator, query, filterSearchBy) {
         if (order !== 0) return order;
         return a[1] - b[1];
     });
-    console.log(filterSearchBy);
 
     if (query) {
         return filterSearchBy === "id"
@@ -83,14 +83,13 @@ function User_SuperAdminEnd(props) {
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
 
-    useEffect(() => {
-        axios.get('http://localhost:5000/users/view_users')
-            .then(function (response) {
-                setLIST(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    useEffect(async () => {
+        const response = await getThreeTableLimit('user','subscription','invoice');
+        if(response.status===200) {
+            setLIST(response.data);
+        }else{
+            console.log(response.status);
+        }
     }, [])
 
 
@@ -225,7 +224,7 @@ function User_SuperAdminEnd(props) {
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) =>
                                         {
-                                            let {userid, username, email, subscription, lastinvoice, status, duedate} =
+                                            let {userid, username, email, Subscription, Invoices, status, duedate} =
                                                 row;
                                             let isItemSelected = selected.indexOf(username) !== -1;
                                             return (
@@ -246,10 +245,12 @@ function User_SuperAdminEnd(props) {
                                                     <TableCell align="left">{userid}</TableCell>
                                                     <TableCell align="left">{username}</TableCell>
                                                     <TableCell align="left">{email}</TableCell>
-                                                    <TableCell align="left">{subscription}</TableCell>
-                                                    <TableCell align="left">{lastinvoice}</TableCell>
-                                                    <TableCell align="left">{status}</TableCell>
-                                                    <TableCell align="left">{duedate}</TableCell>
+                                                    <TableCell align="left">{Subscription&&Subscription.planname}</TableCell>
+
+                                                        <TableCell align="left">{Invoices.length>0&&Invoices[0].invoiceid}</TableCell>
+                                                        <TableCell align="left">{Invoices.length>0&&Invoices[0].status}</TableCell>
+                                                        <TableCell align="left">{Invoices.length>0&&Invoices[0].duedate}</TableCell>
+
 
 
                                                     <TableCell align="right">
