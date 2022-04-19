@@ -57,6 +57,7 @@ import AccountDetailsUser from "./UserEnd/components/Profile Setting/Account Set
 import SubUsersMain from "./UserEnd/components/Profile Setting/Account Setting/SubUsers/SubUsersMain";
 import NotificationSettings
     from "./UserEnd/components/Profile Setting/Account Setting/NotificationSettings/NotificationSettings";
+import AdminIdeas from "./AdminEnd/pages/AdminIdeas";
 
 
 const cardObj = [
@@ -156,8 +157,7 @@ function App() {
                             <Route path={'user/detailsUser/:id'}
                                    element={<UserDetails LIST={ListofTableContent('User')}/>}/>
                             <Route path={'ideas'}
-                                   element={<AdminOptions pageName={'Ideas'}
-                                                          cardObj={cardObj[1][0]}/> /*<Products />*/}/>
+                                   element={<AdminIdeas cardObj={cardObj[1][0]}/> }/>
                             <Route path={'ideas/detailsIdeas/:id'} element={<IdeaDetails
                                 LIST={ListofTableContent('Ideas')}/>}/>
                             <Route path={'assets'}

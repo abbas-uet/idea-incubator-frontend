@@ -2,9 +2,9 @@ import {useEffect, useRef, useState} from 'react';
 import {Link} from 'react-router-dom';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
+import {alpha, useTheme} from '@mui/material/styles';
 import {
-    Avatar,
+    Avatar, Badge,
     Box,
     Button,
     ButtonBase,
@@ -12,7 +12,7 @@ import {
     Chip,
     ClickAwayListener,
     Divider,
-    Grid,
+    Grid, IconButton,
     Paper,
     Popper,
     Stack,
@@ -32,6 +32,9 @@ import NotificationList from './NotificationList';
 // assets
 import {IconBell, IconMessage} from '@tabler/icons';
 import MessageNotificationList from './MessageNotificationList.jsx';
+import {Icon} from "@iconify/react/dist/iconify";
+import bellFill from "@iconify/icons-eva/bell-fill";
+import message from "@iconify/icons-eva/message-circle-fill"
 
 // notification status options
 const status = [
@@ -91,44 +94,31 @@ const NotificationSection = (props) => {
 
     return (
         <>
-            <Box
+            <IconButton
+                ref={anchorRef}
+                size="large"
+                color={open ? 'primary' : 'default'}
+                onClick={handleToggle}
                 sx={{
-
-                    mr: 3,
-                    [theme.breakpoints.down('md')]: {
-                        mr: 2
-                    }
+                    ...(open && {
+                        bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
+                    })
                 }}
             >
+                <Badge color="error">
+                    {
+                        props.type === 'Notifications'?
+                    <Icon icon={bellFill} width={23} height={23} />
+                        :  <Icon icon={message} width={23} height={23} />
 
-                <ButtonBase sx={{ borderRadius: '12px' }}>
-                    <Avatar
-                        variant="rounded"
-                        sx={{
-                            ...theme.typography.commonAvatar,
-                            ...theme.typography.mediumAvatar,
-                            transition: 'all .2s ease-in-out',
-                            background: theme.palette.primary,
-                            color: theme.palette.secondary,
-                            '&[aria-controls="menu-list-grow"],&:hover': {
-                                background: theme.palette.secondary,
-                                color: theme.palette.primary,
-                            }
-                        }}
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true"
-                        onClick={handleToggle}
-                        color="inherit"
-                    >
-                        {props.type === 'Notifications' ?
-                            <IconBell stroke={1.5} size="1.3rem" />
-                            :
-                            <IconMessage stroke={1.5} size="1.3rem" />}
-                    </Avatar>
-                </ButtonBase>
+                    }
+                </Badge>
+            </IconButton>
+            {/* ?
 
-            </Box>
+                <IconBell stroke={1.5} size="1.3rem" />
+                :
+                <IconMessage stroke={1.5} size="1.3rem" />*/}
             <Popper
                 placement={matchesXs ? 'bottom' : 'bottom-end'}
                 open={open}

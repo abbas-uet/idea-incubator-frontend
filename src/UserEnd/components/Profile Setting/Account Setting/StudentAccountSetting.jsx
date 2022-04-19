@@ -35,6 +35,7 @@ export default function StudentAccountSetting() {
         <RootStyle>
             <UserSidebar isOpenSidebar={open} onCloseSidebar={() => setOpen(false)}/>
             <MainStyle>
+
                 <Outlet/>
             </MainStyle>
         </RootStyle>

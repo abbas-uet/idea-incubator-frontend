@@ -17,13 +17,13 @@ export default function ProfileSetting() {
     return (
         <Page title={"Account Payment | Idea Incubator"} >
             <Container>
-        <Paper elevation={22}>
+        <Paper elevation={22} >
 
-            <Grid container justifyContent='center' >
-                <Grid item xs={12} sm={10} className={classes.container} sx={{ margin: 2, backgroundColor: 'white' }} >
-                    {/* <ForStudent /> */}
+            <Grid container justifyContent='center'  >
+                <Grid item xs={12} sm={10} className={classes.container} sx={{ margin: 3, backgroundColor: 'white' }} >
+                     <ForStudent />
                     {/* <ForIndustry /> */}
-                    <ForMentors />
+                    {/*<ForMentors />*/}
                 </Grid>
             </Grid>
         </Paper>

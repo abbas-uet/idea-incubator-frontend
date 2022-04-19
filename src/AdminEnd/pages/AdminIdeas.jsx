@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 
 // material
@@ -24,43 +24,26 @@ import BreadCrumb from "../components/_dashboard/BreadCrumb";
 import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 import AddNew from "../components/_dashboard/Create New/AddNew";
 import {applySortFilter, getComparator} from "../../Utils/SortUtilityFunctions";
+import {getTableData} from "../../ApiServices/getData";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [{id: 'id', label: 'Id', alignRight: false},
         {id: 'email', label: 'Email', alignRight: false},
         {id: 'name', label: 'Name', alignRight: false},
-        {id: 'field', label: 'Filed', alignRight: false},
+        {id: 'field', label: 'Field', alignRight: false},
         {id: 'projectname', label: 'Project Name', alignRight: false},
         {id: ''}
 ];
 
 
-const SEARCH_BY_LIST = [
-    [{id: 'id', label: 'ID'},
-        {id: 'projectname', label: 'Project Name'},],
-    
-    [
-        {id: 'id', label: 'ID'},
-        {id: 'name', label: 'Name',},],
-    [{id: 'id', label: 'ID'},
-        {id: 'name', label: 'Name',},],
-    [{id: 'id', label: 'ID'},
-        {id: 'name', label: 'Name',},],
-    [{id: 'id', label: 'ID',},
-        {id: 'companyname', label: 'Company Name',},],
-]
+
 
 
 // ----------------------------------------------------------------------
 
 
 
-function getTableHeadlist(pageName) {
-    return pageName === 'User' ? TABLE_HEAD[0] : pageName === 'Ideas' ? TABLE_HEAD[1] :
-        pageName === 'Assets' ? TABLE_HEAD[2] : pageName === 'Talent' ? TABLE_HEAD[3] :
-            pageName === 'Mentors' ? TABLE_HEAD[4] : pageName === 'Industry' ? TABLE_HEAD[5] : ''
-}
 
 
 
@@ -75,6 +58,16 @@ export default function AdminIdeas({ cardObj}) {
 
 
     const [LIST,setLIST]=useState([]);
+    useEffect(async () => {
+        const response = await getTableData('idea');
+        if (response.status === 200) {
+            setLIST(response.data);
+        } else {
+            console.log(response.status);
+        }
+    },[]);
+
+
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
@@ -149,7 +142,7 @@ export default function AdminIdeas({ cardObj}) {
 
 
     return (
-        <Page title={pageName + " | Idea Incubator"}>
+        <Page title={"Ideas | Idea Incubator"}>
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
                     <BreadCrumb linkArr={['Dashboard','Ideas']}/>
@@ -161,7 +154,7 @@ export default function AdminIdeas({ cardObj}) {
                               md={3}
                               xl={6}
                               xs={12}>
-                            <DashBoardCharts title={'TOTAL ' + pageName} color={'primary'}
+                            <DashBoardCharts title={'TOTAL ' + "Ideas"} color={'primary'}
                                              value={cardObj.totalLabelValue}/>
                         </Grid>
                         <Grid item lg={4}

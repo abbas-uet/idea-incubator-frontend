@@ -89,18 +89,12 @@ function IdeaDetails({LIST}) {
         projectName: listObj.projectname,
     });
 
-    console.log(values);
-
     const handleChange = (event) => {
         setValues({
             ...values,
             [event.target.name]: event.target.value
         });
     };
-    const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'},
-        {id: 'pending', label: 'Pending'},
-        {id: 'thisweek', label: 'This Week'}];
-    const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
 
     return (
         <div>

@@ -4,10 +4,9 @@ import {Link as RouterLink, useLocation} from "react-router-dom";
 import * as React from "react";
 import {useEffect} from "react";
 import Scrollbar from "../../../../SuperAdminEnd/components/Scrollbar";
-import {Avatar, Box, Drawer, Link, Stack, Typography} from "@mui/material";
+import {Avatar, Box, Link, Typography} from "@mui/material";
 import account from "../../../../SuperAdminEnd/_mocks_/Lists/account";
 import {MHidden} from "../../../../SuperAdminEnd/components/@material-extend";
-import Logo from "../../../../SuperAdminEnd/components/Logo";
 import NavSection from "../../../../SuperAdminEnd/components/NavSection";
 import {Icon} from "@iconify/react/dist/iconify";
 import pieChart2Fill from "@iconify/icons-eva/pie-chart-2-fill";
@@ -64,7 +63,7 @@ const RootStyle = styled('div')(({theme}) => ({
     [theme.breakpoints.up('lg')]: {
         flexShrink: 0,
         width: DRAWER_WIDTH,
-        backgroundColor: theme.palette.grey[300],
+        backgroundColor: theme.palette.grey[0],
     }
 }));
 

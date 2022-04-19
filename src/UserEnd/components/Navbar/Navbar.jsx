@@ -11,12 +11,41 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import {Link} from 'react-router-dom';
-import {Paper} from '@mui/material';
+import {Link as RouterLink, Link} from 'react-router-dom';
+import {Divider, Paper} from '@mui/material';
 import ProfileCard from '../Utils/ProfileCard.jsx';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import NotificationSection from './NotificationSection';
+import Logo_svg from "../../../Utils/static/logo.svg";
+import Stack from "@mui/material/Stack";
+import {alpha} from "@mui/material/styles";
+import account from "../../../SuperAdminEnd/_mocks_/Lists/account";
+import homeFill from "@iconify/icons-eva/home-fill";
+import personFill from "@iconify/icons-eva/person-fill";
+import settings2Fill from "@iconify/icons-eva/settings-2-fill";
+import MenuPopover from "../../../SuperAdminEnd/components/MenuPopover";
+import {Icon} from "@iconify/react/dist/iconify";
+import {useRef, useState} from "react";
 
+
+const MENU_OPTIONS = [
+  {
+    label: 'Home',
+    icon: homeFill,
+    linkTo: '/user/home'
+  },
+  {
+    label: 'Profile',
+    icon: personFill,
+    linkTo: 'studentProfileSettings'
+
+  },
+  {
+    label: 'Settings',
+    icon: settings2Fill,
+    linkTo: 'studentAccountSettings'
+  }
+];
 
 const ResponsiveAppBar = (props) => {
   const settings = props.settings;
@@ -36,6 +65,16 @@ const ResponsiveAppBar = (props) => {
 
   };
 
+  const anchorRef = useRef(null);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -43,18 +82,22 @@ const ResponsiveAppBar = (props) => {
   return (
 
     <Paper elevation={2} >
-      <AppBar position="fixed" color='info'>
+      <AppBar position="fixed" color='grey'>
         <Container maxWidth="100%">
           <Toolbar disableGutters>
-            <Link to="/" style={{ textDecoration: 'none', color: 'white', backgroundImage: '' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'black', backgroundImage: '' }}>
+              <Stack direction={'row'} justifyContent={'center'}>
+
+              <Box component="img" src={Logo_svg} sx={{ width: 40, height: 40 }} />
               <Typography
                 variant="h6"
                 noWrap
                 component="div"
-                sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                sx={{ mr: 15,ml:3 ,mt:0.8, display: { xs: 'none', md: 'flex'} }}
               >
                 Idea Incubator
               </Typography>
+              </Stack>
             </Link>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -111,7 +154,7 @@ const ResponsiveAppBar = (props) => {
                   key={page[0]}
                   onClick={handleCloseNavMenu}
                   variant="primary"
-                  sx={{ m: 1, color: 'white', display: 'block' }}
+                  sx={{ m: 1, color: 'black', display: 'block' }}
                   LinkComponent={Link} to={page[1]}
                 >
                   {page[0]}
@@ -119,41 +162,78 @@ const ResponsiveAppBar = (props) => {
               ))}
             </Box>
 
-            <NotificationSection type='Messages' />
-            <NotificationSection type='Notifications' />
-            <Box sx={{ flexGrow: 0 }}>
+            <NotificationSection type='Messages' sx={{mr:1}} />
+            <NotificationSection type='Notifications' sx={{mr:1}} />
+            <Box sx={{ flexGrow: 0,  ml:1}}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'white' }} >
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                  <ArrowDropDownIcon fontSize='large' />
+                <IconButton
+                    ref={anchorRef}
+                    onClick={handleOpen}
+                    sx={{
+                      padding: 0,
+                      width: 44,
+                      height: 44,
+                      ...(open && {
+                        '&:before': {
+                          zIndex: 1,
+                          content: "''",
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: '50%',
+                          position: 'absolute',
+                          bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72)
+                        }
+                      })
+                    }}
+                >
+                  <Avatar src={account.photoURL} alt="photoURL"/>
                 </IconButton>
               </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+              <MenuPopover
+                  open={open}
+                  onClose={handleClose}
+                  anchorEl={anchorRef.current}
+                  sx={{width: 220}}
               >
-                <ProfileCard name={"Abbas Ali"} closeFunction={handleCloseUserMenu} />
-                {settings.map((setting) => (
-                  <Link key={setting[1]} to={setting[1]} style={{ textDecoration: 'none', color: '#333' }}>
-                    <MenuItem onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting[0]}</Typography>
+                <Box sx={{my: 1.5, px: 2.5}}>
+                  <Typography variant="subtitle1" noWrap>
+                    {account.displayName}
+                  </Typography>
+                  <Typography variant="body2" sx={{color: 'text.secondary'}} noWrap>
+                    {account.email}
+                  </Typography>
+                </Box>
+
+                <Divider sx={{my: 1}}/>
+
+                {MENU_OPTIONS.map((option) => (
+                    <MenuItem
+                        key={option.label}
+                        to={option.linkTo}
+                        component={RouterLink}
+                        onClick={handleClose}
+                        sx={{typography: 'body2', py: 1, px: 2.5}}
+                    >
+                      <Box
+                          component={Icon}
+                          icon={option.icon}
+                          sx={{
+                            mr: 2,
+                            width: 24,
+                            height: 24
+                          }}
+                      />
+
+                      {option.label}
                     </MenuItem>
-                  </Link>
                 ))}
 
-              </Menu>
+                <Box sx={{p: 2, pt: 1.5}}>
+                  <Button fullWidth color="inherit" variant="outlined">
+                    Logout
+                  </Button>
+                </Box>
+              </MenuPopover>
             </Box>
           </Toolbar>
         </Container>

@@ -48,7 +48,7 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function AdminDetails({LIST}) {
+function AdminDetails() {
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
 

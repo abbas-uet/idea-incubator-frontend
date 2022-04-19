@@ -5,6 +5,7 @@ import plusFill from '@iconify/icons-eva/plus-fill';
 
 // material
 import {
+    Avatar,
     Button,
     Card,
     Checkbox,
@@ -27,11 +28,13 @@ import BreadCrumb from "../components/_dashboard/BreadCrumb";
 import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 import AddNew from "../components/_dashboard/Create New/AddNew";
 import {applySortFilter, getComparator} from "../../Utils/SortUtilityFunctions";
+import {getThreeTableAllById, getThreeTableLimit, getTwoTableAll} from "../../ApiServices/getData";
+import AvatarGroup from "@mui/material/AvatarGroup";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-    {id: 'id', label: 'Id', alignRight: false},
+        {id: 'id', label: 'Id', alignRight: false},
         {id: 'username', label: 'User Name', alignRight: false},
         {id: 'email', label: 'Email', alignRight: false},
         {id: 'projectname', label: 'Project Name', alignRight: false},
@@ -45,8 +48,20 @@ export default function AdminUsers({cardObj}) {
     //LIST OF TABLE CONTENT
     const [LIST,setLIST]=useState([]);
 
-    useEffect(() => {
-
+    useEffect(async () => {
+        const response = await getTwoTableAll('user', 'idea');
+        response.data.subusers=[];
+        if (response.status === 200) {
+            response.data.map(async e => {
+                const response1 = await getThreeTableAllById('user', 'idea', 'subUser',e.ideaId)
+                if(response1.status===200){
+                    return e.subusers=response1.data
+                }
+            })
+            setLIST(response.data);
+        } else {
+            console.log(response.status);
+        }
     },[]);
 
 
@@ -192,12 +207,14 @@ export default function AdminUsers({cardObj}) {
                                 {filteredUsers
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
-                                        let {id, username, email, projectname, subusers} = row;
+                                        let {userid, username, email, Idea,subusers} = row;
+
+                                        console.log(row);
                                         let isItemSelected = selected.indexOf(username) !== -1;
                                         return (
                                             <TableRow
                                                 hover
-                                                key={id}
+                                                key={userid}
                                                 tabIndex={-1}
                                                 role="checkbox"
                                                 selected={isItemSelected}
@@ -209,16 +226,20 @@ export default function AdminUsers({cardObj}) {
                                                         onChange={(event) => handleClick(event, username)}
                                                     />
                                                 </TableCell>
-                                                <TableCell align="left">{id}</TableCell>
+                                                <TableCell align="left">{userid}</TableCell>
                                                 <TableCell align="left">{username}</TableCell>
                                                 <TableCell align="left">{email}</TableCell>
-                                                <TableCell align="left">{projectname}</TableCell>
+                                                <TableCell align="left">{Idea.projectname}</TableCell>
                                                 <TableCell align="left">
-                                                    {subusers}
+                                                    <AvatarGroup max={3}>
+                                                        {subusers&&subusers.map( e=>{
+                                                           return < Avatar alt={e.fullname} src="" />
+                                                        }
+                                                        )}
+                                                    </AvatarGroup>
                                                 </TableCell>
-
                                                 <TableCell align="right">
-                                                    <UserMoreMenu pageName={"Users"} id={id}/>
+                                                    <UserMoreMenu pageName={"Users"} id={userid}/>
                                                 </TableCell>
                                             </TableRow>
                                         );
