@@ -8,7 +8,8 @@ import Industry from "./UserEnd/components/Industry/Industry";
 import Assest from "./UserEnd/components/Assest/Assest";
 import AssestDetail from "./UserEnd/components/Utils/AssestDetail";
 import IdeaPool from "./UserEnd/components/IdeaPool/IdeaPool";
-import TalentPool from "./UserEnd/components/TalentPool/TalentPool";
+import Talent from'./UserEnd/components/Talent/Talent'
+
 import Help from "./UserEnd/components/Help/Help";
 import StudentAccountSetting from "./UserEnd/components/Profile Setting/Account Setting/StudentAccountSetting";
 import StudentProfileSetting from "./UserEnd/components/Profile Setting/Profile/StudentProfileSetting";
@@ -58,6 +59,10 @@ import SubUsersMain from "./UserEnd/components/Profile Setting/Account Setting/S
 import NotificationSettings
     from "./UserEnd/components/Profile Setting/Account Setting/NotificationSettings/NotificationSettings";
 import AdminIdeas from "./AdminEnd/pages/AdminIdeas";
+import MD from './UserEnd/components/Utils/MentorDetails';
+import ID from './UserEnd/components/Utils/IndustryDetails';
+import TD from './UserEnd/components/Utils/TalentDetails'
+
 
 
 const cardObj = [
@@ -130,11 +135,16 @@ function App() {
                     <Route path={'user'} element={<UserIndex/>}>
                         <Route path="home" element={<DashBoard/>}/>
                         <Route path="mentors" element={<Mentors/>}/>
+                        <Route path="mentors/viewMentors" element={<MD/>}/>
+
                         <Route path="industry" element={<Industry/>}/>
+                        <Route path="industry/viewIndustry" element={<ID/>}/>
+
                         <Route path="assest" element={<Assest/>}/>
                         <Route path="assest/viewAssest" element={<AssestDetail/>}/>
                         <Route path="ideaPool" element={<IdeaPool/>}/>
-                        <Route path="talentPool" element={<TalentPool/>}/>
+                        <Route path="talentPool" element={<Talent/>}/>
+                        <Route path="talentPool/viewTalent" element={<TD/>}/>
                         <Route path="help" element={<Help/>}/>
 
                         <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>

@@ -15,18 +15,19 @@ const useStyle = makeStyles({
 export default function ProfileSetting() {
     const classes = useStyle()
     return (
-        <Page title={"Account Payment | Idea Incubator"} >
-            <Container>
-        <Paper elevation={22} >
+        <Page title={"Account Payment | Idea Incubator"}  >
+            <Container  >
 
-            <Grid container justifyContent='center'  >
-                <Grid item xs={12} sm={10} className={classes.container} sx={{ margin: 3, backgroundColor: 'white' }} >
+
+            <Grid container justifyContent='center'>
+                <Grid md={12}>`</Grid>
+                <Grid item xs={12} sm={12} className={classes.container} sx={{ margin: 8, backgroundColor: 'white' }} >
                      <ForStudent />
                     {/* <ForIndustry /> */}
                     {/*<ForMentors />*/}
                 </Grid>
             </Grid>
-        </Paper>
+
             </Container>
         </Page>
     )

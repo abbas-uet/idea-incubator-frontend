@@ -1,7 +1,8 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
-import {Button, TextField} from "@mui/material";
+import {Avatar, Button, TextField} from "@mui/material";
 import {Box} from "@mui/system";
+import Stack from '@mui/material/Stack'
 import Typography from "@mui/material/Typography";
 import SaveIcon from '@mui/icons-material/Save';
 
@@ -12,8 +13,10 @@ export default function Help() {
             <Grid item md={1}>
             </Grid>
             <Grid item md={10}>
+
                 <Box textAlign="left" marginTop={2} padding={3}>
-                    <Grid container spacing="3">
+
+                    <Grid container spacing="3" >
                         <Grid item xs={12} md={12}>
                             <Typography variant='h3'>Get Help</Typography>
                         </Grid>
@@ -27,6 +30,7 @@ export default function Help() {
                         <Grid item xs={12} md={12}><Button variant="contained" component="label">Attach File
                             <input type="file" hidden size="large" /></Button></Grid>
                     </Grid>
+
                 </Box>
                 <Box textAlign="right" marginBottom={3} paddingRight={3}><Button color="secondary" startIcon={<SaveIcon />} variant="contained" size="large">Send Request
                 </Button></Box>

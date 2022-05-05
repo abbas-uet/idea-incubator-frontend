@@ -93,10 +93,18 @@ const CHART_COLORS = {
     yellow: ['#FFE700', '#FFEF5A', '#FFF7AE', '#FFF3D6'],
     red: ['#FF6C40', '#FF8F6D', '#FFBD98', '#FFF2D4']
 };
+const tertiary={
+   main:'#02025f'
+};
+const app={
+   main: '#74CAFF'
+};
 
 const palette = {
     common: {black: '#000', white: '#fff'},
     primary: {...PRIMARY},
+    tertiary:{...tertiary},
+    app:{...app},
     secondary: {...SECONDARY},
     info: {...INFO},
     success: {...SUCCESS},

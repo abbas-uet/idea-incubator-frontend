@@ -89,14 +89,14 @@ export default function PaymentInformationForm() {
 
             <Grid container spacing={2}>
                 <Grid item xs={12} container justifyContent="flex-end" >
-                    < Button variant='contained' color='secondary' startIcon={<AddCardIcon />} size='large' onClick={handleClickOpen}>
+                    < Button variant='contained' color='inherit' startIcon={<AddCardIcon />} size='large' onClick={handleClickOpen}>
                         Add New Card
                     </Button>
                 </Grid>
                 <Grid item xs={12}>
-                    <Card sx={{ width: '100%', backgroundColor: 'whitesmoke' }}>
+                    <Card sx={{ width: '100%', backgroundColor: '#f8f8f8' }}>
                         <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                            <Typography gutterBottom variant="h6" component="div" sx={{ml:2}}>
                                 Payment Methods
                             </Typography>
                             <CardsComponent cardsArray={cardsArray} deleteCard={handleRemove} />
@@ -124,7 +124,7 @@ export default function PaymentInformationForm() {
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} variant='contained' color='secondary' size="small" sx={{ m: 1 }} startIcon={<AddCardIcon />}>Add</Button>
+                    <Button onClick={handleClose} variant='contained' color='primary' size="medium" sx={{ m: 1 }} startIcon={<AddCardIcon />}>Add</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -6,6 +6,7 @@ import {
     InputLabel,
     MenuItem,
     Radio,
+    Stack,
     RadioGroup,
     Select,
     Slider,
@@ -56,12 +57,14 @@ export default function StepOneForm() {
     };
 
     return (
-        <Grid container justifyContent='center' spacing={4}>
-            <Grid item xs={12} md={5}>
-                <Typography variant='h6'>Please Select your Reason for Leaving?</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <FormControl component="fieldset">
+        <Grid container justifyContent='left' spacing={4}>
+            <Grid item xs={12} md={12} ml={5}>
+                <Stack direction={'row'} spacing={12}>
+
+                <Typography variant='subtitle2' sx={{mt:1}}>Please Select your Reason for Leaving?</Typography>
+
+
+                <FormControl component="fieldset" >
                     <RadioGroup
                         aria-label="gender"
                         defaultValue="female"
@@ -69,20 +72,23 @@ export default function StepOneForm() {
                         value={SelectedReason}
                     >
                         {Fields.map(item => {
-                            return <FormControlLabel value={item.value} control={<Radio />} label={item.label} onChange={handleReasonChange} />
+                            return <FormControlLabel  sx={{fontSize:10}} value={item.value} control={<Radio />} label={item.label} onChange={handleReasonChange} />
                         })}
                     </RadioGroup>
                 </FormControl>
+                </Stack>
             </Grid>
+            <Grid item xs={12} md={4} sx={{ml:5,mr:7}}>
+                <Typography variant='subtitle2'>Which Alternate Solution you will Use?</Typography>
+            </Grid>
+
             <Grid item xs={12} md={5}>
-                <Typography variant='h6'>Which Alternate Solution you will Use?</Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <FormControl fullWidth>
+                <FormControl sx={{width:'45ch'}}>
                     <InputLabel id="demo-simple-select-helper-label">Other Solution</InputLabel>
                     <Select
                         labelId="demo-simple-select-helper-label"
                         id="demo-simple-select-helper"
+                        size='medium'
                         value={otherSolution}
                         label="Other Solution"
                         onChange={handleChangeSolution}
@@ -96,15 +102,16 @@ export default function StepOneForm() {
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} md={5}>
-                <Typography variant='h6'>How Likely will you come?</Typography>
+            <Grid item xs={12} md={4}sx={{ml:5,mr:7}}>
+                <Typography variant='subtitle2'>How Likely will you come?</Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} sx={{pr:4}}>
                 <Slider
                     value={returnChancesvalue}
                     defaultValue={5}
                     step={1}
                     marks
+                    size="medium"
                     min={0}
                     max={10}
                     valueLabelDisplay="auto"
@@ -112,15 +119,17 @@ export default function StepOneForm() {
                     color='secondary'
                 />
             </Grid>
-            <Grid item xs={12} md={5}>
-                <Typography variant='h6'>Anything else you would like to share about your experience?</Typography>
+
+            <Grid item xs={12} md={4}sx={{ml:5,mr:7}}>
+                <Typography variant='subtitle2'>Anything else you would like to share about your experience?</Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} sx={{pr:2}}>
                 <TextField
+                    sx={{pr:2}}
                     id="filled-multiline-flexible"
                     label="Share Thoughts"
                     multiline
-                    maxRows={4}
+                    rows={4}
                     value={experiencevalue}
                     onChange={handleexperiencevalue}
                     variant="outlined"

@@ -4,6 +4,7 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
+import {Link} from "react-router-dom";
 
 
 export default function IndustryData() {
@@ -57,6 +58,7 @@ export default function IndustryData() {
               color="secondary"
               variant="outlined"
               size="small"
+              LinkComponent={Link} to="viewIndustry"
             >
               View Profile
             </Button>

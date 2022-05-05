@@ -7,6 +7,7 @@ import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
 
 const steps = [
@@ -45,8 +46,8 @@ export default function StepperCard() {
   return (
 
 
-    <Paper elevation={5} sx={{ mt: 2, ml: 2, mb: 1, mr: 1 }}>
-      <Grid container>
+    <Card  sx={{ mt: 2, ml: 2, mb: 1, mr: 1 }}>
+      <Grid container sx={{ml:2,mt:2}}>
         <Grid item sx={{ m: 1 }}>
           <Typography variant="h5" component="div">Memberships</Typography>
         </Grid>
@@ -96,6 +97,6 @@ export default function StepperCard() {
           </Button>
         </Box>
       </Box>
-    </Paper>
+    </Card>
   );
 }

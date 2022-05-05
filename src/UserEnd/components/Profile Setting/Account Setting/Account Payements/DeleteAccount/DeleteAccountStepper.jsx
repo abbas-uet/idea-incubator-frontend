@@ -119,17 +119,21 @@ export default function DeleteAccountStepper() {
             <Container margin={2}>
                 {activeStep === 0 ? <StepOne /> : activeStep === 1 ? <StepTwo /> : <StepThree />}
             </Container>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2,ml:20 }}>
                 <Button
                     color="inherit"
+                    variant='contained'
+                    size="medium"
                     disabled={activeStep === 0}
                     onClick={moveBackWard}
-                    sx={{ mr: 1 }}
+
+                    sx={{ ml: 15}}
+
                 >
                     Back
                 </Button>
                 <Box sx={{ flex: '1 1 auto' }} />
-                <Button onClick={moveForward} color='warning' variant='outlined'>
+                <Button sx={{mr:15}}onClick={moveForward} color='primary' variant='contained' size="medium">
                     {activeStep === steps.length - 1 ? 'Delete' : 'Next'}
                 </Button>
             </Box>

@@ -60,22 +60,19 @@ export default function SubUsersMain() {
     return (
         <Page title={"Account Payment | Idea Incubator"} >
             <Container>
-            <Grid container spacing={2} direction={'row'}>
+            <Grid container spacing={3} direction={'row'}>
                 <Grid item xs={12} container justifyContent="flex-end" >
-                    < Button variant='contained' color='secondary' startIcon={<AddModeratorOutlinedIcon />} size='large' onClick={handleClickOpen}>
+                    < Button variant='contained' color='inherit' startIcon={<AddModeratorOutlinedIcon />} size='large' onClick={handleClickOpen}>
                         Invite Sub Users
                     </Button>
                 </Grid>
-                <Grid item xs={12} md={3} sm={6}>
+                <Grid item xs={12} md={4} sm={6}>
                     <SubUsersCardComponent />
                 </Grid>
-                <Grid item xs={12} md={3} sm={6} >
+                <Grid item xs={12} md={4} sm={6} >
                     <SubUsersCardComponent />
                 </Grid>
-                <Grid item xs={12} md={3} sm={6} >
-                    <SubUsersCardComponent />
-                </Grid>
-                <Grid item xs={12} md={3} sm={6} >
+                <Grid item xs={12} md={4} sm={6} >
                     <SubUsersCardComponent />
                 </Grid>
             </Grid>
@@ -96,8 +93,8 @@ export default function SubUsersMain() {
                     <TextField id="outlined-basic" label="Email" variant="outlined" required fullWidth={true} />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} variant='contained' color='secondary' size="small" sx={{ m: 1 }}>Cancel</Button>
-                    <Button onClick={handleClose} variant='contained' color='secondary' size="small" sx={{ m: 1 }}>Send Invite</Button>
+                    <Button onClick={handleClose} variant='outlined' color='error' size="small" sx={{ m: 1 }}>Cancel</Button>
+                    <Button onClick={handleClose} variant='contained' color='primary' size="small" sx={{ m: 1 }}>Send Invite</Button>
                 </DialogActions>
             </Dialog>
             </Container>

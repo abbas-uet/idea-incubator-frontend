@@ -4,6 +4,8 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
+import userimg from '../../StaticAssets/userimg.jpg';
+import {Link} from "react-router-dom";
 
 export default function MentorData() {
   return (
@@ -14,7 +16,7 @@ export default function MentorData() {
             <Avatar
               variant="rounded"
               sx={{ height: "100px", width: "100px", mt: 2, ml: 2 }}
-              src="https://images.unsplash.com/photo-1529612700005-e35377bf1415?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+              src="https://www.kellyservices.co.uk/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL3pwSFE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--7fe793d1c1dc380da4af424693aae9b6861912ab/pexels-andrea-piacquadio-733872.jpg"
               alt="Paella dish"
             ></Avatar>
           </Grid >
@@ -34,6 +36,7 @@ export default function MentorData() {
             Sehar Asghar
           </Typography>
 
+
           <Typography
             variant="subtitle2"
             fontWeight={"fontWeightBold"}
@@ -47,14 +50,15 @@ export default function MentorData() {
               variant="body2"
               component="div"
             >
-              PF |OOP| Data Structure
+              11am-1pm
             </Typography>
             </Grid>
             <Grid item md={6}>         <Button
-              sx={{ ml: 3, mr: 1 }}
+              sx={{ ml: 4, mr: 1,mt:0 }}
               color="secondary"
               variant="outlined"
               size="small"
+              LinkComponent={Link} to="viewMentors"
             >
               View Profile
             </Button>

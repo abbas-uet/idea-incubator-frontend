@@ -5,7 +5,7 @@ import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices
 import Favorite from "@mui/icons-material/Favorite";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Button from "@mui/material/Button";
-
+import assest from '../../StaticAssets/assest.png'
 export default function AssestsData() {
   return (
     <Paper sx={{ ml: 1.2, mr: 0.7 }}>
@@ -15,7 +15,7 @@ export default function AssestsData() {
             <Avatar
               variant="rounded"
               sx={{ height: "100px", width: "100px", mt: 2, ml: 2 }}
-              src="https://images.unsplash.com/photo-1529612700005-e35377bf1415?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+              src={assest}
               alt="Paella dish"
             ></Avatar>
           </Grid>

@@ -7,68 +7,6 @@ import Button from "@mui/material/Button";
 import SearchBar from "./SearchBar/SearchBar";
 import Slider from "@mui/material/Slider";
 import MentorData from "../Utils/MentorData";
-
-// const mentorsProfilesData = [
-//   {
-//     name: "Abbas Ali",
-//     location: "CS Department",
-//     Hours: "9am to 12pm",
-//     email: "ali7956@gmail.com",
-//     study: "BS in computer science and PHD in Machine learning",
-//     skills: ["Opp", "Data", "Structure"],
-//   },
-//   {
-//     name: "Abbas Ali",
-//     location: "CS Department",
-//     Hours: "9am to 12pm",
-//     email: "ali7956@gmail.com",
-//     study: "BS in computer science and PHD in Machine learning",
-//     skills: ["Opp", "Data", "Structure"],
-//   },
-//   {
-//     name: "Abbas Ali",
-//     location: "CS Department",
-//     Hours: "9am to 12pm",
-//     email: "ali7956@gmail.com",
-//     study: "BS in computer science and PHD in Machine learning",
-//     skills: ["Opp", "Data", "Structure"],
-//   },
-//   {
-//     name: "Abbas Ali",
-//     location: "CS Department",
-//     Hours: "9am to 12pm",
-//     email: "ali7956@gmail.com",
-//     study: "BS in computer science and PHD in Machine learning",
-//     skills: ["Opp", "Data", "Structure"],
-//   },
-//   {
-//     name: "Abbas Ali",
-//     location: "CS Department",
-//     Hours: "9am to 12pm",
-//     email: "ali7956@gmail.com",
-//     study: "BS in computer science and PHD in Machine learning",
-//     skills: ["Opp", "Data", "Structure"],
-//   },
-//   {
-//     name: "Abbas Ali",
-//     location: "CS Department",
-//     Hours: "9am to 12pm",
-//     email: "ali7956@gmail.com",
-//     study: "BS in computer science and PHD in Machine learning",
-//     skills: ["Opp", "Data", "Structure"],
-//   },
-//   {
-//     name: "Abbas Ali",
-//     location: "CS Department",
-//     Hours: "9am to 12pm",
-//     email: "ali7956@gmail.com",
-//     study: "BS in computer science and PHD in Machine learning",
-//     skills: ["Opp", "Data", "Structure"],
-//   },
-// ];
-
-
-
 export default function MentorPage() {
   const [value, setValue] = React.useState([8, 16]);
   const handleChange = (event, newValue) => {
@@ -81,12 +19,12 @@ export default function MentorPage() {
           <Grid item xs={12} md={6}>
             <SearchBar title="Search by name" />
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={5} sx={{mt:1}}>
             <SearchBar title="Search by location" />
           </Grid>
           <Grid item xs={1} md={1}>
             <Button
-              sx={{ mt: 1, mb: 1, ml: 2 }}
+              sx={{  mb: 1, ml: 1 }}
               variant="contained"
               color="secondary"
               disableElevation

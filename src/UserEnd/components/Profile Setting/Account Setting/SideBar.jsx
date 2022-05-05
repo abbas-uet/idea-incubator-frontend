@@ -31,11 +31,6 @@ const sidebarConfig = [
         icon: getIcon(pieChart2Fill)
     },
     {
-        title: 'Profile Details',
-        path: '/user/studentAccountSettings/profile_details',
-        icon: getIcon(shoppingBagFill)
-    },
-    {
         title: 'Sub Users',
         path: '/user/studentAccountSettings/sub_users',
         icon: getIcon(shoppingBagFill)
@@ -96,12 +91,13 @@ export default function UserSidebar({isOpenSidebar, onCloseSidebar}) {
         <Scrollbar
             sx={{
                 height: '100%',
+                mt:8,
                 '& .simplebar-content': {height: '100%', display: 'flex', flexDirection: 'column'}
             }}
         >
 
 
-            <Box sx={{mb: 5, mx: 2.5,mt:2}}>
+            {/* <Box sx={{mb: 5, mx: 2.5,mt:2}}>
                 <Link underline="none" component={RouterLink} to="#">
                     <AccountStyle>
                         <Avatar src={account.photoURL} alt="photoURL"/>
@@ -115,7 +111,7 @@ export default function UserSidebar({isOpenSidebar, onCloseSidebar}) {
                         </Box>
                     </AccountStyle>
                 </Link>
-            </Box>
+            </Box> */}
 
             <NavSection navConfig={sidebarConfig}/>
         </Scrollbar>
@@ -135,7 +131,6 @@ export default function UserSidebar({isOpenSidebar, onCloseSidebar}) {
                     {renderContent}
                 </Box>
             </MHidden>
-
             <MHidden width="lgDown">
                 <Box
                     open

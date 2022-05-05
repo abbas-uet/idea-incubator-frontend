@@ -13,8 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link as RouterLink, Link} from 'react-router-dom';
 import {Divider, Paper} from '@mui/material';
-import ProfileCard from '../Utils/ProfileCard.jsx';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import NotificationSection from './NotificationSection';
 import Logo_svg from "../../../Utils/static/logo.svg";
 import Stack from "@mui/material/Stack";
@@ -28,6 +26,10 @@ import {Icon} from "@iconify/react/dist/iconify";
 import {useRef, useState} from "react";
 
 
+
+
+
+
 const MENU_OPTIONS = [
   {
     label: 'Home',
@@ -38,7 +40,6 @@ const MENU_OPTIONS = [
     label: 'Profile',
     icon: personFill,
     linkTo: 'studentProfileSettings'
-
   },
   {
     label: 'Settings',
@@ -82,10 +83,10 @@ const ResponsiveAppBar = (props) => {
   return (
 
     <Paper elevation={2} >
-      <AppBar position="fixed" color='grey'>
+      <AppBar position="fixed" color='tertiary'>
         <Container maxWidth="100%">
           <Toolbar disableGutters>
-            <Link to="/" style={{ textDecoration: 'none', color: 'black', backgroundImage: '' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'white', backgroundImage: '' }}>
               <Stack direction={'row'} justifyContent={'center'}>
 
               <Box component="img" src={Logo_svg} sx={{ width: 40, height: 40 }} />
@@ -135,7 +136,6 @@ const ResponsiveAppBar = (props) => {
                       <Typography textAlign="center">{page[0]}</Typography>
                     </MenuItem>
                   </Link>
-
                 ))}
               </Menu>
             </Box>
@@ -154,14 +154,13 @@ const ResponsiveAppBar = (props) => {
                   key={page[0]}
                   onClick={handleCloseNavMenu}
                   variant="primary"
-                  sx={{ m: 1, color: 'black', display: 'block' }}
+                  sx={{ m: 1, color: 'white', display: 'block' }}
                   LinkComponent={Link} to={page[1]}
                 >
                   {page[0]}
                 </Button>
               ))}
             </Box>
-
             <NotificationSection type='Messages' sx={{mr:1}} />
             <NotificationSection type='Notifications' sx={{mr:1}} />
             <Box sx={{ flexGrow: 0,  ml:1}}>
@@ -229,7 +228,7 @@ const ResponsiveAppBar = (props) => {
                 ))}
 
                 <Box sx={{p: 2, pt: 1.5}}>
-                  <Button fullWidth color="inherit" variant="outlined">
+                  <Button fullWidth color="tertiary" variant="outlined">
                     Logout
                   </Button>
                 </Box>
@@ -238,8 +237,7 @@ const ResponsiveAppBar = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
-    </Paper >
-
+    </Paper>
   );
 };
 export default ResponsiveAppBar;

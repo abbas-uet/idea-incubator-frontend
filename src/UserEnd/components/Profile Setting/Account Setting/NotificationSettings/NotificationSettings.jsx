@@ -1,7 +1,19 @@
 import React from 'react'
-import {FormControlLabel, Grid, Switch, Typography} from '@mui/material'
+import {
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    Checkbox,
+    Divider,
+    FormControlLabel,
+    Grid,
+    Switch,
+    Typography
+} from '@mui/material'
 import Page from "../../../../../SuperAdminEnd/components/Page";
 import Container from "@mui/material/Container";
+import {Box} from "@mui/system";
 
 export default function NotificationSettings() {
     const [CheckBoxes, setCheckBoxes] = React.useState({email: false, sms: false, inApp: false})
@@ -31,41 +43,127 @@ export default function NotificationSettings() {
     }
     return (
         <Page title={"Account Payment | Idea Incubator"}>
-            <Container>
-                <Grid container sx={{minWidth: 1070}} spacing={4}>
-                    <Grid item xs={12}>
-                        <Typography variant='h5' component='div'>Notification Settings</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant='h6' component='div' color='secondary' sx={{marginLeft: 2}}>Get Notification
-                            By Email</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={<Switch value={CheckBoxes.email} onChange={handleEmail} color='secondary'/>}
-                            label="Do you want to Get Notifications through Mail?" sx={{marginLeft: 4}}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant='h6' component='div' color='secondary' sx={{marginLeft: 2}}>Get Notification
-                            By SMS</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={<Switch value={CheckBoxes.email} onChange={handleSMS} color='secondary'/>}
-                            label="Do you want to Get Notifications through SMS?" sx={{marginLeft: 4}}/>
-                    </Grid>
-
-                    <Grid item xs={12}>
-                        <Typography variant='h6' component='div' color='secondary' sx={{marginLeft: 2}}>Get Notification
-                            On Site</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={<Switch value={CheckBoxes.inApp} onChange={handleInApp} color='secondary'/>}
-                            label="Do you want to Get Notifications through Website?" sx={{marginLeft: 4}}/>
-                    </Grid>
-                </Grid>
-            </Container>
+            <form >
+                <Card>
+                    <CardHeader
+                        subheader="Manage the notifications"
+                        title="Notifications"
+                    />
+                    <Divider />
+                    <CardContent>
+                        <Grid
+                            container
+                            spacing={6}
+                            wrap="wrap"
+                        >
+                            <Grid
+                                item
+                                md={4}
+                                sm={6}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column'
+                                }}
+                                xs={12}
+                            >
+                                <Typography
+                                    color="textPrimary"
+                                    gutterBottom
+                                    variant="h6"
+                                >
+                                    Notifications
+                                </Typography>
+                                <FormControlLabel
+                                    control={(
+                                        <Checkbox
+                                            color="primary"
+                                            defaultChecked
+                                        />
+                                    )}
+                                    label="Email"
+                                />
+                                <FormControlLabel
+                                    control={(
+                                        <Checkbox
+                                            color="primary"
+                                            defaultChecked
+                                        />
+                                    )}
+                                    label="Push Notifications"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox />}
+                                    label="Text Messages"
+                                />
+                                <FormControlLabel
+                                    control={(
+                                        <Checkbox
+                                            color="primary"
+                                            defaultChecked
+                                        />
+                                    )}
+                                    label="Phone calls"
+                                />
+                            </Grid>
+                            <Grid
+                                item
+                                md={4}
+                                sm={6}
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column'
+                                }}
+                                xs={12}
+                            >
+                                <Typography
+                                    color="textPrimary"
+                                    gutterBottom
+                                    variant="h6"
+                                >
+                                    Messages
+                                </Typography>
+                                <FormControlLabel
+                                    control={(
+                                        <Checkbox
+                                            color="primary"
+                                            defaultChecked
+                                        />
+                                    )}
+                                    label="Email"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox />}
+                                    label="Push Notifications"
+                                />
+                                <FormControlLabel
+                                    control={(
+                                        <Checkbox
+                                            color="primary"
+                                            defaultChecked
+                                        />
+                                    )}
+                                    label="Phone calls"
+                                />
+                            </Grid>
+                        </Grid>
+                    </CardContent>
+                    <Divider />
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            p: 2
+                        }}
+                    >
+                        <Button
+                            color="primary"
+                            variant="contained"
+                        >
+                            Save
+                        </Button>
+                    </Box>
+                </Card>
+            </form>
         </Page>
     )
 }

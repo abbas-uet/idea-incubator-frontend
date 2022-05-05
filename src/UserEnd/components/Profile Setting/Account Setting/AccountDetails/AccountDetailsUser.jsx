@@ -25,6 +25,11 @@ import SubUsersList from './SubUsersList.jsx';
 import {blue} from '@mui/material/colors';
 import Page from "../../../../../SuperAdminEnd/components/Page";
 import Container from "@mui/material/Container";
+import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
+import CardContent from '@mui/material/CardContent';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField'
 
 
 const SmallAvatar = styled(Avatar)(({theme}) => ({
@@ -84,42 +89,20 @@ export default function AccountDetailsUser() {
                 noValidate
             >
                 <Card>
-
+                <CardHeader sx={{ ml: 1 }} title="Account Detail" />
+            <Divider />
+            <CardContent>
+              <Grid container spacing={2}>
                     <Container>
 
                         <Grid conainer spacing={2} direction={'row'}>
-                            <Typography variant="h4" xs={12} md={12} sm={12}>
-                                Account Details
-                            </Typography>
 
                             <Grid item container spacing={2} alignItems={'center'} justifyContent={'space-evenly'}>
-                                <Grid item xs={12} md={2} sm={2}>
-                                    <Box
-                                        display="flex"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        padding={2}
-                                        m={1}
-                                    >
-                                        <Badge
-                                            overlap="circular"
-                                            anchorOrigin={{vertical: "bottom", horizontal: "right"}}
-                                            badgeContent={
-                                                <SmallAvatar>
-                                                    <EditIcon/>
-                                                </SmallAvatar>
-                                            }
-                                        >
-                                            <Avatar sx={{width: 150, height: 150}}>
-                                                <PersonIcon sx={{fontSize: "11rem"}}/>
-                                            </Avatar>
-                                        </Badge>
-                                    </Box>
-                                </Grid>
-                                <Grid item container xs={12} md={7} sm={7} spacing={4}>
-                                    <Grid item xs={12} md={12} sm={12} lg={12}>
-                                        <FormControl fullWidth sx={{m: 1}} variant="filled">
-                                            <InputLabel htmlFor="filled-adornment-amount">AdminOptions Name</InputLabel>
+                                <Grid item container xs={12} md={12} sm={12} spacing={2.5} sx={{mt:1.5,}}>
+                                    <Grid item xs={12} md={4} sm={12} lg={4}  sx={{mr:2}}>
+
+                                        <FormControl  sx={{m: 1}} fullWidth variant="filled">
+                                            <InputLabel htmlFor="filled-adornment-amount" mb-1>User Name</InputLabel>
                                             <FilledInput
                                                 id="outlined-adornment-password"
                                                 type={'text'}
@@ -138,18 +121,18 @@ export default function AccountDetailsUser() {
                                                             onClick={handleClickEditUserName}
                                                             onMouseDown={handleMouseEditUserName}
                                                             edge="end"
-                                                        >
+                                                            >
                                                             <EditIcon/>
                                                         </IconButton>
                                                     </InputAdornment>
                                                 }
 
                                                 label='User Name'
-                                            />
+                                                />
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12} md={12} sm={12} lg={12}>
-                                        <FormControl fullWidth sx={{m: 1}} variant="filled">
+                                    <Grid item xs={12} md={4} sm={12} lg={4} sx={{ml:2}}>
+                                        <FormControl  sx={{m: 1}} fullWidth variant="filled">
                                             <InputLabel htmlFor="filled-adornment-amount">Password</InputLabel>
                                             <FilledInput
                                                 id="outlined-adornment-password"
@@ -171,7 +154,7 @@ export default function AccountDetailsUser() {
                                                             onClick={handleClickShowPassword}
                                                             onMouseDown={handleMouseDownPassword}
                                                             edge="end"
-                                                        >
+                                                            >
                                                             {values.showPassword ? <VisibilityOff/> : <Visibility/>}
                                                         </IconButton>
                                                         <IconButton
@@ -179,44 +162,46 @@ export default function AccountDetailsUser() {
                                                             onClick={handleClickEditPassword}
                                                             onMouseDown={handleMouseEditPassword}
                                                             edge="end"
-                                                        >
+                                                            >
                                                             <EditIcon/>
                                                         </IconButton>
                                                     </InputAdornment>
                                                 }
                                                 label='Password'
-                                            />
+                                                />
                                         </FormControl>
-                                    </Grid>
-                                    <Grid item xs={5} md={5}>
+                                                </Grid>
+                                    <Grid item xs={12} md={4.5}>
+                                        <Stack direction={'row'} spacing={2}>
+
                                         <Typography variant="subtitle2" sx={{ml: 1}}>
-                                            Account Created by
+                                            Account Created by:
                                         </Typography>
-                                    </Grid>
-                                    <Grid item xs={7} md={7}>
-                                        <Typography variant="button" style={{color: 'gray'}}>
+
+                                        <Typography variant="body2" style={{color: 'black'}}>
                                             Abbas Ali
                                         </Typography>
+                                        </Stack>
                                     </Grid>
-                                    <Grid item xs={5} md={5}>
+                                    <Grid item xs={12} md={4}>
+                                        <Stack direction={'row'} spacing={5}>
                                         <Typography variant="subtitle2" sx={{ml: 1}}>
-                                            Date of Creation
+                                            Date of Creation:
                                         </Typography>
-                                    </Grid>
-                                    <Grid item xs={7} md={7}>
-                                        <Typography variant="button" style={{color: 'gray'}}>
+
+                                        <Typography variant="body2" style={{color: 'black'}}>
                                             25/02/2021
                                         </Typography>
-                                    </Grid>
+                                    </Stack>
                                 </Grid>
 
                                 <Grid item xs={12} md={12} justifyContent='right'>
                                     <Box textAlign="right" marginBottom={5} gutterBottom paddingRight={3}>
                                         <Button
-                                            color="secondary"
+                                            color="primary"
                                             startIcon={<SaveIcon/>}
                                             variant="contained"
-                                            size="large"
+                                            size="medium"
                                         >
                                             Save
                                         </Button>
@@ -224,13 +209,16 @@ export default function AccountDetailsUser() {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={12} sm={12}>
-                                <Typography variant="h6" component='div' gutterBottom style={{color: 'gray'}}>
+                                <Typography variant="body1" fontWeight={"bold"} component='div' gutterBottom style={{color: 'black'}}>
                                     Sub Users Details
                                 </Typography>
                                 <SubUsersList/>
                             </Grid>
                         </Grid>
+                        </Grid>
                     </Container>
+                    </Grid>
+                    </CardContent>
                 </Card>
             </form>
         </Page>
