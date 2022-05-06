@@ -59,9 +59,15 @@ import SubUsersMain from "./UserEnd/components/Profile Setting/Account Setting/S
 import NotificationSettings
     from "./UserEnd/components/Profile Setting/Account Setting/NotificationSettings/NotificationSettings";
 import AdminIdeas from "./AdminEnd/pages/AdminIdeas";
+
 import MD from './UserEnd/components/Utils/MentorDetails';
 import ID from './UserEnd/components/Utils/IndustryDetails';
-import TD from './UserEnd/components/Utils/TalentDetails'
+import TD from './UserEnd/components/Utils/TalentDetails';
+
+import AdminAssets from "./AdminEnd/pages/AdminAssets";
+import AdminTalent from "./AdminEnd/pages/AdminTalent";
+import AdminIndustry from "./AdminEnd/pages/AdminIndustry";
+import ChatApp from "./Chat/ChatApp";
 
 
 
@@ -93,6 +99,7 @@ function App() {
                     <Route path="/" element={<Navigate to="login" replace/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'register'} element={<Register/>}/>
+                    <Route path={'chat/:id'} element={<ChatApp/>}/>
 
                     {//
                         //Super Admin Dashboard
@@ -128,6 +135,7 @@ function App() {
 
                             <Route path={'logout'}
                                    element={<Logout/> /* <NotFound />*/}/>
+
                         </Route>
                     </Route>
 
@@ -171,17 +179,16 @@ function App() {
                             <Route path={'ideas/detailsIdeas/:id'} element={<IdeaDetails
                                 LIST={ListofTableContent('Ideas')}/>}/>
                             <Route path={'assets'}
-                                   element={<AdminOptions pageName={'Assets'} cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
+                                   element={<AdminAssets cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
                             <Route path={'assets/detailsAssets/:id'}
                                    element={<AssetDetails LIST={ListofTableContent('Assets')}/>}/>
                             <Route path={'talent'}
-                                   element={<AdminOptions pageName={'Talent'} cardObj={cardObj[0][0]}/>}/>
+                                   element={<AdminTalent cardObj={cardObj[0][0]}/>}/>
                             <Route path={'talent/detailsTalent/:id'} element={<TalentDetails
                                 LIST={ListofTableContent('Talent')}/>}/>
                             <Route path={'industry'}
 
-                                   element={<AdminOptions pageName={'Industry'}
-                                                          cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
+                                   element={<AdminIndustry cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
                             <Route path={'industry/detailsIndustry/:id'} element={<IndustryDetails
                                 LIST={ListofTableContent('Industry')}/>}/>
                             <Route path={'mentors'}

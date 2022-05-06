@@ -8,14 +8,14 @@ export const getTableSingle=async (tableName,id)=>{
     return await axios.get("http://localhost:5000/"+tableName+"s/view_" + tableName + "/" + id)
 }
 
-export const getTwoTableAll=async (tableName1,tableName2)=>{
+export const getTwoTableAll = async (tableName1,tableName2) => {
     return await axios.get("http://localhost:5000/"+tableName1+"s/get_all_" + tableName1 + "_" + tableName2+"s")
 }
-export const getTwoTableSingle=async (tableName1,tableName2,id)=>{
+export const getTwoTableSingle = async (tableName1,tableName2,id) => {
     return await axios.get("http://localhost:5000/"+tableName1+"s/view_" + tableName1 + "_" + tableName2+"s/"+id)
 }
 //Get Last id of the table
-export const getLastId=async (tableName)=>{
+export const getLastId = async (tableName) => {
     return await axios.get("http://localhost:5000/"+tableName+"s/getLastId")
 }
 

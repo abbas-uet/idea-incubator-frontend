@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper"
 import Page from "../../../../SuperAdminEnd/components/Page";
 import Container from "@mui/material/Container";
 import ForMentors from "./ForMentors";
+import ForIndustry from "./FarIndustry";
 
 const useStyle = makeStyles({
     container: {
@@ -19,11 +20,13 @@ export default function ProfileSetting() {
             <Container  >
 
 
+
             <Grid container justifyContent='center'>
                 <Grid md={12}>`</Grid>
                 <Grid item xs={12} sm={12} className={classes.container} sx={{ margin: 8, backgroundColor: 'white' }} >
                      <ForStudent />
                     {/* <ForIndustry /> */}
+
                     {/*<ForMentors />*/}
                 </Grid>
             </Grid>
