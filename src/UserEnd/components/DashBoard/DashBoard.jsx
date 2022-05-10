@@ -11,11 +11,11 @@ import MeetingLinks from './MeetingLinks.jsx'
 export default function DashBoard() {
   return (
     <Grid container sx={{ display: 'flex' }} justifyContent='center'  >
-      <Grid item xs={12} md={6} lg={5}>
+      <Grid item xs={12} md={6} lg={3.5} >
 
         <MonthAgendaView />
       </Grid>
-      <Grid item xs={12} md={4} lg={4} flex justifyContent='center'>
+      <Grid item xs={12} md={4} lg={4.5} flex justifyContent='center'>
           <MeetingLinks />
           <StepperCard />
 
