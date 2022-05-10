@@ -1,6 +1,6 @@
 
 
-import './calendar.css';
+import './calender.css';
 import * as React from 'react';
 import { ScheduleComponent, ViewsDirective, ViewDirective, Day, Week, WorkWeek, Month, Agenda, Inject, Resize, DragAndDrop } from '@syncfusion/ej2-react-schedule';
 
@@ -9,10 +9,11 @@ import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { SampleBase } from './sample-base';
 import { PropertyPane } from './property-pane';
 import * as dataSource from './dataSource.json';
+
 /**
  * Schedule Default sample
  */
-export class Default extends SampleBase {
+export class Calender extends SampleBase {
     scheduleObj;
     data = extend([], dataSource.scheduleData, null, true);
     change(args) {
@@ -24,7 +25,7 @@ export class Default extends SampleBase {
     }
     render() {
         return (<div className='schedule-control-section'>
-            <div className='col-lg-9 control-section'>
+            <div className='col-lg-12 control-section'>
                 <div className='control-wrapper'>
                     <ScheduleComponent height='650px' ref={schedule => this.scheduleObj = schedule} selectedDate={new Date(2021, 0, 10)} eventSettings={{ dataSource: this.data }} dragStart={(this.onDragStart.bind(this))}>
                         <ViewsDirective>
