@@ -1,4 +1,5 @@
 import React from 'react';
+import {Calender} from "./Calender/Calender";
 
 function Home({role}) {
     return (
@@ -6,7 +7,7 @@ function Home({role}) {
 
         {
             role==='mentor'?
-        <div>Mentor Home Here</div>:
+        <div><Calender/></div>:
             <div>Industry Home Here</div>
         }
         </div>
