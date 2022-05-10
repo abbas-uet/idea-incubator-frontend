@@ -5,6 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import MenuItem from "@mui/material/MenuItem";
+import {Link} from "react-router-dom";
 
 export default function MeetingLinks() {
     return (
@@ -15,10 +17,11 @@ export default function MeetingLinks() {
                         Quick Links
                     </Typography>
 
-
-
                 <CardActions style={{ justifyContent: 'center'  }} sx={{mb:1}} >
+                    <Link to={"/user/help"} style={{ textDecoration: 'none', color: '#333' }}>
+
                     <Button variant='contained' color='info' size="medium" sx={{mr:1}}>Contact Admin</Button>
+                    </Link>
                     <Button variant='contained' color='info' size="medium"sx={{mr:1}}>Contact Mentor</Button>
                     <Button variant='contained' color='info' size="medium">Contact Industry</Button>
                 </CardActions>

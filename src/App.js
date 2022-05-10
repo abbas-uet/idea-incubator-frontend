@@ -68,7 +68,13 @@ import AdminAssets from "./AdminEnd/pages/AdminAssets";
 import AdminTalent from "./AdminEnd/pages/AdminTalent";
 import AdminIndustry from "./AdminEnd/pages/AdminIndustry";
 import ChatApp from "./Chat/ChatApp";
+import { registerLicense } from '@syncfusion/ej2-base';
+import MentorIndustryIndex from "./Mentor IndustryEnd/mentorIndustryIndex";
 
+
+import Home from './Mentor IndustryEnd/home';
+import Meetups from "./Mentor IndustryEnd/meetups";
+import Webinars from './Mentor IndustryEnd/webinars';
 
 
 const cardObj = [
@@ -99,6 +105,22 @@ function App() {
                     <Route path="/" element={<Navigate to="login" replace/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'register'} element={<Register/>}/>
+
+
+
+
+
+                    <Route path={'mentor'} element={<MentorIndustryIndex role={'mentor'}/>}>
+                        <Route path="home" element={<Home role={'mentor'}/>}/>
+                        <Route path="meetup" element={<Meetups/>}/>
+                    </Route>
+
+
+                    <Route path={'industry'} element={<MentorIndustryIndex role={'industry'}/>}>
+                        <Route path="home" element={<Home role={'industry'}/>}/>
+                        <Route path="webinar" element={<Webinars/>}/>
+
+                    </Route>
                     <Route path={'chat/:id'} element={<ChatApp/>}/>
 
                     {//
