@@ -1,4 +1,6 @@
-import {render} from 'react-dom';
+
+import { render } from 'react-dom';
+
 import * as React from 'react';
 import {ScheduleComponent, ViewsDirective, ViewDirective, Inject, MonthAgenda} from '@syncfusion/ej2-react-schedule';
 
@@ -15,17 +17,17 @@ import Paper from '@mui/material/Paper';
  */
 export class MonthAgendaView extends SampleBase {
 
-    data = extend([], dataSource.roomData, null, true);
+    data = extend([], dataSource.webinarData, null, true);
 
     render() {
         return (
-            <Paper elevation={5} sx={{mt: 2, ml: 1, mb: 1, mr: 1}}>
+            <Paper elevation={1} sx={{mt: 3, ml: 1, mb: 1, mr: 1}}>
                 <Card>
 
                     <div className='schedule-control-section'>
                         <div className='col-lg-12 control-section'>
                             <div className='control-wrapper schedule-wrapper'>
-                                <ScheduleComponent height='600px' selectedDate={new Date(2021, 7, 2)}
+                                <ScheduleComponent height='545px' selectedDate={new Date(2021, 1, 15)}
                                                    eventSettings={{dataSource: this.data}}>
                                     <ViewsDirective>
                                         <ViewDirective option='MonthAgenda'/>

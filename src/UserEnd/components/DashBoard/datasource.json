@@ -787,7 +787,7 @@
   "webinarData": [
     {
       "Id": 1,
-      "Subject": "Environment Day",
+      "Subject": "Neutral Network Webinar",
       "Tags": "Eco day, Forest conserving, Earth & its resources",
       "Description": "A day that creates awareness to promote the healthy planet and reduce the air pollution crisis on nature earth.",
       "StartTime": "2021-02-15T03:30:00.000Z",
@@ -796,6 +796,30 @@
       "PrimaryColor": "#1aaa55",
       "SecondaryColor": "#47bb76"
     },
+    {
+      "Id": 2,
+      "Subject": "Cyber Security Seminar",
+      "Tags": "Reduce mental stress, Follow good food habits",
+      "Description": "A day that raises awareness on different health issues. It marks the anniversary of the foundation of WHO.",
+      "StartTime": "2021-02-15T05:30:00.000Z",
+      "EndTime": "2021-02-15T10:30:00.000Z",
+      "ImageName": "health-day",
+      "PrimaryColor": "#357cd2",
+      "SecondaryColor": "#5d96db"
+    },
+
+    {
+      "Id": 3,
+      "Subject": "Big Data Analytics Webinar",
+      "Tags": "Reduce mental stress, Follow good food habits",
+      "Description": "A day that raises awareness on different health issues. It marks the anniversary of the foundation of WHO.",
+      "StartTime": "2021-02-15T12:30:00.000Z",
+      "EndTime": "2021-02-15T15:30:00.000Z",
+      "ImageName": "health-day",
+      "PrimaryColor": "#357cd2",
+      "SecondaryColor": "#5d96db"
+    },
+
     {
       "Id": 2,
       "Subject": "Health Day",
@@ -807,6 +831,7 @@
       "PrimaryColor": "#357cd2",
       "SecondaryColor": "#5d96db"
     },
+
     {
       "Id": 3,
       "Subject": "Cancer Day",

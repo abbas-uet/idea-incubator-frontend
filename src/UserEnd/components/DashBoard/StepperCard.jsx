@@ -46,10 +46,10 @@ export default function StepperCard() {
   return (
 
 
-    <Card  sx={{ mt: 2, ml: 1, mb: 1, mr: 1,height:'415px' }}>
+    <Card  sx={{ mt: 2, ml: 1, mb: 1, mr: 1,height:'418px' }}>
       <Grid container sx={{ml:2,mt:2}}>
         <Grid item sx={{ m: 1 }}>
-          <Typography variant="h5" component="div">Memberships</Typography>
+          <Typography variant="h6" component="div">Memberships</Typography>
         </Grid>
       </Grid>
       <Box sx={{ m: 2 }} textAlign='center'  >
@@ -66,7 +66,7 @@ export default function StepperCard() {
                     <Button
                       variant="outlined"
                       color="secondary"
-
+                       size='small'
                       onClick={handleNext}
                       sx={{ mt: 1, mr: 1 }}
                     >
@@ -94,7 +94,7 @@ export default function StepperCard() {
           </Paper>
         )}
         <Box textAlign='center'>
-          <Button variant="contained" size='medium' color="info" onClick={handleUpgrade} sx={{ mb: 1 }} >
+          <Button variant="contained" size='small' color="info" onClick={handleUpgrade} sx={{ mb: 1 }} >
             Upgrade
           </Button>
         </Box>
