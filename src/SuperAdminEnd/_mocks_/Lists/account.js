@@ -2,8 +2,8 @@
 import photoUrl from '../../../Utils/static/mock-images/avatars/avatar_default.jpg';
 
 const account = {
-    displayName: 'Sehar Asghar',
-    email: 'demo@minimals.cc',
+    displayName: 'Abbas Ali',
+    email: 'ali7956710@gmail.com',
     photoURL: photoUrl,
     role: 'Super Admin'
 };

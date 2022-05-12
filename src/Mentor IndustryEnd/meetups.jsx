@@ -155,8 +155,8 @@ function Meetups(props) {
     const [startTimevalue, setstartTimeValue] = React.useState(null);
     const [endTimevalue, setendTimeValue] = React.useState(null);
 
-
-
+    const startLink="https://us04web.zoom.us/s/75180912284?zak=eyJ0eXAiOiJKV1QiLCJzdiI6IjAwMDAwMSIsInptX3NrbSI6InptX28ybSIsImFsZyI6IkhTMjU2In0.eyJhdWQiOiJjbGllbnRzbSIsInVpZCI6Ii0tdE9XZGVPUnlldDBJdTRtcGhRV1EiLCJpc3MiOiJ3ZWIiLCJzayI6IjAiLCJzdHkiOjEwMCwid2NkIjoidXMwNCIsImNsdCI6MCwibW51bSI6Ijc1MTgwOTEyMjg0IiwiZXhwIjoxNjUyMzY3NzIwLCJpYXQiOjE2NTIzNjA1MjAsImFpZCI6IlpqSFJYY3BWUnEyZl9fVFBhUUdlemciLCJjaWQiOiIifQ.fwFR-TKzMwRS7PlZK_v9LOTF7Thycexo-tWZJbyBGWs";
+    const joinLink="https://us04web.zoom.us/j/75180912284?pwd=1-qM8YTo-ZhC7YuYwUhW-DM1EBgMg3.1";
     useEffect(async() => {
         const response = await getTableData('currency_unit');
         if(response.status===200) {
@@ -443,11 +443,30 @@ function Meetups(props) {
                                         <Typography gutterBottom variant='body2' fontWeight={"fontWeightBold"} sx={{ mt: 1 }}>
                                             Start Link:
                                         </Typography>
+                                        <TextField
+                                            id="outlined-basic"
+                                            name="startLink"
+                                            variant="outlined"
+                                            size="small"
+                                            disabled
+                                            value={startLink}
+                                            sx={{ minWidth: 340 }}
+                                        />
                                         </Stack>
                                     <Stack spacing={3} direction={"row"} sx={{ mt: 2, ml: 5 }} alignItems={'center'}>
                                         <Typography gutterBottom variant='body2' fontWeight={"fontWeightBold"} sx={{ mt: 1 }}>
                                             Join Link:
                                         </Typography>
+                                        <TextField
+                                            id="outlined-basic"
+                                            name="joinLink"
+                                            variant="outlined"
+                                            size="small"
+                                            disabled
+                                            value={joinLink}
+                                            sx={{ minWidth: 340 }}
+                                            end
+                                        />
                                     </Stack>
 
 

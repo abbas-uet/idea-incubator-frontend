@@ -166,7 +166,7 @@ function SuperAdminUserDetail() {
                                     md={6}
                                 >
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={9}>
+                                        <Stack direction={"row"} spacing={7}>
 
                                             <Typography variant='body2'
                                                         sx={{ml: 1, fontWeight: 'bold'}}>UserID:</Typography>
@@ -175,22 +175,22 @@ function SuperAdminUserDetail() {
                                     </Grid>
 
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={5.3}>
+                                        <Stack direction={"row"} spacing={3.7}>
                                             <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>User
                                                 Name:</Typography>
                                             <Typography variant='body2'>{values.userName}</Typography>
                                         </Stack>
                                     </Grid>
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={4.9}>
+                                        <Stack direction={"row"} spacing={5.3}>
                                             <Typography variant='body2'
                                                         sx={{ml: 1, fontWeight: 'bold'}}>ProjectID:</Typography>
-                                            <Typography variant='body2'>{values.projectid}</Typography>
+                                            <Typography variant='body2'>{"Idea Incubator"}</Typography>
                                         </Stack>
                                     </Grid>
                                     <Grid item md={12}>
 
-                                        <Stack direction={"row"} spacing={9.9}>
+                                        <Stack direction={"row"} spacing={3.1}>
 
                                             <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Managed
                                                 By:</Typography>
@@ -198,7 +198,7 @@ function SuperAdminUserDetail() {
                                         </Stack>
                                     </Grid>
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={9}>
+                                        <Stack direction={"row"} spacing={5.2}>
 
                                             <Typography variant='body2'
                                                         sx={{ml: 1, fontWeight: 'bold'}}>Join Date:</Typography>
@@ -207,7 +207,7 @@ function SuperAdminUserDetail() {
                                     </Grid>
 
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={5.3}>
+                                        <Stack direction={"row"} spacing={8.3}>
                                             <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>
                                                 Email:</Typography>
                                             <Typography variant='body2'>{values.email}</Typography>
@@ -222,30 +222,30 @@ function SuperAdminUserDetail() {
                                     <Grid item md={12}>
                                         <Stack direction={"row"} spacing={9}>
 
-                                            <Typography variant='h3'
+                                            <Typography variant='h5'
                                                         sx={{ml: 1, fontWeight: 'bold'}}>Subscription Info:</Typography>
                                         </Stack>
                                     </Grid>
 
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={5.3}>
+                                        <Stack direction={"row"} spacing={4.3}>
                                             <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Subscription
-                                                Plan
+                                                Plan:
                                             </Typography>
                                             <Typography
                                                 variant='body2'>{values.subscription && values.subscription.planname}</Typography>
                                         </Stack>
                                     </Grid>
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={5.3}>
-                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Ammount
+                                        <Stack direction={"row"} spacing={12.3}>
+                                            <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Amount:
                                             </Typography>
                                             <Typography
                                                 variant='body2'>{values.subscription && values.subscription.ammount}</Typography>
                                         </Stack>
                                     </Grid>
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={4.9}>
+                                        <Stack direction={"row"} spacing={8.9}>
                                             <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Billing
                                                 Date:</Typography>
                                             <Typography
@@ -254,7 +254,7 @@ function SuperAdminUserDetail() {
                                     </Grid>
                                     <Grid item md={12}>
 
-                                        <Stack direction={"row"} spacing={9.9}>
+                                        <Stack direction={"row"} spacing={6.9}>
 
                                             <Typography variant='body2' sx={{ml: 1, fontWeight: 'bold'}}>Contract
                                                 Date:</Typography>
@@ -263,7 +263,7 @@ function SuperAdminUserDetail() {
                                         </Stack>
                                     </Grid>
                                     <Grid item md={12}>
-                                        <Stack direction={"row"} spacing={9}>
+                                        <Stack direction={"row"} spacing={7.2}>
 
                                             <Typography variant='body2'
                                                         sx={{ml: 1, fontWeight: 'bold'}}>Contract End:</Typography>

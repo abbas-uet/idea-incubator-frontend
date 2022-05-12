@@ -187,7 +187,7 @@ function Department_SuperAdminEnd(props) {
                             <DashBoardCharts
                                 title={"TOTAL Departments"}
                                 color={"primary"}
-                                value={"30k"}
+                                value={"5"}
                             />
                         </Grid>
 

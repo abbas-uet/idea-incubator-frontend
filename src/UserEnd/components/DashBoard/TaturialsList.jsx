@@ -17,7 +17,7 @@ export default function TaturialList() {
         <Card sx={{ mt: 3, ml: 1, mb: 1, mr: 1,height:'550px' }}  >
             <Grid container >
                 <Box sx={{ m: 1,ml:3,mt:2 }}>
-                    <Typography variant="h6" component="div">Taturials</Typography>
+                    <Typography variant="h6" component="div">Tutorials</Typography>
                 </Box>
             </Grid>
             <Divider light />

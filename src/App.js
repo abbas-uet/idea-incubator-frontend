@@ -202,7 +202,7 @@ function App() {
                                 LIST={ListofTableContent('Ideas')}/>}/>
                             <Route path={'assets'}
                                    element={<AdminAssets cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
-                            <Route path={'assets/detailsAssets/:id'}
+                            <Route path={'asset/detailsAsset/:id'}
                                    element={<AssetDetails LIST={ListofTableContent('Assets')}/>}/>
                             <Route path={'talent'}
                                    element={<AdminTalent cardObj={cardObj[0][0]}/>}/>

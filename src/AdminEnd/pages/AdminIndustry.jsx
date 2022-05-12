@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import {
     Button,
     Card,
-    Checkbox,
+    Checkbox, Chip,
     Container,
     Grid,
     Stack,
@@ -47,6 +47,11 @@ const TABLE_HEAD = [
 
 
 
+const SERVICES=[
+    "Medical Field",
+    "Cyber Security",
+    "Machine Learning"
+]
 
 
 
@@ -236,7 +241,9 @@ export default function AdminIndustry({ cardObj}) {
                                                 <TableCell align="left">{name}</TableCell>
 
                                                 <TableCell align="left">
-                                                    {services}
+                                                    {SERVICES.map(e=>{
+                                                        return(<Chip label={e} />);
+                                                    })}
                                                 </TableCell>
 
                                                 <TableCell align="right">

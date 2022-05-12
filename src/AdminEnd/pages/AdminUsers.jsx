@@ -1,6 +1,8 @@
 import {Icon} from '@iconify/react';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import plusFill from '@iconify/icons-eva/plus-fill';
+
+import {cyan,indigo} from '@mui/material/colors';
 
 
 // material
@@ -28,27 +30,27 @@ import BreadCrumb from "../components/_dashboard/BreadCrumb";
 import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 import AddNew from "../components/_dashboard/Create New/AddNew";
 import {applySortFilter, getComparator} from "../../Utils/SortUtilityFunctions";
-import {getThreeTableAllById, getThreeTableLimit, getTwoTableAll} from "../../ApiServices/getData";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import {ListofTableContent} from "../_mocks_/ListofTableContent";
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-        {id: 'id', label: 'Id', alignRight: false},
-        {id: 'username', label: 'User Name', alignRight: false},
-        {id: 'email', label: 'Email', alignRight: false},
-        {id: 'projectname', label: 'Project Name', alignRight: false},
-        {id: 'subusers', label: 'Sub Users', alignRight: false},
-        {id: ''}];
+    {id: 'id', label: 'Id', alignRight: false},
+    {id: 'username', label: 'User Name', alignRight: false},
+    {id: 'email', label: 'Email', alignRight: false},
+    {id: 'projectname', label: 'Project Name', alignRight: false},
+    {id: 'subusers', label: 'Sub Users', alignRight: false},
+    {id: ''}];
 
 export default function AdminUsers({cardObj}) {
 
-    const SEARCH_BY_OPTIONS =[{id: 'id', label: 'ID'},
+    const SEARCH_BY_OPTIONS = [{id: 'id', label: 'ID'},
         {id: 'projectname', label: 'Project Name'},];
     //LIST OF TABLE CONTENT
-    const [LIST,setLIST]=useState([]);
+    const [LIST, setLIST] = useState(ListofTableContent("User"));
 
-    useEffect(async () => {
+    /*useEffect(async () => {
         const response = await getTwoTableAll('user', 'idea');
         response.data.subusers=[];
         if (response.status === 200) {
@@ -62,7 +64,7 @@ export default function AdminUsers({cardObj}) {
         } else {
             console.log(response.status);
         }
-    },[]);
+    },[]);*/
 
 
     const [page, setPage] = useState(0);
@@ -144,41 +146,41 @@ export default function AdminUsers({cardObj}) {
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
                     <BreadCrumb linkArr={['Dashboard', "Users"]}/>
 
-                            <Button
-                                variant="contained"
-                                color={'inherit'}
-                                onClick={handleClickOpen}
-                                startIcon={<Icon icon={plusFill}
-                                />}
-                            >
-                                Add Users
-                            </Button>
+                    <Button
+                        variant="contained"
+                        color={'inherit'}
+                        onClick={handleClickOpen}
+                        startIcon={<Icon icon={plusFill}
+                        />}
+                    >
+                        Add Users
+                    </Button>
 
                 </Stack>
 
-                    <Grid container spacing={2} justifyContent="space-between" mb={2}>
-                        <Grid item lg={4}
-                              md={3}
-                              xl={6}
-                              xs={12}>
-                            <DashBoardCharts title={'TOTAL Ideas'} color={'primary'}
-                                             value={cardObj.totalLabelValue}/>
-                        </Grid>
-                        <Grid item lg={4}
-                              md={3}
-                              xl={6}
-                              xs={12}>
-                            <DashBoardCharts title={cardObj.firstLabel} color={'warning'}
-                                             value={cardObj.firstLabelValue}/>
-                        </Grid>
-                        <Grid item lg={4}
-                              md={3}
-                              xl={6}
-                              xs={12}>
-                            <DashBoardCharts title={cardObj.secondLabel} color={'info'}
-                                             value={cardObj.secondLabelValue}/>
-                        </Grid>
+                <Grid container spacing={2} justifyContent="space-between" mb={2}>
+                    <Grid item lg={4}
+                          md={3}
+                          xl={6}
+                          xs={12}>
+                        <DashBoardCharts title={'TOTAL Ideas'} color={'primary'}
+                                         value={cardObj.totalLabelValue}/>
                     </Grid>
+                    <Grid item lg={4}
+                          md={3}
+                          xl={6}
+                          xs={12}>
+                        <DashBoardCharts title={cardObj.firstLabel} color={'warning'}
+                                         value={cardObj.firstLabelValue}/>
+                    </Grid>
+                    <Grid item lg={4}
+                          md={3}
+                          xl={6}
+                          xs={12}>
+                        <DashBoardCharts title={cardObj.secondLabel} color={'info'}
+                                         value={cardObj.secondLabelValue}/>
+                    </Grid>
+                </Grid>
 
                 <Card sx={{mt: 2}}>
                     <UserListToolbar
@@ -207,42 +209,42 @@ export default function AdminUsers({cardObj}) {
                                 {filteredUsers
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => {
-                                        let {userid, username, email, Idea,subusers} = row;
+                                            let {userid, username, email, Idea, subusers} = row;
 
-                                        console.log(row);
-                                        let isItemSelected = selected.indexOf(username) !== -1;
-                                        return (
-                                            <TableRow
-                                                hover
-                                                key={userid}
-                                                tabIndex={-1}
-                                                role="checkbox"
-                                                selected={isItemSelected}
-                                                aria-checked={isItemSelected}
-                                            >
-                                                <TableCell padding="checkbox">
-                                                    <Checkbox
-                                                        checked={isItemSelected}
-                                                        onChange={(event) => handleClick(event, username)}
-                                                    />
-                                                </TableCell>
-                                                <TableCell align="left">{userid}</TableCell>
-                                                <TableCell align="left">{username}</TableCell>
-                                                <TableCell align="left">{email}</TableCell>
-                                                <TableCell align="left">{Idea.projectname}</TableCell>
-                                                <TableCell align="left">
-                                                    <AvatarGroup max={3}>
-                                                        {subusers&&subusers.map( e=>{
-                                                           return < Avatar alt={e.fullname} src="" />
-                                                        }
-                                                        )}
-                                                    </AvatarGroup>
-                                                </TableCell>
-                                                <TableCell align="right">
-                                                    <UserMoreMenu pageName={"Users"} id={userid}/>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
+                                            console.log(row);
+                                            let isItemSelected = selected.indexOf(username) !== -1;
+                                            return (
+                                                <TableRow
+                                                    hover
+                                                    key={userid}
+                                                    tabIndex={-1}
+                                                    role="checkbox"
+                                                    selected={isItemSelected}
+                                                    aria-checked={isItemSelected}
+                                                >
+                                                    <TableCell padding="checkbox">
+                                                        <Checkbox
+                                                            checked={isItemSelected}
+                                                            onChange={(event) => handleClick(event, username)}
+                                                        />
+                                                    </TableCell>
+                                                    <TableCell align="left">{userid}</TableCell>
+                                                    <TableCell align="left">{username}</TableCell>
+                                                    <TableCell align="left">{email}</TableCell>
+                                                    <TableCell align="left">{Idea.projectname}</TableCell>
+                                                    <TableCell align="left">
+                                                        <AvatarGroup max={3}>
+                                                            {subusers && subusers.map(e => {
+                                                                    return <Avatar sx={{bgcolor: indigo[100]}}>{e[0]}</Avatar>
+                                                                }
+                                                            )}
+                                                        </AvatarGroup>
+                                                    </TableCell>
+                                                    <TableCell align="right">
+                                                        <UserMoreMenu pageName={"User"} id={userid}/>
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
                                         }
                                     )}
                                 {emptyRows > 0 && (

@@ -7,14 +7,15 @@ import MenuPopover from '../../components/MenuPopover';
 import en_flag from '../../../Utils/static/icons/ic_flag_en.svg';
 import de_flag from '../../../Utils/static/icons/ic_flag_de.svg';
 import fr_flag from '../../../Utils/static/icons/ic_flag_fr.svg';
+import ChatIcon from '@mui/icons-material/Chat';
 
 // ----------------------------------------------------------------------
 
 const LANGS = [
   {
-    value: 'en',
-    label: 'English',
-    icon: en_flag
+    value: 'chat',
+    label: 'Chat',
+    icon: ChatIcon
   },
   {
     value: 'de',
@@ -56,7 +57,7 @@ export default function LanguagePopover() {
           })
         }}
       >
-        <img src={LANGS[0].icon} alt={LANGS[0].label} />
+          <ChatIcon/>
       </IconButton>
 
       <MenuPopover open={open} onClose={handleClose} anchorEl={anchorRef.current}>

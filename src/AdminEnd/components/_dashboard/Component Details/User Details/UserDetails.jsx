@@ -81,11 +81,11 @@ function UserDetails({pageName, LIST,}) {
     const {id} = useParams()
     const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
-        userId: listObj.id,
+        userId: listObj.userid,
         userName: listObj.username,
         email: listObj.email,
         subUsers: listObj.subusers,
-        projectName: listObj.projectname,
+        projectName: listObj.Idea.projectname,
     });
 
     console.log(values);

@@ -4,11 +4,13 @@ import faker from 'faker';
 // ----------------------------------------------------------------------
 
 const users = [...Array(24)].map((_, index) => ({
-    id: index,
+    userid: index+1,
     username: faker.internet.email(),
     email: faker.internet.email(),
-    projectname: faker.name.firstName(),
-    subusers: faker.name.lastName(),
+    Idea:{
+        projectname: faker.name.firstName()
+    },
+    subusers: [faker.name.lastName(),faker.name.lastName(),faker.name.lastName(),faker.name.lastName()],
 }));
 
 export default users;

@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import {
-
   Avatar,
-  Badge,
   Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Divider,
   Grid,
   List,
   ListItem,
@@ -17,10 +20,6 @@ import {Box} from "@mui/system";
 import ImageIcon from '@mui/icons-material/Image';
 import WorkIcon from '@mui/icons-material/Work';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-
-import PersonIcon from "@mui/icons-material/Person";
-import SaveIcon from "@mui/icons-material/Save";
-import EditIcon from "@mui/icons-material/Edit";
 import FabButton from "./FabButton.jsx";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -40,11 +39,27 @@ import HonorsAndAwards from "./Honors & Awards.jsx";
 import Organization from "./Organization.jsx";
 import Language from "./Language.jsx";
 
+import userimg from '../../../StaticAssets/userimg.jpg';
+import Typography from "@mui/material/Typography";
+
+
+const user = {
+  avatar: userimg,
+  city: 'Sahiwal',
+  country: 'Punjab',
+  jobTitle: 'Senior Developer',
+  name: 'Noor-ul-kamishkah',
+  timezone: 'GTM-7'
+};
+
 const SmallAvatar = styled(Avatar)(({ theme }) => ({
   width: 40,
   height: 40,
   border: `2px solid ${theme.palette.background.paper}`,
 }));
+
+
+
 
 const CustomDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
@@ -71,6 +86,23 @@ const CustomDialogTitle = (props) => {
 };
 
 export default function ForMentors() {
+  const [values, setValues] = useState({
+    firstName: 'Noor',
+    lastName: 'Rani',
+    headline: '',
+    email: 'noor39@gmail.com',
+    officeLocation: 'Lahore',
+    officeHours: '',
+    aboutme:'',
+    location: ''
+  });
+
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+  };
   const [open, setOpen] = React.useState(false);
   const [pagename, setpagename] = React.useState("");
   const scroll = "paper";
@@ -98,269 +130,370 @@ export default function ForMentors() {
 
   return (
     <div>
-      <Grid container alignItems="center" margin={2}>
-        <Grid item justifyContent="center" md={12}>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            padding={2}
-            m={1}
+      <Grid container  spacing={2} >
+        <Grid item xs={12} md={4}>
+
+          <Card>
+            <CardContent>
+              <Box
+                  sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+              >
+                <Avatar
+                    src={user.avatar}
+                    sx={{
+                      height: 150,
+                      mb: 2,
+                      width: 150
+                    }}
+                />
+                <Typography
+                    color="textPrimary"
+                    gutterBottom
+                    variant="h5"
+                >
+                  {user.name}
+                </Typography>
+                <Typography
+                    color="textSecondary"
+                    variant="body2"
+                >
+                  {`${user.city} ${user.country}`}
+                </Typography>
+                <Typography
+                    color="textSecondary"
+                    variant="body2"
+                >
+                  {user.timezone}
+                </Typography>
+              </Box>
+            </CardContent>
+            <Divider />
+            <CardActions>
+
+              <Button color="primary" variant="text" component="label" fullWidth>Upload Picture
+                <input type="file" accept={'image/*'} hidden size="large" /></Button>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={8}>
+
+          <form
+              autoComplete="off"
+              noValidate
           >
-            <Badge
-              overlap="circular"
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              badgeContent={
-                <SmallAvatar>
-                  <EditIcon />
-                </SmallAvatar>
-              }
-            >
-              <Avatar sx={{ width: 200, height: 200 }}>
-                <PersonIcon sx={{ fontSize: "11rem" }} />
-              </Avatar>
-            </Badge>
-          </Box>
-          <Grid container spacing="3">
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="outlined-basic"
-                label="First Name"
-                variant="outlined"
-                fullWidth
+            <Card>
+              <CardHeader
+                  subheader="The information can be edited"
+                  title="Profile"
               />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="outlined-basic"
-                label="Last Name"
-                variant="outlined"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <TextField
-                id="outlined-basic"
-                label="Headline"
-                variant="outlined"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="outlined-basic"
-                label="Office Location"
-                variant="outlined"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="outlined-basic"
-                label="Office Hours"
-                variant="outlined"
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <TextField
-                id="outlined-basic"
-                label="About me"
-                variant="outlined"
-                fullWidth
-                multiline
-                maxRows={4}
-              />
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <TextField
-                id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                fullWidth
-              />
-            </Grid>
-          </Grid>
+              <Divider />
+              <CardContent>
+                <Grid
+                    container
+                    spacing={3}
+                >
+                  <Grid
+                      item
+                      md={6}
+                      xs={12}
+                  >
+                    <TextField
+                        fullWidth
+                        helperText="Please specify the first name"
+                        label="First name"
+                        name="firstName"
+                        onChange={handleChange}
+                        required
+                        value={values.firstName}
+                        variant="outlined"
+                    />
+                  </Grid>
+                  <Grid
+                      item
+                      md={6}
+                      xs={12}
+                  >
+                    <TextField
+                        fullWidth
+                        label="Last name"
+                        name="lastName"
+                        onChange={handleChange}
+                        required
+                        value={values.lastName}
+                        variant="outlined"
+                    />
+                  </Grid>
+                  <Grid
+                      item
+                      md={6}
+                      xs={12}
+                  >
+                    <TextField
+                        fullWidth
+                        label="Headline"
+                        name="headline"
+                        onChange={handleChange}
+                        required
+                        value={values.headline}
+                        variant="outlined"
+                    />
+                  </Grid>
+                  <Grid
+                      item
+                      md={6}
+                      xs={12}
+                  >
+                    <TextField
+                        fullWidth
+                        label="Email Address"
+                        name="email"
+                        onChange={handleChange}
+                        required
+                        value={values.email}
+                        variant="outlined"
+                    />
+                  </Grid>
+                  <Grid
+                      item
+                      md={6}
+                      xs={12}
+                  >
+                    <TextField
+                        fullWidth
+                        label="Office Location"
+                        name="officeLocation"
+                        onChange={handleChange}
+
+                        value={values.officeLocation}
+                        variant="outlined"
+                    />
+                  </Grid>
+                  <Grid
+                      item
+                      md={12}
+                      xs={12}
+                  >
+                    <TextField
+                        fullWidth
+                        label="Office Hours"
+                        name="officeHours"
+                        onChange={handleChange}
+                        required
+                        value={values.officeHours}
+                        variant="outlined"
+                    />
+                  </Grid>
+                  <Grid
+                      item
+                      md={12}
+                      xs={12}
+                  >
+                    <TextField
+                        fullWidth
+                        label="About Me"
+                        name="aboutme"
+                        multiline
+                        rows={3}
+                        onChange={handleChange}
+                        required
+                        value={values.aboutme}
+                        variant="outlined"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={12}>
+                    <List dense={true}>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <ImageIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Work Experience"
+                            secondary="List your work history like contracts or internships"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton
+                              popUpFunction={handleClickOpen}
+                              pageName={"Work Experience"}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <WorkIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Education"
+                            secondary="1 school on your profile"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton
+                              popUpFunction={handleClickOpen}
+                              pageName={"Education"}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Licences and certificate"
+                            secondary="Showcase your expertise with your credentials"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton
+                              popUpFunction={handleClickOpen}
+                              pageName={"License/Certificate"}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Volunteer Experience"
+                            secondary="Higlight your passions and how you like to give back"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton
+                              popUpFunction={handleClickOpen}
+                              pageName={"VolunteerExperience"}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Skills"
+                            secondary="Showcase your strengths as a professional"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton
+                              popUpFunction={handleClickOpen}
+                              pageName={"Skills"}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Languages"
+                            secondary="Show how you can be a fit for a job "
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton popUpFunction={handleClickOpen} />
+                        </ListItemSecondaryAction>
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton popUpFunction={handleClickOpen}
+                                     pageName={"Language"}/>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Organization"
+                            secondary="Show your involvement with communities"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton popUpFunction={handleClickOpen}
+                                     pageName={"Organization"} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Honors and awards"
+                            secondary="Feature the recognition you've eraned"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton popUpFunction={handleClickOpen}
+                                     pageName={"Honors & Awards"} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Patents"
+                            secondary="Showcase your innovation and expertise"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton popUpFunction={handleClickOpen}
+                                     pageName={"Patent"} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <BeachAccessIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary="Publication"
+                            secondary="List your published work and get found 7x more"
+                        />
+                        <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
+                          <FabButton popUpFunction={handleClickOpen}
+                                     pageName={"Publication"} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </Grid>
+                  <Grid item xs={12} md={12}><Button color="inherit" variant="contained" component="label">Attach File
+                    <input type="file" hidden size="large" /></Button></Grid>
+                </Grid>
+              </CardContent>
+              <Divider />
+              <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    p: 2
+                  }}
+              >
+                <Button
+                    color="primary"
+                    variant="contained"
+                >
+                  Save details
+                </Button>
+              </Box>
+            </Card>
+          </form>
         </Grid>
-        <Grid item xs={12} md={12}>
-          <List dense={true}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Work Experience"
-                secondary="List your work history like contracts or internships"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton
-                  popUpFunction={handleClickOpen}
-                  pageName={"Work Experience"}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <WorkIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Education"
-                secondary="1 school on your profile"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton
-                  popUpFunction={handleClickOpen}
-                  pageName={"Education"}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Licences and certificate"
-                secondary="Showcase your expertise with your credentials"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton
-                  popUpFunction={handleClickOpen}
-                  pageName={"License/Certificate"}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Volunteer Experience"
-                secondary="Higlight your passions and how you like to give back"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton
-                  popUpFunction={handleClickOpen}
-                  pageName={"VolunteerExperience"}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Skills"
-                secondary="Showcase your strengths as a professional"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton
-                  popUpFunction={handleClickOpen}
-                  pageName={"Skills"}
-                />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Languages"
-                secondary="Show how you can be a fit for a job "
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton popUpFunction={handleClickOpen} />
-              </ListItemSecondaryAction>
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton popUpFunction={handleClickOpen} 
-                pageName={"Language"}/>
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Organization"
-                secondary="Show your involvement with communities"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton popUpFunction={handleClickOpen}
-                pageName={"Organization"} />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Honors and awards"
-                secondary="Feature the recognition you've eraned"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton popUpFunction={handleClickOpen}
-                pageName={"Honors & Awards"} />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Patents"
-                secondary="Showcase your innovation and expertise"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton popUpFunction={handleClickOpen}
-                pageName={"Patent"} />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <BeachAccessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Publication"
-                secondary="List your published work and get found 7x more"
-              />
-              <ListItemSecondaryAction sx={{ paddingRight: 5 }}>
-                <FabButton popUpFunction={handleClickOpen}
-                pageName={"Publication"} />
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
-        </Grid>
-        <Grid item xs={12} md={12} justifyContent="right">
-          <Box textAlign="right" marginBottom={5} gutterBottom paddingRight={3}>
-            <Button
-              color="secondary"
-              startIcon={<SaveIcon />}
-              variant="contained"
-              size="large"
-            >
-              Save
-            </Button>
-          </Box>
-        </Grid>
+
       </Grid>
       <Dialog
         open={open}

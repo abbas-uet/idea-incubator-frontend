@@ -167,8 +167,7 @@ function InvoiceDetails() {
                       Name:
                     </Typography>
                     <Typography variant="body2">
-
-                    {values.userId}
+                        {"Ahmed Usama"}
                     </Typography>
                   </Stack>
                 </Grid>
@@ -196,7 +195,7 @@ function InvoiceDetails() {
                     </Typography>
                     <Typography variant="body2">
 
-                    {values.billingperson}
+                    {"+92345384954"}
                     </Typography>
                   </Stack>
                 </Grid>
@@ -224,7 +223,7 @@ function InvoiceDetails() {
                     </Typography>
                     <Typography variant="body2">
 
-                    {values.billingperson}
+                    {"Lahore"}
                     </Typography>
                   </Stack>
                 </Grid>

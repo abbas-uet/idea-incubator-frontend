@@ -20,7 +20,7 @@ import Stack from "@mui/material/Stack";
 import ListToolBar from '../ListToolBar';
 import {deleteSingle} from "../../../../../ApiServices/delete";
 import CustomSnackbar from "../../../../../Utils/SnakBar";
-import {getTableSingle} from "../../../../../ApiServices/getData";
+import {getTableSingle, getTwoTableSingle} from "../../../../../ApiServices/getData";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -81,7 +81,8 @@ function AdminDetails() {
     }
 
     useEffect(async () => {
-        const response = await getTableSingle('department', id);
+        const response = await getTwoTableSingle('admin','department', id);
+        console.log(response);
         if (response.status === 200) {
 
             setValues({

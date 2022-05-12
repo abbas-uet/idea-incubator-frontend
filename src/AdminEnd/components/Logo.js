@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // material
 import { Box } from '@mui/material';
-import Logo_svg from '../../Utils/static/logo.svg'
+import Logo_svg from '../../Utils/static/Logo.png'
 
 // ----------------------------------------------------------------------
 

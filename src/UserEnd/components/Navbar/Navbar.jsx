@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {Link as RouterLink, Link} from 'react-router-dom';
 import {Divider, Paper} from '@mui/material';
 import NotificationSection from './NotificationSection';
-import Logo_svg from "../../../Utils/static/logo.svg";
+import Logo from './../../../Utils/static/Logo.png';
 
 import Stack from "@mui/material/Stack";
 import {alpha} from "@mui/material/styles";
@@ -90,7 +90,7 @@ const ResponsiveAppBar = (props) => {
             <Link to="/" style={{ textDecoration: 'none', color: 'white', backgroundImage: '' }}>
               <Stack direction={'row'} justifyContent={'center'}>
 
-              <Box component="img" src='https://image.similarpng.com/very-thumbnail/2020/08/Shining-bright-idea-light-bulb-with-cogs-on-transparent-background-PNG.png' sx={{ width: 40, height: 40 }} />
+              <Box component="img" src={Logo} sx={{ width: 40, height: 40 }} />
               <Typography
                 variant="h6"
                 noWrap

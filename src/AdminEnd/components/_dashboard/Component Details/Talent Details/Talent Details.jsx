@@ -85,6 +85,10 @@ function TalentDetails({LIST}) {
         name: listObj.name,
         email: listObj.email,
         regno: listObj.regno,
+        department: listObj.department,
+        language: listObj.language,
+        certification: listObj.certification,
+        experiecne: listObj.experience,
         skill: listObj.skill,
         session: listObj.session,
     });
@@ -112,9 +116,9 @@ function TalentDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            sx={{ml:1}}
+                            sx={{ml: 1}}
                             title="Talent Detail"
-                            
+
                         />
                         <Divider/>
                         <CardContent>
@@ -122,162 +126,159 @@ function TalentDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                                  <Grid item md={5}>
-                  <Stack direction={"row"} spacing={5} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Student Name:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.name}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={5} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Roll #:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.regno}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={7} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Department:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.name}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={3} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Session:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.session}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={11.9} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Email:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.email}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={5.2} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Skills:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.skill}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={9}>
-                  <Stack direction={"row"} spacing={7.3} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Languages:
-                    </Typography>
-                    <TextField
-                    sx={{pr:0.5}}
-                      variant="outlined"
-                      fullWidth
-                      disabled={disabled}
-                      label={values.skill}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={9}>
-                  <Stack direction={"row"} spacing={6.3} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Certification:
-                    </Typography>
-                    <TextField
-                    sx={{pr:0.5}}
-                      variant="outlined"
-                      fullWidth
-                      disabled={disabled}
-                      label={values.skill}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={12}>
-                  <Stack direction={"row"} spacing={7.1} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Experience:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.skill}
-                      multiline
-                      minRows={3}
-                      sx={{ width: "590px" }}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                                        
-                               
-                                
-                               
-                                
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={5} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Student Name:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            label={values.name}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={5} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Roll #:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            label={values.regno}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={7} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Department:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            label={values.department}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={3} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Session:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            label={values.session}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={11.9} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Email:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            label={values.email}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={5.2} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Skills:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            label={values.skill}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={9}>
+                                    <Stack direction={"row"} spacing={7.3} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Languages:
+                                        </Typography>
+                                        <TextField
+                                            sx={{pr: 0.5}}
+                                            variant="outlined"
+                                            fullWidth
+                                            disabled={disabled}
+                                            label={values.language}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={9}>
+                                    <Stack direction={"row"} spacing={6.3} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Certification:
+                                        </Typography>
+                                        <TextField
+                                            sx={{pr: 0.5}}
+                                            variant="outlined"
+                                            fullWidth
+                                            disabled={disabled}
+                                            label={values.certification}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={12}>
+                                    <Stack direction={"row"} spacing={7.1} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Experience:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            label={values.experiecne}
+                                            multiline
+                                            minRows={3}
+                                            sx={{width: "590px"}}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+
+
                                 <Grid item
                                       md={12}
                                       xs={12}>
@@ -285,7 +286,7 @@ function TalentDetails({LIST}) {
                                         display: 'flex',
                                         justifyContent: 'flex-end',
                                         p: 1,
-                                        mr:2,
+                                        mr: 2,
                                     }}>
                                         <Button
                                             color="inherit"
@@ -299,21 +300,21 @@ function TalentDetails({LIST}) {
                                         >
                                             Delete Talent
                                         </Button>
-                                        <Button color="primary" variant="contained" onClick={()=>setdisabled(!disabled)}>
-                      {disabled===true?'Update':'Save Changes'}
-                    </Button>
+                                        <Button color="primary" variant="contained"
+                                                onClick={() => setdisabled(!disabled)}>
+                                            {disabled === true ? 'Update' : 'Save Changes'}
+                                        </Button>
                                     </Stack>
                                 </Grid>
                             </Grid>
                         </CardContent>
 
-                        
-                        
+
                     </Card>
                 </form>
 
             </Page>
-            
+
         </div>
     );
 }

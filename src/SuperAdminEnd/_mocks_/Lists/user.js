@@ -1,9 +1,19 @@
-// utils
-import axios from 'axios';
+import faker from 'faker';
 // ----------------------------------------------------------------------
 
-export const getUser=async()=>{
-    const response=await axios.get('http://localhost:5000/users/view_users');
-    console.log(response.data);
-    return await response.data;
-}
+const user = [...Array(24)].map((_, index) => ({
+    userid: index+1,
+    username: faker.name.firstName(),
+    department: faker.name.firstName(),
+    email: faker.internet.email(),
+    Invoices:[{
+        invoiceid:index*index+48237,
+        status:'confirmed',
+        duedate:'2022:03:'+index+1+':19:46:15'
+    },],
+    Subscription:{
+        planname:'Premium'
+    }
+}));
+
+export default user;

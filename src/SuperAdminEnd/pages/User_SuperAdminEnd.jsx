@@ -27,6 +27,7 @@ import {DashBoardCharts} from "../components/_dashboard/DashBoardCharts";
 import axios from 'axios';
 import {getComparator} from '../../Utils/SortUtilityFunctions';
 import {getThreeTableLimit, getTwoTableAll} from "../../ApiServices/getData";
+import {SuperAdminListofTableContent} from "../_mocks_/SuperAdminListofTableContent";
 
 
 const UserTableHead=[
@@ -73,7 +74,7 @@ function applySortFilter(array, comparator, query, filterSearchBy) {
 function User_SuperAdminEnd(props) {
 
 
-    const [LIST,setLIST]=useState([]);
+    const [LIST,setLIST]=useState(SuperAdminListofTableContent('Users'));
     const [page, setPage] = useState(0);
     const [order, setOrder] = useState('asc');
     const [selected, setSelected] = useState([]);
@@ -81,16 +82,15 @@ function User_SuperAdminEnd(props) {
     const [filterName, setFilterName] = useState('');
     const [selectSearchBy, setselectSearchBy] = useState(UserSearchByOptions[0].id)
     const [rowsPerPage, setRowsPerPage] = useState(5);
-
-
-    useEffect(async () => {
+    console.log(LIST);
+    /*useEffect(async () => {
         const response = await getThreeTableLimit('user','subscription','invoice');
         if(response.status===200) {
             setLIST(response.data);
         }else{
             console.log(response.status);
         }
-    }, [])
+    }, [])*/
 
 
 
