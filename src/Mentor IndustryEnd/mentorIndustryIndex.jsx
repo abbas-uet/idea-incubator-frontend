@@ -9,8 +9,8 @@ import Navbar from "../UserEnd/components/Navbar/Navbar";
 
 function MentorIndustryIndex({role}) {
 
-    const mentorPages = [['Home','home'],['MeetUp','meetup']];
-    const industryPages=[['Home','home'],['Webinar','webinar']]
+    const mentorPages = [];
+    const industryPages=[]
     const settings = [['Account Setting','studentAccountSettings'],['Log Out','studentProfileSettings'], ];
 
     return (

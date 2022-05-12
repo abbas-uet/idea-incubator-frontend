@@ -5,6 +5,7 @@ import * as React from 'react';
 import { ScheduleComponent, ViewsDirective, ViewDirective, Day, Week, WorkWeek, Month, Agenda, Inject, Resize, DragAndDrop } from '@syncfusion/ej2-react-schedule';
 
 import { extend } from '@syncfusion/ej2-base';
+import Paper from '@mui/material/Paper';
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { SampleBase } from './sample-base';
 import { PropertyPane } from './property-pane';
@@ -24,10 +25,13 @@ export class Calender extends SampleBase {
         args.navigation.enable = true;
     }
     render() {
-        return (<div className='schedule-control-section'>
+        return (
+            <Paper sx={{ mt: 4, ml: 2, mb: 1, mr: 1 }}>
+
+            <div className='schedule-control-section'>
             <div className='col-lg-12 control-section'>
                 <div className='control-wrapper'>
-                    <ScheduleComponent height='650px' ref={schedule => this.scheduleObj = schedule} selectedDate={new Date(2021, 0, 10)} eventSettings={{ dataSource: this.data }} dragStart={(this.onDragStart.bind(this))}>
+                    <ScheduleComponent height='500px' ref={schedule => this.scheduleObj = schedule} selectedDate={new Date(2021, 0, 10)} eventSettings={{ dataSource: this.data }} dragStart={(this.onDragStart.bind(this))}>
                         <ViewsDirective>
                             <ViewDirective option='Day'/>
                             <ViewDirective option='Week'/>
@@ -39,22 +43,10 @@ export class Calender extends SampleBase {
                     </ScheduleComponent>
                 </div>
             </div>
-            <div className='col-lg-3 property-section'>
-                <PropertyPane title='Properties'>
-                    <table id='property' title='Properties' className='property-panel-table' style={{ width: '100%' }}>
-                        <tbody>
-                        <tr style={{ height: '50px' }}>
-                            <td style={{ width: '100%' }}>
-                                <div className='datepicker-control-section'>
-                                    <DatePickerComponent value={new Date(2021, 0, 10)} showClearButton={false} change={this.change.bind(this)} placeholder='Current Date' floatLabelType='Always'></DatePickerComponent>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </PropertyPane>
-            </div>
-        </div>);
+
+        </div>
+            </Paper>
+    );
     }
 }
 
