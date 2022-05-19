@@ -45,11 +45,6 @@ const sidebarConfig = [
         title: 'Notifications',
         path: '/user/studentAccountSettings/notifications',
         icon: getIcon(fileTextFill)
-    },
-    {
-        title: 'Account History',
-        path: '/user/studentAccountSettings/account_history',
-        icon: getIcon(lockFill)
     }
 ];
 

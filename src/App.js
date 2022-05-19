@@ -8,12 +8,13 @@ import Industry from "./UserEnd/components/Industry/Industry";
 import Assest from "./UserEnd/components/Assest/Assest";
 import AssestDetail from "./UserEnd/components/Utils/AssestDetail";
 import IdeaPool from "./UserEnd/components/IdeaPool/IdeaPool";
+import IdeaDetail from "./UserEnd/components/IdeaPool/IdeaDetail"
 import Talent from'./UserEnd/components/Talent/Talent'
 
 import Help from "./UserEnd/components/Help/Help";
 import StudentAccountSetting from "./UserEnd/components/Profile Setting/Account Setting/StudentAccountSetting";
 import StudentProfileSetting from "./UserEnd/components/Profile Setting/Profile/StudentProfileSetting";
-import ViewProfile from "./UserEnd/components/Profile Setting/Profile/ViewProfile";
+
 import AdminIndex from './AdminEnd/AdminIndex';
 import DashboardLayout from "./AdminEnd/layouts/dashboard";
 import DashboardApp from "./AdminEnd/pages/DashboardApp";
@@ -178,6 +179,7 @@ function App() {
                         <Route path="assest" element={<Assest/>}/>
                         <Route path="assest/viewAssest" element={<AssestDetail/>}/>
                         <Route path="ideaPool" element={<IdeaPool/>}/>
+                        <Route path="ideaPool/viewIdea" element={<IdeaDetail/>}/>
                         <Route path="talentPool" element={<Talent/>}/>
                         <Route path="talentPool/viewTalent" element={<TD/>}/>
                         <Route path="help" element={<Help/>}/>
@@ -189,7 +191,7 @@ function App() {
                             <Route path="sub_users" element={<SubUsersMain/>}/>
                             <Route path="account_billing" element={<AccountPayment/>}/>
                             <Route path="notifications" element={<NotificationSettings/>}/>
-                            <Route path="account_history" element={<ViewProfile/>}/>
+
                         </Route>
 
                     </Route>

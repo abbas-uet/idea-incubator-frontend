@@ -445,12 +445,13 @@ function Meetups(props) {
                                         </Typography>
                                         <TextField
                                             id="outlined-basic"
+                                            label="Start Link"
                                             name="startLink"
                                             variant="outlined"
                                             size="small"
                                             disabled
                                             value={startLink}
-                                            sx={{ minWidth: 340 }}
+                                            sx={{ minWidth: 400 }}
                                         />
                                         </Stack>
                                     <Stack spacing={3} direction={"row"} sx={{ mt: 2, ml: 5 }} alignItems={'center'}>
@@ -459,12 +460,13 @@ function Meetups(props) {
                                         </Typography>
                                         <TextField
                                             id="outlined-basic"
+                                            label="Join Link"
                                             name="joinLink"
                                             variant="outlined"
                                             size="small"
                                             disabled
                                             value={joinLink}
-                                            sx={{ minWidth: 340 }}
+                                            sx={{ minWidth: 400 }}
                                             end
                                         />
                                     </Stack>

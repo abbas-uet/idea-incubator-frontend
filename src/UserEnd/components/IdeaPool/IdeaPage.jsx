@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Card from '@mui/material/Card'
+import {Link} from "react-router-dom";
 import Paper from '@mui/material/Paper';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -151,7 +152,7 @@ export default function IdeaPage() {
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <Button variant="outlined" size={'small'} sx={{width:100}}>Read More</Button>
+                                                            <Button variant="outlined" size={'small'} sx={{width:100}} LinkComponent={Link} to="viewIdea">Read More</Button>
                                                         </td>
                                                     </tr>
                                                     <tr className="inner-box">
