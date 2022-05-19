@@ -1,18 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
-import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField, Typography,
-    List, ListItemAvatar, ListItem
-} from '@mui/material';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Avatar, Button, Card, CardContent, CardHeader, Divider, Grid, List, ListItem, Typography} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -25,16 +14,17 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 
-import {deepOrange, green} from '@mui/material/colors';
-import {useState} from 'react';
+import {deepOrange} from '@mui/material/colors';
 import Stack from "@mui/material/Stack";
 import {AvatarGroup} from "@mui/lab";
 
 
 import ListToolBar from '../ListToolBar';
+import {getThreeTableAllById} from "../../../../../ApiServices/getData";
+import {deleteSingle} from "../../../../../ApiServices/delete";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -67,7 +57,9 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function UserDetails({pageName, LIST,}) {
+function UserDetails() {
+
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -79,16 +71,49 @@ function UserDetails({pageName, LIST,}) {
     };
 
     const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
+
     const [values, setValues] = useState({
-        userId: listObj.userid,
-        userName: listObj.username,
-        email: listObj.email,
-        subUsers: listObj.subusers,
-        projectName: listObj.Idea.projectname,
+        userId: '',
+        userName: '',
+        email: '',
+        subUsers: [],
+        projectName: '',
     });
 
-    console.log(values);
+    useEffect(async () => {
+        const response = await getThreeTableAllById("user", 'idea', "subuser", id);
+        if (response.status === 200) {
+            setValues({
+                ...values, ["userId"]: response.data.userid, ["userName"]: response.data.username,
+                ["Joindate"]: response.data.joindate, ["email"]: response.data.email,
+                ['subUsers']: response.data.SubUsers,
+                ['projectName']: response.data.Idea.projectname,
+            })
+        } else {
+            console.log(response.data);
+        }
+    }, [])
+
+
+    const [statusCode,setStatusCode]=useState({cond:false,res:0});
+    const handleDelete=async ()=>{
+        const response = await deleteSingle('user', values.userId);
+        if (response.status === 200) {
+            setStatusCode({...statusCode,['cond']:true,["res"]:200})
+            setTimeout(function(){
+                navigate('/admin/dashboard/user')
+            }, 1500);
+        } else {
+            setStatusCode({...statusCode,['cond']:true,["res"]:response.status})
+        }
+    }
+
+    const handleMessage=()=>{
+
+    }
+
+
+
 
     const handleChange = (event) => {
         setValues({
@@ -135,11 +160,10 @@ function UserDetails({pageName, LIST,}) {
                                 </Grid>
                                 
                                 <Grid item md={12}>
-
                                 <Stack direction={"row"} spacing={10.5}>
 
                                 <Typography variant='body2' sx={{ml:1, fontWeight:'bold'}}>Email:</Typography>
-                                <Typography variant='body2'></Typography>{values.email}
+                                <Typography variant='body2'>{values.email}</Typography>
                                 </Stack>
                                 </Grid>
                                
@@ -148,7 +172,7 @@ function UserDetails({pageName, LIST,}) {
                                 <Stack direction={"row"} spacing={4}>
 
                                 <Typography variant='body2' sx={{ml:1, fontWeight:'bold'}}>Project Name:</Typography>
-                                <Typography variant='body2'></Typography>{values.projectName}
+                                <Typography variant='body2'>{values.projectName}</Typography>
                                 </Stack>
                                 </Grid>
                                
@@ -163,15 +187,11 @@ function UserDetails({pageName, LIST,}) {
                                             Sub Users:
                                         </Typography>
                                         <AvatarGroup max={4}>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                N
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                F
-                                            </Avatar>
-                                            <Avatar sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
-                                                G
-                                            </Avatar>
+                                            {values.subUsers.map(e=>{
+                                                return <Avatar key={e.SubUserid} sx={{bgcolor: deepOrange[500]}} color={'secondary'}>
+                                                    {e.fullname[0]}
+                                                </Avatar>
+                                            })}
                                         </AvatarGroup>
 
                                     </Stack>
@@ -195,6 +215,7 @@ function UserDetails({pageName, LIST,}) {
                                         <Button
                                             color="error"
                                             variant="outlined"
+                                            onClick={handleDelete}
                                         >
                                             Delete User
                                         </Button>
@@ -217,6 +238,11 @@ function UserDetails({pageName, LIST,}) {
                 </form>
 
             </Page>
+            {statusCode.cond&&(
+                statusCode.res===200?
+                    <CustomSnackbar message={"Successfully Deleted the User"} type={'primary'}/>
+                    :
+                    <CustomSnackbar message={"Error While Deleting the User"} type={'error'}/>)}
             <Dialog
                 open={open}
                 onClose={handleClose}

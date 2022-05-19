@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
+import {useHistory, useNavigate, useParams} from 'react-router-dom';
 import {
     Avatar,
     Box,
@@ -35,6 +35,10 @@ import {AvatarGroup} from "@mui/lab";
 
 
 import ListToolBar from '../ListToolBar';
+import {getTableSingle} from "../../../../../ApiServices/getData";
+import {UpdateSingleTableData} from "../../../../../ApiServices/update";
+import {deleteSingle} from "../../../../../ApiServices/delete";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -67,7 +71,8 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function TalentDetails({LIST}) {
+function TalentDetails() {
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -79,21 +84,85 @@ function TalentDetails({LIST}) {
     };
 
     const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
+
     const [values, setValues] = useState({
-        userId: listObj.id,
-        name: listObj.name,
-        email: listObj.email,
-        regno: listObj.regno,
-        department: listObj.department,
-        language: listObj.language,
-        certification: listObj.certification,
-        experiecne: listObj.experience,
-        skill: listObj.skill,
-        session: listObj.session,
+        id: '',
+        name: '',
+        email: '',
+        rollNo: '',
+        department: '',
+        languages: '',
+        certifications: '',
+        experience: '',
+        skills: '',
+        session: '',
     });
 
-    console.log(values);
+    const [statusCode, setStatusCode] = useState({cond: false, res1: 0, res2: 0});
+    useEffect(async () => {
+        const response = await getTableSingle('talent', id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ['name']: response.data.name,
+                ['email']: response.data.email,
+                ['rollNo']: response.data.rollNo,
+                ['department']: response.data.department,
+                ['languages']: response.data.languages,
+                ['certifications']: response.data.certifications,
+                ['experience']: response.data.experience,
+                ['skills']: response.data.skills,
+                ['session']: response.data.session,
+            });
+            setStatusCode({...statusCode, ['cond']: false, ["res1"]: 0, ["res2"]: 0})
+        } else {
+            console.log(response.status);
+        }
+    }, [])
+
+
+    const handleSave = async () => {
+        const data = {
+            name: values.name,
+            email: values.email,
+            rollNo: values.rollNo,
+            department: values.department,
+            languages: values.languages,
+            certifications: values.certifications,
+            experience: values.experience,
+            skills: values.skills,
+            session: values.session,
+        }
+        const response = await UpdateSingleTableData('talent', id, data);
+        if (response.status === 200) {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: 200, ["res2"]: 0})
+        } else {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: response.status, ["res2"]: 0})
+        }
+    }
+
+    const handleDelete = async () => {
+        const response = await deleteSingle('talent', id);
+        if (response.status === 200) {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: 200
+            })
+            setTimeout(function () {
+                navigate('/admin/dashboard/talent')
+            }, 1500);
+
+        } else {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: response.status
+            })
+        }
+    }
 
     const handleChange = (event) => {
         setValues({
@@ -101,10 +170,6 @@ function TalentDetails({LIST}) {
             [event.target.name]: event.target.value
         });
     };
-    const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'},
-        {id: 'pending', label: 'Pending'},
-        {id: 'thisweek', label: 'This Week'}];
-    const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
     const [disabled, setdisabled] = React.useState(true);
 
     return (
@@ -135,9 +200,12 @@ function TalentDetails({LIST}) {
                                             Student Name:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.name}
+                                            label={'Name'}
+                                            value={values.name}
+                                            name={'name'}
                                             size="small"
                                         />
                                     </Stack>
@@ -151,9 +219,12 @@ function TalentDetails({LIST}) {
                                             Roll #:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.regno}
+                                            label={'Roll No'}
+                                            value={values.rollNo}
+                                            name={'rollNo'}
                                             size="small"
                                         />
                                     </Stack>
@@ -167,9 +238,12 @@ function TalentDetails({LIST}) {
                                             Department:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.department}
+                                            label={'Department'}
+                                            value={values.department}
+                                            name={'department'}
                                             size="small"
                                         />
                                     </Stack>
@@ -183,9 +257,12 @@ function TalentDetails({LIST}) {
                                             Session:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.session}
+                                            label={'Session'}
+                                            value={values.session}
+                                            name={'session'}
                                             size="small"
                                         />
                                     </Stack>
@@ -199,9 +276,12 @@ function TalentDetails({LIST}) {
                                             Email:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.email}
+                                            label={'Email'}
+                                            value={values.email}
+                                            name={'email'}
                                             size="small"
                                         />
                                     </Stack>
@@ -215,9 +295,12 @@ function TalentDetails({LIST}) {
                                             Skills:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.skill}
+                                            label={'Skills'}
+                                            value={values.skills}
+                                            name={'skills'}
                                             size="small"
                                         />
                                     </Stack>
@@ -231,11 +314,14 @@ function TalentDetails({LIST}) {
                                             Languages:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             sx={{pr: 0.5}}
                                             variant="outlined"
                                             fullWidth
                                             disabled={disabled}
-                                            label={values.language}
+                                            label={'Languages'}
+                                            name={'languages'}
+                                            value={values.languages}
                                             size="small"
                                         />
                                     </Stack>
@@ -249,11 +335,14 @@ function TalentDetails({LIST}) {
                                             Certification:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             sx={{pr: 0.5}}
                                             variant="outlined"
                                             fullWidth
                                             disabled={disabled}
-                                            label={values.certification}
+                                            label={'Certifications'}
+                                            name={'certifications'}
+                                            value={values.certifications}
                                             size="small"
                                         />
                                     </Stack>
@@ -267,9 +356,12 @@ function TalentDetails({LIST}) {
                                             Experience:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.experiecne}
+                                            label={'Experience'}
+                                            name={'experience'}
+                                            value={values.experience}
                                             multiline
                                             minRows={3}
                                             sx={{width: "590px"}}
@@ -297,11 +389,18 @@ function TalentDetails({LIST}) {
                                         <Button
                                             color="error"
                                             variant="outlined"
+                                            onClick={handleDelete}
                                         >
                                             Delete Talent
                                         </Button>
                                         <Button color="primary" variant="contained"
-                                                onClick={() => setdisabled(!disabled)}>
+                                                onClick={() => {
+                                                    if (disabled === false) {
+                                                        handleSave();
+                                                    }
+                                                    setdisabled(!disabled);
+
+                                                }}>
                                             {disabled === true ? 'Update' : 'Save Changes'}
                                         </Button>
                                     </Stack>
@@ -314,6 +413,15 @@ function TalentDetails({LIST}) {
                 </form>
 
             </Page>
+            {statusCode.cond && (
+                statusCode.res1 === 200 ?
+                    <CustomSnackbar message={"Successfully Updated Talent Details"} type={'primary'}/>
+                    : statusCode.res1 !== 200 && statusCode.res2 === 0 ?
+                        <CustomSnackbar message={"Error While Updating Talent Details"} type={'error'}/>
+                        : statusCode.res1 === 0 && statusCode.res2 === 200 ?
+                            <CustomSnackbar message={"Successfully Deleted the Talent"} type={'error'}/>
+                            : <CustomSnackbar message={"Error While Deleting the Talent"} type={'error'}/>
+            )}
 
         </div>
     );

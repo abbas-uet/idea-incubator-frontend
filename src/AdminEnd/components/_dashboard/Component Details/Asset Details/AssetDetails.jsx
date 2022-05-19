@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Page from "../../../Page";
-import {useHistory, useParams} from "react-router-dom";
+import {useHistory, useNavigate, useParams} from "react-router-dom";
 import {
     Avatar,
     Box,
@@ -15,7 +15,9 @@ import {
     List,
     ListItemAvatar,
     ListItem,
-} from "@mui/material";
+}
+from
+"@mui/material";
 import Dialog from "@mui/material/Dialog";
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
@@ -44,6 +46,11 @@ import {AvatarGroup} from "@mui/lab";
 
 import ListToolBar from "../ListToolBar";
 import {update} from "lodash";
+import {getTableSingle, getTwoTableSingle} from "../../../../../ApiServices/getData";
+import {deleteJointTableSingle, deleteSingle} from "../../../../../ApiServices/delete";
+import {CreateJointTable} from "../../../../../ApiServices/create";
+import {UpdateSingleTableData} from "../../../../../ApiServices/update";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
 
 const images = [
     {
@@ -64,46 +71,12 @@ const images = [
     },
 ];
 
-const QUERIES_LIST = [...Array(24)].map((_, index) => ({
-    id: index,
-    title: faker.name.lastName(),
-    description: faker.lorem.paragraphs(),
-}));
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-function ListItemRender(id, title, body, handleDialogueOpen) {
 
-    return (
-        <ListItem key={id} onClick={handleDialogueOpen}>
-            <ListItemButton>
-                <ListItemIcon>
-                    <FiberManualRecordIcon sx={{fontSize: 10}}/>
-                </ListItemIcon>
-                <ListItemText
-                    primary={
-                        <Stack direction={"row"} spacing={1}>
-                            <Typography variant={"subtitle2"}>{title}</Typography>
-                            <ArrowRightIcon/>
-                            <Typography
-                                variant={"body1"}
-                                sx={{
-                                    display: "block",
-                                    width: "750px",
-                                    whiteSpace: "nowrap",
-                                    overflow: "hidden",
-                                }}
-                            >
-                                {body}
-                            </Typography>
-                        </Stack>
-                    }
-                />
-            </ListItemButton>
-        </ListItem>
-    );
-}
-
-function AssetDetails({LIST}) {
+function AssetDetails() {
+    const navigate = useNavigate();
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -132,17 +105,78 @@ function AssetDetails({LIST}) {
     };
 
     const {id} = useParams();
-    const listObj = LIST[parseInt(id)];
     const [values, setValues] = useState({
-        Type: listObj.type,
-        Name: listObj.name,
-        type: listObj.type,
-        time: listObj.time,
-        category: listObj.category,
-        location: listObj.location,
-        days: listObj.days,
-        description: listObj.description,
+        Name: '',
+        type: '',
+        time: '',
+        category: '',
+        location: '',
+        days: '',
+        description: '',
     });
+
+    const [statusCode, setStatusCode] = useState({cond: false, res1: 0, res2: 0});
+    useEffect(async () => {
+        const response = await getTableSingle('asset', id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ["type"]: response.data.type,
+                ["Name"]: response.data.name,
+                ["category"]: response.data.category,
+                ["time"]: response.data.time_start,
+                ["location"]: "Computer Science Department",
+                ['days']: response.data.days,
+                ['description']: response.data.description
+            });
+            setStatusCode({...statusCode, ['cond']: false, ["res1"]: 0, ["res2"]: 0})
+        } else {
+            console.log(response.status);
+        }
+    }, [])
+
+
+
+    const handleSave = async () => {
+        const data = {
+            name: values.Name,
+            type: values.type,
+            time: values.time,
+            category: values.category,
+            location: values.location,
+            days: values.days,
+            description: values.description,
+        }
+        const response = await UpdateSingleTableData('asset', id, data);
+        if (response.status === 200) {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: 200, ["res2"]: 0})
+        } else {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: response.status, ["res2"]: 0})
+        }
+    }
+
+    const handleDelete = async () => {
+        const response = await deleteSingle('asset', id);
+        if (response.status === 200) {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: 200
+            })
+            setTimeout(function () {
+                navigate('/admin/dashboard/assets')
+            }, 1500);
+
+        } else {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: response.status
+            })
+        }
+    }
 
 
     const handleChange = (event) => {
@@ -151,12 +185,6 @@ function AssetDetails({LIST}) {
             [event.target.name]: event.target.value,
         });
     };
-    const FILTER_BY_OPTION = [
-        {id: "approved", label: "Approved"},
-        {id: "pending", label: "Pending"},
-        {id: "thisweek", label: "This Week"},
-    ];
-    const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
 
     return (
         <div>
@@ -244,9 +272,12 @@ function AssetDetails({LIST}) {
                                             Name:
                                         </Typography>
                                         <TextField
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.Name}
+                                            label={"Name"}
+                                            name={'Name'}
+                                            value={values.Name}
                                             size="small"
                                         />
                                     </Stack>
@@ -260,9 +291,13 @@ function AssetDetails({LIST}) {
                                             Type:
                                         </Typography>
                                         <TextField
+
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.Type}
+                                            label={"Type"}
+                                            name={'type'}
+                                            value={values.type}
                                             size="small"
                                         />
                                     </Stack>
@@ -276,9 +311,13 @@ function AssetDetails({LIST}) {
                                             Category:
                                         </Typography>
                                         <TextField
+
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.category}
+                                            label={"Category"}
+                                            name={"category"}
+                                            value={values.category}
                                             size="small"
                                         />
                                     </Stack>
@@ -292,9 +331,13 @@ function AssetDetails({LIST}) {
                                             Location:
                                         </Typography>
                                         <TextField
+
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.location}
+                                            label={"Location"}
+                                            name={'location'}
+                                            value={values.location}
                                             size="small"
                                         />
                                     </Stack>
@@ -308,9 +351,13 @@ function AssetDetails({LIST}) {
                                             Time:
                                         </Typography>
                                         <TextField
+
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.time}
+                                            label={"Time"}
+                                            name={'time'}
+                                            value={values.time}
                                             size="small"
                                         />
                                     </Stack>
@@ -324,9 +371,13 @@ function AssetDetails({LIST}) {
                                             Days:
                                         </Typography>
                                         <TextField
+
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.days}
+                                            label={"Days"}
+                                            name={'days'}
+                                            value={values.days}
                                             size="small"
                                         />
                                     </Stack>
@@ -340,9 +391,13 @@ function AssetDetails({LIST}) {
                                             Description:
                                         </Typography>
                                         <TextField
+
+                                            onChange={handleChange}
                                             variant="outlined"
                                             disabled={disabled}
-                                            label={values.description}
+                                            label={"Description"}
+                                            name={'description'}
+                                            value={values.description}
                                             multiline
                                             minRows={3}
                                             sx={{width: "640px"}}
@@ -362,11 +417,17 @@ function AssetDetails({LIST}) {
                                             mr: 4,
                                         }}
                                     >
-                                        <Button color="error" variant="outlined">
+                                        <Button color="error" variant="outlined" onClick={handleDelete}>
                                             Delete
                                         </Button>
                                         <Button color="primary" variant="contained"
-                                                onClick={() => setdisabled(!disabled)}>
+                                                onClick={() => {
+                                                    if (disabled === false) {
+                                                        handleSave();
+                                                    }
+                                                    setdisabled(!disabled);
+
+                                                }}>
                                             {disabled === true ? 'Update' : 'Save Changes'}
                                         </Button>
                                     </Stack>
@@ -378,6 +439,15 @@ function AssetDetails({LIST}) {
                     </Card>
                 </form>
             </Page>
+            {statusCode.cond && (
+                statusCode.res1 === 200 ?
+                    <CustomSnackbar message={"Successfully Updated Asset Details"} type={'primary'}/>
+                    : statusCode.res1 !== 200 && statusCode.res2 === 0 ?
+                        <CustomSnackbar message={"Error While Updating Asset Details"} type={'error'}/>
+                        : statusCode.res1 === 0 && statusCode.res2 === 200 ?
+                            <CustomSnackbar message={"Successfully Deleted the Asset"} type={'error'}/>
+                            : <CustomSnackbar message={"Error While Deleting the Asset"} type={'error'}/>
+            )}
             <Dialog
                 open={open}
                 onClose={handleClose}

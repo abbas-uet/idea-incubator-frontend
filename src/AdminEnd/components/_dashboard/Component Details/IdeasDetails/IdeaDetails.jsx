@@ -1,18 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
-import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField, Typography,
-    List, ListItemAvatar, ListItem
-} from '@mui/material';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Button, Card, CardContent, CardHeader, Divider, Grid, ListItem, Typography} from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -26,50 +15,16 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-
-
-import {deepOrange, green} from '@mui/material/colors';
-import {useState} from 'react';
 import Stack from "@mui/material/Stack";
-import {AvatarGroup} from "@mui/lab";
-
-
-import ListToolBar from '../ListToolBar';
 import {Icon} from "@iconify/react/dist/iconify";
 import plusFill from "@iconify/icons-eva/plus-fill";
+import {getTableSingle, getThreeTableAllById} from "../../../../../ApiServices/getData";
+import {UpdateSingleTableData} from "../../../../../ApiServices/update";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
 
 
-const QUERIES_LIST = [...Array(24)].map((_, index) => ({
-    id: index,
-    title: faker.name.lastName(),
-    description: faker.lorem.paragraphs(),
-}));
+function IdeaDetails() {
 
-
-function ListItemRender(id, title, body, handleDialogueOpen) {
-    return <ListItem key={id} onClick={handleDialogueOpen}>
-        <ListItemButton>
-            <ListItemIcon>
-                <FiberManualRecordIcon sx={{fontSize: 10}}/>
-            </ListItemIcon>
-            <ListItemText primary={
-                <Stack direction={'row'} spacing={1}>
-                    <Typography variant={'subtitle2'}>{title}</Typography>
-                    <ArrowRightIcon/>
-                    <Typography variant={'body1'} sx={{
-                        display: "block",
-                        width: "750px",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden"
-                    }}>{body}</Typography>
-                </Stack>
-            }/>
-        </ListItemButton>
-    </ListItem>;
-}
-
-
-function IdeaDetails({LIST}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -80,21 +35,52 @@ function IdeaDetails({LIST}) {
         setOpen(false);
     };
 
-    const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
-    const [values, setValues] = useState({
-        name: listObj.name,
-        email: listObj.email,
-        field: listObj.field,
-        projectName: listObj.projectname,
-    });
+    const navigate = useNavigate();
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-        });
-    };
+
+    const {id} = useParams()
+    const [values, setValues] = useState({
+        name: '',
+        email: '',
+        field: '',
+        projectName: '',
+        status: ''
+    });
+    useEffect(async () => {
+        const response = await getTableSingle('idea', id);
+        if (response.status === 200) {
+            setValues({
+                ...values, ["name"]: response.data.name, ["field"]: response.data.field,
+                ["email"]: response.data.email,
+                ['status']: response.data.status,
+                ['projectName']: response.data.projectname,
+            })
+        } else {
+            console.log(response.data);
+        }
+    }, [])
+
+    const [statusCode, setStatusCode] = useState({cond: false, res: 0, action: ''});
+    const handleApprove_Reject = async (event) => {
+        const data = {
+            status: ''
+        }
+        if (event.target.name === 'approve') {
+            data.status = "Approved";
+        } else {
+            data.status = "Rejected";
+        }
+        const response = await UpdateSingleTableData('idea', id, data);
+        if (response.status === 200) {
+            setStatusCode({...statusCode, ['cond']: true, ["res"]: 200, ['action']: data.status});
+            setTimeout(function () {
+                navigate('/admin/dashboard/ideas')
+            }, 1500);
+        } else {
+            setStatusCode({...statusCode, ['cond']: true, ["res"]: response.status, ['action']: data.status});
+        }
+    }
+
 
     return (
         <div>
@@ -157,12 +143,18 @@ function IdeaDetails({LIST}) {
                                         <Button
                                             color="error"
                                             variant="outlined"
+                                            name={'reject'}
+                                            disabled={values.status === 'Approved' || values.status === 'Rejected'}
+                                            onClick={handleApprove_Reject}
                                         >
                                             Reject Idea
                                         </Button>
                                         <Button
                                             color="primary"
                                             variant="contained"
+                                            name={'approve'}
+                                            disabled={values.status === 'Approved' || values.status === 'Rejected'}
+                                            onClick={handleApprove_Reject}
                                         >
                                             Approve Idea
                                         </Button>
@@ -185,6 +177,11 @@ function IdeaDetails({LIST}) {
                 </form>
 
             </Page>
+            {statusCode.cond && (
+                statusCode.res === 200 ?
+                    <CustomSnackbar message={"Idea " + statusCode.action + " Successfully"} type={'primary'}/>
+                    :
+                    <CustomSnackbar message={"Idea " + statusCode.action + " Successfully"} type={'error'}/>)}
             <Dialog
                 open={open}
                 onClose={handleClose}

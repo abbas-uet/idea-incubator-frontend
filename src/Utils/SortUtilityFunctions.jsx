@@ -25,7 +25,6 @@ export function applySortFilter(array, comparator, query, filterSearchBy) {
         if (order !== 0) return order;
         return a[1] - b[1];
     });
-    console.log(filterSearchBy);
 
     if (query) {
         return filterSearchBy === 'id' ? filter(array, (_user) => _user.id === parseInt(query)) :

@@ -217,7 +217,7 @@ export default function AdminIndustry({ cardObj}) {
                                 {filteredUsers
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) =>{
-                                        let {id, username, email, name, services} = row;
+                                        let {id, username, email, name, IndustryServices} = row;
                                         let isItemSelected = selected.indexOf(name) !== -1;
                                         return (
                                             <TableRow
@@ -241,8 +241,8 @@ export default function AdminIndustry({ cardObj}) {
                                                 <TableCell align="left">{name}</TableCell>
 
                                                 <TableCell align="left">
-                                                    {SERVICES.map(e=>{
-                                                        return(<Chip label={e} />);
+                                                    {IndustryServices.map(e=>{
+                                                        return(<Chip label={e.name} />);
                                                     })}
                                                 </TableCell>
 

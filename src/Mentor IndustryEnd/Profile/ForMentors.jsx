@@ -39,7 +39,7 @@ import HonorsAndAwards from "./Honors & Awards.jsx";
 import Organization from "./Organization.jsx";
 import Language from "./Language.jsx";
 
-import userimg from '../../../StaticAssets/userimg.jpg';
+import userimg from '../../UserEnd/StaticAssets/userimg.jpg';
 import Typography from "@mui/material/Typography";
 
 

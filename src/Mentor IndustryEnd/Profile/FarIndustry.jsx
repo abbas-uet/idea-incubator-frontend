@@ -20,7 +20,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import {styled} from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import EditIcon from "@mui/icons-material/Edit";
-import userimg from "../../../StaticAssets/userimg.jpg";
+import userimg from "../../UserEnd/StaticAssets/userimg.jpg";
 import ImageIcon from "@mui/icons-material/Image";
 import FabButton from "./FabButton";
 import WorkIcon from "@mui/icons-material/Work";

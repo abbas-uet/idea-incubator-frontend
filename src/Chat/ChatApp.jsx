@@ -40,7 +40,7 @@ const sort = {
 export const GiphyContext = React.createContext({});
 
 const ChatApp = () => {
-    const {id} = useParams();
+    const {role,id} = useParams();
     const filters =  { type: 'messaging', members: { $in: [`${id}`]} };
     const userToConnect = { id: id, name: id.toString()+"name", image: getRandomImage() };
 

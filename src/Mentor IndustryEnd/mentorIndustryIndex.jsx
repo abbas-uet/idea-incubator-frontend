@@ -5,12 +5,11 @@ import {Outlet} from "react-router-dom";
 
 import Grid from "@mui/material/Grid";
 import ScrollToTop from "../AdminEnd/components/ScrollToTop";
-import Navbar from "../UserEnd/components/Navbar/Navbar";
+import Navbar from './Navbar/Navbar';
 
 function MentorIndustryIndex({role}) {
 
-    const mentorPages = [];
-    const industryPages=[]
+
     const settings = [['Account Setting','studentAccountSettings'],['Log Out','studentProfileSettings'], ];
 
     return (
@@ -19,10 +18,10 @@ function MentorIndustryIndex({role}) {
 
             <LocalizationProvider dateAdapter={DateFnsAdapter}>
                 {role==='industry'?
-                <Navbar settings={settings} pages={industryPages}/>:
-                    <Navbar settings={settings} pages={mentorPages}/>
+                <Navbar settings={settings} page={'industry'}/>:
+                    <Navbar settings={settings} page={'mentor'}/>
                 }
-                <Grid sx={{mt:8}}>
+                <Grid sx={{mt:10}}>
                     <Outlet/>
                 </Grid>
             </LocalizationProvider>

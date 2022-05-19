@@ -9,15 +9,32 @@ import {
     Grid,
     TextField, Typography
 } from '@mui/material';
+import {Create} from "../../../../../ApiServices/create";
+import {useNavigate} from "react-router-dom";
 
 
 export const CreateNewComponent = (props) => {
+    const navigate=useNavigate();
+    const [statusCode,setStatusCode]=useState({cond:false,res:0});
+
     const [values, setValues] = useState({
         fullName: '',
         email: '',
         password: '',
         confirm: ''
     });
+    const create=async ()=>{
+            const response=await Create('admin',values);
+            if(response.status===200){
+                setStatusCode({...statusCode,['cond']:true,["res"]:200})
+                setTimeout(function(){
+                    navigate('/admin/dashboard/user');
+                }, 1500);
+
+            }else{
+                setStatusCode({...statusCode,['cond']:true,["res"]:response.status})
+            }
+    }
 
     const handleChange = (event) => {
         setValues({
@@ -25,6 +42,7 @@ export const CreateNewComponent = (props) => {
             [event.target.name]: event.target.value
         });
     };
+
 
     return (
         <Grid
@@ -130,5 +148,6 @@ export const CreateNewComponent = (props) => {
                 />
             </Grid>
         </Grid>
+
     );
 };

@@ -1,23 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
-import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField, Typography,
-    List, ListItemAvatar, ListItem
-} from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Button, Card, CardContent, CardHeader, Divider, Grid, ListItem, TextField, Typography} from '@mui/material';
 
 import faker from 'faker';
 
@@ -26,15 +10,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-
-
-import {deepOrange, green} from '@mui/material/colors';
-import {useState} from 'react';
 import Stack from "@mui/material/Stack";
-import {AvatarGroup} from "@mui/lab";
-
-
-import ListToolBar from '../ListToolBar';
+import {UpdateSingleTableData} from "../../../../../ApiServices/update";
+import {deleteSingle} from "../../../../../ApiServices/delete";
+import {getTableSingle} from "../../../../../ApiServices/getData";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -67,7 +47,8 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function MentorDetails({LIST}) {
+function MentorDetails() {
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -78,17 +59,74 @@ function MentorDetails({LIST}) {
         setOpen(false);
     };
 
+
     const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
+
     const [values, setValues] = useState({
-        userId: listObj.id,
-        name: listObj.name,
-        username: listObj.username,
-        email: listObj.email,
-        field: listObj.field,
+        id: '',
+        username: '',
+        email: '',
+        name: '',
+        field: [],
     });
 
-    console.log(values);
+    const [statusCode, setStatusCode] = useState({cond: false, res1: 0, res2: 0});
+    useEffect(async () => {
+        const response = await getTableSingle('mentor', id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ['id']: response.data.id,
+                ['name']: response.data.name,
+                ['email']: response.data.email,
+                ['username']: response.data.username,
+                ['field']: response.data.field,
+            });
+            setStatusCode({...statusCode, ['cond']: false, ["res1"]: 0, ["res2"]: 0})
+        } else {
+            console.log(response.status);
+        }
+    }, [])
+
+
+    const handleSave = async () => {
+        const data = {
+            name: values.name,
+            email: values.email,
+            username: values.username,
+            field: values.field
+        }
+        const response = await UpdateSingleTableData('Mentor', id, data);
+        if (response.status === 200) {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: 200, ["res2"]: 0})
+        } else {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: response.status, ["res2"]: 0})
+        }
+    }
+
+    const handleDelete = async () => {
+        const response = await deleteSingle('Mentor', id);
+        if (response.status === 200) {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: 200
+            })
+            setTimeout(function () {
+                navigate('/admin/dashboard/mentors')
+            }, 1500);
+
+        } else {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: response.status
+            })
+        }
+    }
+
 
     const handleChange = (event) => {
         setValues({
@@ -96,10 +134,7 @@ function MentorDetails({LIST}) {
             [event.target.name]: event.target.value
         });
     };
-    const FILTER_BY_OPTION = [{id: 'approved', label: 'Approved'},
-        {id: 'pending', label: 'Pending'},
-        {id: 'thisweek', label: 'This Week'}];
-    const [filter, setFilter] = useState(FILTER_BY_OPTION[0].id);
+
     const [disabled, setdisabled] = React.useState(true);
 
     return (
@@ -111,7 +146,7 @@ function MentorDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            sx={{ml:1}}
+                            sx={{ml: 1}}
                             title="Mentor Detail"
                         />
                         <Divider/>
@@ -120,104 +155,116 @@ function MentorDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                  <Grid item md={5}>
-                  <Stack direction={"row"} spacing={10.8} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      ID:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.userId}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={7.8} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Name:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.name}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={4} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      UserName:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.username}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={8} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Email:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.email}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={8.5} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Field:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.field}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                               
-                                
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={10.8} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            ID:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.id}
+                                            name={'id'}
+                                            label={"ID"}
+                                            onChange={handleChange}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={7.8} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Name:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.name}
+                                            name={'name'}
+                                            label={"Name"}
+                                            onChange={handleChange}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={4} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            UserName:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.username}
+                                            name={'username'}
+                                            label={"User Name"}
+                                            onChange={handleChange}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={8} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Email:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.email}
+                                            name={'email'}
+                                            label={"Email"}
+                                            onChange={handleChange}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={8.5} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Field:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.field}
+                                            name={'field'}
+                                            label={"Field"}
+                                            onChange={handleChange}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
 
-                              
-                           
+
                                 <Grid item
                                       md={12}
                                       xs={12}>
                                     <Stack direction={'row'} spacing={3} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        mr:2,
-                                        p:1
+                                        mr: 2,
+                                        p: 1
                                     }}>
                                         <Button
                                             color="inherit"
@@ -228,25 +275,40 @@ function MentorDetails({LIST}) {
                                         <Button
                                             color="error"
                                             variant="outlined"
+                                            onClick={handleDelete}
                                         >
                                             Delete Mentor
                                         </Button>
-                                        <Button color="primary" variant="contained" onClick={()=>setdisabled(!disabled)}>
-                      {disabled===true?'Update':'Save Changes'}
-                    </Button>
+                                        <Button color="primary" variant="contained"
+                                                onClick={() => {
+                                                    if (disabled === false) {
+                                                        handleSave();
+                                                    }
+                                                    setdisabled(!disabled);
+
+                                                }}>
+                                            {disabled === true ? 'Update' : 'Save Changes'}
+                                        </Button>
                                     </Stack>
                                 </Grid>
                             </Grid>
                         </CardContent>
 
-                      
-                       
-                       
+
                     </Card>
                 </form>
 
             </Page>
-          
+            {statusCode.cond && (
+                statusCode.res1 === 200 ?
+                    <CustomSnackbar message={"Successfully Updated Mentor Details"} type={'primary'}/>
+                    : statusCode.res1 !== 200 && statusCode.res2 === 0 ?
+                        <CustomSnackbar message={"Error While Updating Mentor Details"} type={'error'}/>
+                        : statusCode.res1 === 0 && statusCode.res2 === 200 ?
+                            <CustomSnackbar message={"Successfully Deleted the Mentor"} type={'error'}/>
+                            : <CustomSnackbar message={"Error While Deleting the Mentor"} type={'error'}/>
+            )}
+
         </div>
     );
 }

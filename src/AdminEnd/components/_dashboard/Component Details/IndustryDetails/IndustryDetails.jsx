@@ -1,23 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Page from "../../../Page";
-import {useHistory, useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {
-    Avatar,
-    Box,
     Button,
     Card,
     CardContent,
     CardHeader,
+    Chip,
     Divider,
     Grid,
-    TextField, Typography,
-    List, ListItemAvatar, ListItem
+    ListItem,
+    TextField,
+    Typography
 } from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 import faker from 'faker';
 
@@ -26,15 +21,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-
-
-import {deepOrange, green} from '@mui/material/colors';
-import {useState} from 'react';
 import Stack from "@mui/material/Stack";
-import {AvatarGroup} from "@mui/lab";
-
-
-import ListToolBar from '../ListToolBar';
+import {getTableSingle, getTwoTableSingle} from "../../../../../ApiServices/getData";
+import {UpdateSingleTableData} from "../../../../../ApiServices/update";
+import {deleteSingle} from "../../../../../ApiServices/delete";
+import CustomSnackbar from "../../../../../Utils/SnakBar";
 
 
 const QUERIES_LIST = [...Array(24)].map((_, index) => ({
@@ -67,9 +58,11 @@ function ListItemRender(id, title, body, handleDialogueOpen) {
 }
 
 
-function IndustryDetails({LIST}) {
+function IndustryDetails() {
+    const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const [disabled, setdisabled] = React.useState(true);
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -80,16 +73,72 @@ function IndustryDetails({LIST}) {
     };
 
     const {id} = useParams()
-    const listObj = LIST[parseInt(id)];
+
     const [values, setValues] = useState({
-        userId: listObj.id,
-        userName: listObj.username,
-        email: listObj.email,
-        companyName: listObj.companyname,
-        services: listObj.services,
+        id: '',
+        username: '',
+        email: '',
+        name: '',
+        services: [],
     });
 
-    console.log(values);
+
+    const [statusCode, setStatusCode] = useState({cond: false, res1: 0, res2: 0});
+    useEffect(async () => {
+        const response = await getTwoTableSingle('industry','service', id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ['id']:response.data.id,
+                ['name']: response.data.name,
+                ['email']: response.data.email,
+                ['username']: response.data.username,
+                ['services']: response.data.IndustryServices,
+            });
+            setStatusCode({...statusCode, ['cond']: false, ["res1"]: 0, ["res2"]: 0})
+            console.log(values.services);
+        } else {
+            console.log(response.status);
+        }
+    }, [])
+
+
+    const handleSave = async () => {
+        const data = {
+            name: values.name,
+            email: values.email,
+            username: values.username,
+        }
+        const response = await UpdateSingleTableData('Industry', id, data);
+        if (response.status === 200) {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: 200, ["res2"]: 0})
+        } else {
+            setStatusCode({...statusCode, ['cond']: true, ["res1"]: response.status, ["res2"]: 0})
+        }
+    }
+
+    const handleDelete = async () => {
+        const response = await deleteSingle('Industry', id);
+        if (response.status === 200) {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: 200
+            })
+            setTimeout(function () {
+                navigate('/admin/dashboard/industry')
+            }, 1500);
+
+        } else {
+            setStatusCode({
+                ...statusCode,
+                ["cond"]: true,
+                ["res1"]: 0,
+                ["res2"]: response.status
+            })
+        }
+    }
 
     const handleChange = (event) => {
         setValues({
@@ -97,7 +146,7 @@ function IndustryDetails({LIST}) {
             [event.target.name]: event.target.value
         });
     };
-   
+
 
     return (
         <div>
@@ -108,7 +157,7 @@ function IndustryDetails({LIST}) {
                 >
                     <Card>
                         <CardHeader
-                            sx={{ml:1}}
+                            sx={{ml: 1}}
                             title="Industry Details"
                         />
                         <Divider/>
@@ -117,103 +166,112 @@ function IndustryDetails({LIST}) {
                                 container
                                 spacing={3}
                             >
-                                 <Grid item md={5}>
-                  <Stack direction={"row"} spacing={15.5} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      ID:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.userId}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={8.2} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      User Name:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.userName}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={12.5} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Email:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.email}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                <Grid item md={6}>
-                  <Stack direction={"row"} spacing={4} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Company Name:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.companyName}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={6}></Grid>
-                <Grid item md={5}>
-                  <Stack direction={"row"} spacing={10} alignItems={"center"}>
-                    <Typography
-                      variant="body2"
-                      sx={{ ml: 1, fontWeight: "bold" }}
-                    >
-                      Services:
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      disabled={disabled}
-                      label={values.services}
-                      size="small"
-                    ></TextField>
-                  </Stack>
-                </Grid>
-                <Grid item md={7}></Grid>
-                               
-                                
-                                
-                                
-                                
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={15.5} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            ID:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.id}
+                                            name={'ID'}
+                                            label={'ID'}
+                                            onChange={handleChange}
+                                            size="small"
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={8.2} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            User Name:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.username}
+                                            size="small"
+                                            name={'username'}
+                                            label={'User Name'}
+                                            onChange={handleChange}
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={12.5} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Email:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.email}
+                                            size="small"
+                                            name={'email'}
+                                            label={'Email'}
+                                            onChange={handleChange}
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+                                <Grid item md={6}>
+                                    <Stack direction={"row"} spacing={4} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Company Name:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            disabled={disabled}
+                                            value={values.name}
+                                            size="small"
+                                            name={'name'}
+                                            label={'Company Name'}
+                                            onChange={handleChange}
+                                        />
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={6}></Grid>
+                                <Grid item md={5}>
+                                    <Stack direction={"row"} spacing={10} alignItems={"center"}>
+                                        <Typography
+                                            variant="body2"
+                                            sx={{ml: 1, fontWeight: "bold"}}
+                                        >
+                                            Services:
+                                        </Typography>
+                                        <div>
+
+                                            {values.services.map(e=>{
+                                            return(<Chip label={e.name} />);
+                                        })}
+                                        </div>
+                                    </Stack>
+                                </Grid>
+                                <Grid item md={7}></Grid>
+
+
                                 <Grid item
                                       md={12}
                                       xs={12}>
                                     <Stack direction={'row'} spacing={4} sx={{
                                         display: 'flex',
                                         justifyContent: 'flex-end',
-                                        mr:2,
+                                        mr: 2,
                                         p: 1,
                                     }}>
                                         <Button
@@ -225,23 +283,39 @@ function IndustryDetails({LIST}) {
                                         <Button
                                             color="error"
                                             variant="outlined"
+                                            onClick={handleDelete}
                                         >
                                             Delete Industry
                                         </Button>
-                                        <Button color="primary" variant="contained" onClick={()=>setdisabled(!disabled)}>
-                      {disabled===true?'Update':'Save Changes'}
-                    </Button>
+                                        <Button color="primary" variant="contained"
+                                                onClick={() => {
+                                                    if (disabled === false) {
+                                                        handleSave();
+                                                    }
+                                                    setdisabled(!disabled);
+
+                                                }}>
+                                            {disabled === true ? 'Update' : 'Save Changes'}
+                                        </Button>
                                     </Stack>
                                 </Grid>
                             </Grid>
                         </CardContent>
 
-                        
-                       
+
                     </Card>
                 </form>
 
             </Page>
+            {statusCode.cond && (
+                statusCode.res1 === 200 ?
+                    <CustomSnackbar message={"Successfully Updated Industry Details"} type={'primary'}/>
+                    : statusCode.res1 !== 200 && statusCode.res2 === 0 ?
+                        <CustomSnackbar message={"Error While Updating Industry Details"} type={'error'}/>
+                        : statusCode.res1 === 0 && statusCode.res2 === 200 ?
+                            <CustomSnackbar message={"Successfully Deleted the Industry"} type={'error'}/>
+                            : <CustomSnackbar message={"Error While Deleting the Industry"} type={'error'}/>
+            )}
 
         </div>
     );

@@ -61,12 +61,7 @@ const TABLE_HEAD = [
         {id: 'email', label: 'Email', alignRight: false},
         {id: 'field', label: 'Field', alignRight: false},
         {id: ''}],
-    [{id: 'id', label: 'Id', alignRight: false},
-        {id: 'username', label: 'User Name', alignRight: false},
-        {id: 'email', label: 'Email', alignRight: false},
-        {id: 'companyname', label: 'Company Name', alignRight: false},
-        {id: 'services', label: 'Services', alignRight: false},
-        {id: ''}],
+    ,
 ];
 
 

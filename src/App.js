@@ -75,6 +75,9 @@ import MentorIndustryIndex from "./Mentor IndustryEnd/mentorIndustryIndex";
 import Home from './Mentor IndustryEnd/home';
 import Meetups from "./Mentor IndustryEnd/meetups";
 import Webinars from './Mentor IndustryEnd/webinars';
+import ForMentors from "./Mentor IndustryEnd/Profile/ForMentors";
+import ForIndustry from "./Mentor IndustryEnd/Profile/FarIndustry";
+import AdminMentor from "./AdminEnd/pages/AdminMentors";
 
 
 const cardObj = [
@@ -113,15 +116,17 @@ function App() {
                     <Route path={'mentor'} element={<MentorIndustryIndex role={'mentor'}/>}>
                         <Route path="home" element={<Home role={'mentor'}/>}/>
                         <Route path="meetup" element={<Meetups/>}/>
+                        <Route path="profileSetting" element={<ForMentors/>}/>
                     </Route>
 
 
                     <Route path={'industry'} element={<MentorIndustryIndex role={'industry'}/>}>
                         <Route path="home" element={<Home role={'industry'}/>}/>
                         <Route path="webinar" element={<Webinars/>}/>
-
+                        <Route path="profileSetting" element={<ForIndustry/>}/>
                     </Route>
-                    <Route path={'chat/:id'} element={<ChatApp/>}/>
+
+                    <Route path={'chat/:role/:id'} element={<ChatApp/>}/>
 
                     {//
                         //Super Admin Dashboard
@@ -195,28 +200,28 @@ function App() {
                             <Route path={'user'}
                                    element={<AdminUsers  cardObj={cardObj[0][0]}/>}/>
                             <Route path={'user/detailsUser/:id'}
-                                   element={<UserDetails LIST={ListofTableContent('User')}/>}/>
+                                   element={<UserDetails />}/>
                             <Route path={'ideas'}
                                    element={<AdminIdeas cardObj={cardObj[1][0]}/> }/>
                             <Route path={'ideas/detailsIdeas/:id'} element={<IdeaDetails
-                                LIST={ListofTableContent('Ideas')}/>}/>
+                                />}/>
                             <Route path={'assets'}
                                    element={<AdminAssets cardObj={cardObj[0][0]}/>/*<Blog />*/}/>
                             <Route path={'asset/detailsAsset/:id'}
-                                   element={<AssetDetails LIST={ListofTableContent('Assets')}/>}/>
+                                   element={<AssetDetails />}/>
                             <Route path={'talent'}
                                    element={<AdminTalent cardObj={cardObj[0][0]}/>}/>
                             <Route path={'talent/detailsTalent/:id'} element={<TalentDetails
-                                LIST={ListofTableContent('Talent')}/>}/>
+                                />}/>
                             <Route path={'industry'}
 
                                    element={<AdminIndustry cardObj={cardObj[0][0]}/> /* <NotFound />*/}/>
                             <Route path={'industry/detailsIndustry/:id'} element={<IndustryDetails
-                                LIST={ListofTableContent('Industry')}/>}/>
+                                />}/>
                             <Route path={'mentors'}
-                                   element={<AdminOptions pageName={'Mentors'} cardObj={cardObj[0][0]}/>}/>
+                                   element={<AdminMentor cardObj={cardObj[0][0]} />}/>
                             <Route path={'mentors/detailsMentors/:id'} element={<MentorDetails
-                                LIST={ListofTableContent('Mentors')}/>}/>
+                                />}/>
                         </Route>
                     </Route>
                 </Routes>

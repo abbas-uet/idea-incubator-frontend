@@ -21,7 +21,7 @@ import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import { TextField, ListItemAvatar, styled, Badge, Paper } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 
-import FabButton from "../../../../../UserEnd/components/Profile Setting/Profile/FabButton";
+import FabButton from "../../../../../Mentor IndustryEnd/Profile/FabButton";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
