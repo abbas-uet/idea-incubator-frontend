@@ -18,7 +18,7 @@ const MENU_OPTIONS = [
     {
         label: 'Home',
         icon: homeFill,
-        linkTo: '/'
+        linkTo: '/admin/dashboard/app'
     },
     {
         label: 'Profile',
@@ -110,7 +110,7 @@ export default function AccountPopover() {
                 ))}
 
                 <Box sx={{p: 2, pt: 1.5}}>
-                    <Button fullWidth color="inherit" variant="outlined">
+                    <Button fullWidth color="inherit" variant="outlined" LinkComponent={RouterLink}  to={'/login'}>
                         Logout
                     </Button>
                 </Box>

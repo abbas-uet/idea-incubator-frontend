@@ -50,7 +50,7 @@ const sidebarConfig = [
     },
     {
         title: 'Logout',
-        path: '/superadmin/dashboard/logout',
+        path: '/login',
         icon: getIcon(lockFill)
     }
 ];
