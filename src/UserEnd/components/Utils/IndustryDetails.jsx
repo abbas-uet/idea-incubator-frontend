@@ -1,16 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Grid, makeStyles} from "@material-ui/core";
 import {Avatar, Card, Paper} from "@mui/material";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
-import userimg from "../../StaticAssets/userimg.jpg";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import {useNavigate} from "react-router-dom";
-import {styled} from "@mui/material/styles";
-
-
+import {useNavigate, useParams} from "react-router-dom";
+import {getThreeTableAllById} from "../../../ApiServices/getData";
 
 
 const useStyle = makeStyles({
@@ -27,6 +23,33 @@ function IndustryDetails(props) {
     const navigate = useNavigate();
     const classes = useStyle()
 
+    const {id} = useParams()
+
+    const [values, setValues] = useState({
+        id: '',
+        name: '',
+        email:'',
+        username:'',
+        profile: '',
+        services: [],
+    });
+
+    useEffect(async () => {
+        const response = await getThreeTableAllById("industry", 'profile','service', id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ["id"]: response.data.id,
+                ['name']:response.data.name,
+                ['email']:response.data.email,
+                ["username"]: response.data.username,
+                ["services"]: response.data.IndustryServices,
+                ["profile"]: response.data.IndustryProfile,
+            });
+        } else {
+            console.log(response.data);
+        }
+    }, [])
 
 
 
@@ -46,7 +69,7 @@ function IndustryDetails(props) {
                         <CardHeader sx={{ ml: 6,mb:1 }} title="Industry Profile" />
                         <Divider />
                         <Grid item container>
-                            <Grid item xs={5} md={5} justifyContent='center'>
+                            <Grid item xs={5} md={5} >
                                 <Avatar
                                     variant="rounded"
                                     sx={{height: "250px", width: "250px", ml: 9, mt: 5, mr: 5, mb: 4}}
@@ -57,25 +80,27 @@ function IndustryDetails(props) {
                             <Grid item xs={7} md={7}>
 
                                 <Typography variant='body2' sx={{ mr: 4, mt: 6 }}>
-                                    <b>Name:</b> Google
+                                    <b>Name:</b> {values.name}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Headline:</b> To provide access to the world's information in one click
+                                    <b>Headline:</b> {values.profile&& values.profile.headline}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b> Location:</b> Mountain View, California, United States
+                                    <b> Location:</b> {values.profile&& values.profile.location}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Website:</b> https://sites.google.com/
+                                    <b>Website:</b> {values.profile&& values.profile.website}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Email:</b> adwords-support@google.com
+                                    <b>Email:</b> {values.email}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Services:</b> Training |Funding| Equity
+                                    <b>Services:</b> {values.services.map(e=>{
+                                    return(e.name+" | ")
+                                })}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 8, mt: 1 }}>
-                                    <b>Description:</b>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cupiditate deleniti dolores magni. Ab ipsa omnis perferendis! A at cum, laborum minima minus odio quos.
+                                    <b>Description:</b>{values.profile&& values.profile.description}
                                 </Typography>
 
 

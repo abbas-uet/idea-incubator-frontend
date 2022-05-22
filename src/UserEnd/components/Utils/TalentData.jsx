@@ -7,57 +7,57 @@ import Button from "@mui/material/Button";
 import userimg from '../../StaticAssets/userimg.jpg';
 import {Link} from "react-router-dom";
 
-export default function TalentData() {
+export default function TalentData({values}) {
     return (
-        <Paper sx={{ ml: 1.2, mr: 1.2 }}>
+        <Paper sx={{ml: 1.2, mr: 1.2}}>
             <Card>
                 <Grid item container>
                     <Grid item xs={9} md={9}>
                         <Avatar
                             variant="rounded"
-                            sx={{ height: "100px", width: "100px", mt: 2, ml: 2 }}
+                            sx={{height: "100px", width: "100px", mt: 2, ml: 2}}
                             src={userimg}
                             alt="Paella dish"
-                        ></Avatar>
-                    </Grid >
+                        />
+                    </Grid>
                     <Grid item xs={3} md={3} justifyContent={"center"}>
                         <Checkbox
-                            sx={{ mt: 1, ml: 3 }}
-                            icon={<FavoriteBorder />}
-                            checkedIcon={<Favorite color="error" />}
+                            sx={{mt: 1, ml: 3}}
+                            icon={<FavoriteBorder/>}
+                            checkedIcon={<Favorite color="error"/>}
                         />
                     </Grid>
                 </Grid>
-                <CardContent sx={{ paddingBottom: 0 }}>
+                <CardContent sx={{paddingBottom: 0}}>
                     <Typography
                         component="div"
                         variant="h6"
                     >
-                        Bisma Asghar
+                        {values.name}
                     </Typography>
 
                     <Typography
                         variant="subtitle2"
                         fontWeight={"fontWeightBold"}
                     >
-                        Computer Science Dept
+                        {values.department}
                     </Typography>
-                    <Grid item container direction="row" marginTop={0.5} spacing={1} >
-                        <Grid item md={1}>  <MiscellaneousServicesIcon /></Grid>
-                        <Grid item md={5}>             <Typography
+                    <Grid item container direction="row" marginTop={0.5} spacing={1}>
+                        <Grid item md={1}> <MiscellaneousServicesIcon/></Grid>
+                        <Grid item md={5}> <Typography
                             color="text.secondary"
                             variant="body2"
                             component="div"
                         >
-                            PF |OOP| Data Structure
+                            {values.skills}
                         </Typography>
                         </Grid>
-                        <Grid item md={6}>         <Button
-                            sx={{ ml: 3, mr: 1 }}
+                        <Grid item md={6}> <Button
+                            sx={{ml: 3, mr: 1}}
                             color="secondary"
                             variant="outlined"
                             size="small"
-                            LinkComponent={Link} to="viewTalent"
+                            LinkComponent={Link} to={"viewTalent/"+values.id}
                         >
                             Learn More
                         </Button>

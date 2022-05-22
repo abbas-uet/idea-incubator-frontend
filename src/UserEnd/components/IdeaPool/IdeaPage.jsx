@@ -1,6 +1,6 @@
-import React from 'react'
-import {Grid, ListItemButton, Pagination, Stack} from "@mui/material";
-import  './idea.css';
+import React, {useEffect, useState} from 'react'
+import {Grid, Pagination, Stack, TablePagination} from "@mui/material";
+import './idea.css';
 import SearchBar from "../Mentors/SearchBar/SearchBar";
 import Button from "@mui/material/Button"
 import Box from '@mui/material/Box';
@@ -10,15 +10,10 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Card from '@mui/material/Card'
 import {Link} from "react-router-dom";
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import FolderIcon from '@mui/icons-material/Folder';
-import {Divider} from '@material-ui/core';
+import {getTableData} from "../../../ApiServices/getData";
+import TalentData from "../Utils/TalentData";
+import IdeaData from "./IdeaData";
 
 var array=[0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
@@ -27,13 +22,34 @@ var array=[0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 
 export default function IdeaPage() {
 
+    const [LIST, setLIST] = useState([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    useEffect(async () => {
+        const response = await getTableData('idea');
+        if (response.status === 200) {
+            setLIST(response.data);
+        } else {
+            console.log(response.status);
+        }
+    },[]);
+
+
     const [age, setAge] = React.useState('');
 
     const ishandleChange = (event) => {
         setAge(event.target.value);
     };
     const itemsPerPage = 10;
-    const [page, setPage] = React.useState(1);
     const [noOfPages] = React.useState(
         Math.ceil(array.length / itemsPerPage)
     );
@@ -115,680 +131,19 @@ export default function IdeaPage() {
                                                         <th scope="col">Founder</th>
                                                         <th scope="col">Ideas</th>
                                                         <th scope="col">Status</th>
-                                                        <th className="text-center" scope="col"></th>
+                                                        <th className="text-center" scope="col"/>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                    alt=""/>
+                                                    {
+                                                        LIST.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                                            .map((row) => {
+                                                                return(
+                                                                        <IdeaData values={row} />
 
-                                                                <h3>Abbas Ali</h3>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3>Be one's Eye</h3>
-                                                                <div className="meta">
-
-                                                                    <div className="time">
-                                                                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi at blanditiis dolorum excepturi nemo provident vitae! Eveniet itaque perferendis <reprehenderit className="">             </reprehenderit></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Ongoing</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <Button variant="outlined" size={'small'} sx={{width:100}} LinkComponent={Link} to="viewIdea">Read More</Button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>20</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                                                                    alt=""/>
-                                                                <h3>M.Ahmed </h3>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3>MediKnow</h3>
-                                                                <div className="meta">
-
-                                                                    <div className="time">
-                                                                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid assumenda at enim recusandae voluptas? Eveniet!</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Completed</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <Button variant="outlined" size={'small'} sx={{width:100}}>Read More</Button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box border-bottom-0">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>18</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                                    alt=""/>
-                                                                <h3>Dua Amir  </h3>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3>Instagram Clone</h3>
-                                                                <div className="meta">
-
-                                                                    <div className="time">
-                                                                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda delectus est ipsa nisi sequi veniam vitae.</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Pending</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <Button variant="outlined" size={'small'} sx={{width:100}}>Read More</Button>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="profile" role="tabpanel"
-                                             aria-labelledby="profile-tab">
-                                            <div className="table-responsive">
-                                                <table className="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Speakers</th>
-                                                        <th scope="col">Session</th>
-                                                        <th scope="col">Venue</th>
-                                                        <th scope="col">Venue</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Toni Duggan</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Harman Kardon</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box border-bottom-0">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Billal Hossain</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="contact" role="tabpanel"
-                                             aria-labelledby="contact-tab">
-                                            <div className="table-responsive">
-                                                <table className="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Speakers</th>
-                                                        <th scope="col">Session</th>
-                                                        <th scope="col">Venue</th>
-                                                        <th scope="col">Venue</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Harman Kardon</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Billal Hossain</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box border-bottom-0">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Toni Duggan</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="sunday" role="tabpanel"
-                                             aria-labelledby="sunday-tab">
-                                            <div className="table-responsive">
-                                                <table className="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Speakers</th>
-                                                        <th scope="col">Session</th>
-                                                        <th scope="col">Venue</th>
-                                                        <th scope="col">Venue</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Toni Duggan</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Harman Kardon</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box border-bottom-0">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Billal Hossain</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div className="tab-pane fade" id="monday" role="tabpanel"
-                                             aria-labelledby="monday-tab">
-                                            <div className="table-responsive">
-                                                <table className="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Speakers</th>
-                                                        <th scope="col">Session</th>
-                                                        <th scope="col">Venue</th>
-                                                        <th scope="col">Venue</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>16</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Harman Kardon</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>18</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Toni Duggan</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr className="inner-box border-bottom-0">
-                                                        <th scope="row">
-                                                            <div className="event-date">
-                                                                <span>20</span>
-                                                                <p>Novembar</p>
-                                                            </div>
-                                                        </th>
-                                                        <td>
-                                                            <div className="event-img">
-                                                                <img
-                                                                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                                                    alt=""/>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="event-wrap">
-                                                                <h3><a href="#">Billal Hossain</a></h3>
-                                                                <div className="meta">
-                                                                    <div className="organizers">
-                                                                        <a href="#">Aslan Lingker</a>
-                                                                    </div>
-                                                                    <div className="categories">
-                                                                        <a href="#">Inspire</a>
-                                                                    </div>
-                                                                    <div className="time">
-                                                                        <span>05:35 AM - 08:00 AM 2h 25'</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="r-no">
-                                                                <span>Room B3</span>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className="primary-btn">
-                                                                <a className="btn btn-primary" href="#">Read More</a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                                );
+                                                            })
+                                                    }
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -807,7 +162,16 @@ export default function IdeaPage() {
 
 
             <Grid item container xs={12} justifyContent={'flex-end'}>
-                <Pagination count={10} color="secondary" sx={{ mb:2 }} />
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    size={'medium'}
+                    count={LIST.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
             </Grid>
 
         </Grid>

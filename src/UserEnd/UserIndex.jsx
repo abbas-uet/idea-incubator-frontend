@@ -15,7 +15,7 @@ function UserIndex(props) {
             <ScrollToTop />
 
         <LocalizationProvider dateAdapter={DateFnsAdapter}>
-                <Navbar settings={settings} pages={pages}/>
+                <Navbar settings={settings} pages={pages} name={'Abbas Ali'} id={'ab'}/>
                 <Grid sx={{mt:8}}>
                     <Outlet/>
                 </Grid>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import Box from '@mui/material/Box';
@@ -26,7 +26,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import assest from '../../StaticAssets/assest.png'
 
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {getTableSingle, getThreeTableAllById} from "../../../ApiServices/getData";
+import {Create} from "../../../ApiServices/create";
+import CustomSnackbar from "../../../Utils/SnakBar";
 
 const useStyle = makeStyles({
   container: {
@@ -76,6 +79,43 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default function AssestDetail() {
   const navigate = useNavigate();
+
+  const {id} = useParams()
+
+  const [applicationDays,setApplicationDays]=useState('')
+
+
+  const [statusCode,setStatusCode]=useState({cond:false,res:0});
+  const [values, setValues] = useState({
+    id: '',
+    name: '',
+    description:'',
+    startTime:'',
+    endTime: '',
+    location: '',
+    days:''
+  });
+
+  useEffect(async () => {
+    const response = await getTableSingle("asset", id);
+    if (response.status === 200) {
+      setValues({
+        ...values,
+        ["id"]: response.data.id,
+        ['name']:response.data.name,
+        ['description']:response.data.description,
+        ["startTime"]: response.data.time_start,
+        ["endTime"]: response.data.time_end,
+        ["location"]: response.data.location,
+        ["days"]: response.data.days,
+      });
+    } else {
+      console.log(response.data);
+    }
+  }, [])
+
+
+
   const classes = useStyle()
   const [open, setOpen] = React.useState(false);
   const [startTimevalue, setstartTimeValue] = React.useState(null);
@@ -101,6 +141,39 @@ export default function AssestDetail() {
   const handleClose = () => {
     setOpen(false);
   };
+
+
+  const create=async()=>{
+    let [shour, sminute, ssecond] = startTimevalue
+        .toLocaleTimeString("en-US")
+        .split(/:| /);
+    let [ehour, eminute, esecond] = endTimevalue
+        .toLocaleTimeString("en-US")
+        .split(/:| /);
+
+    const data={
+      startDate:Datevalue[0].getFullYear()+'-'+Datevalue[0].getMonth()+'-'+Datevalue[0].getDate(),
+      endDate:Datevalue[1].getFullYear()+'-'+Datevalue[1].getMonth()+'-'+Datevalue[1].getDate(),
+      days:applicationDays,
+      quantity:counter,
+      time_start:shour+":" +sminute+":"+ ssecond,
+      time_end:ehour+":" +eminute+":"+ esecond,
+      user_id:id
+    }
+    console.log(data);
+    const response=await Create('assetApplication',data);
+    if(response.status===200){
+      setStatusCode({...statusCode,['cond']:true,["res"]:200})
+      setTimeout(function(){
+        handleClose();
+      }, 1500);
+
+    }else{
+      setStatusCode({...statusCode,['cond']:true,["res"]:response.status})
+    }
+  }
+
+
   return (
     <Grid container>
       <Grid item xs={0} sm={2}></Grid>
@@ -121,16 +194,16 @@ export default function AssestDetail() {
                   Description:
                 </Typography>
                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque animi reiciendis cum consectetur odit in molestias asperiores omnis est Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, eum.
+                  {values.description}
                 </Typography>
                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                  <b>Location:</b> Lab 2-CS Department
+                  <b>Location:</b> {values.location}
                 </Typography>
                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                  <b>Available Time:</b> 10am-2pm
+                  <b>Available Time:</b> {values.startTime +' - '+ values.endTime}
                 </Typography>
                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                  <b>Days:</b> Monday-Wednesday
+                  <b>Days:</b> {values.days} a Week
                 </Typography>
                 <Button
                   sx={{ mr: 4, mt: 3 }}
@@ -209,29 +282,7 @@ export default function AssestDetail() {
                       <Typography gutterBottom sx={{ mt: 1 }} variant='body1' fontWeight={"fontWeightBold"}>
                         Add Days:
                       </Typography>
-                      <Autocomplete
-                        multiple
-                        id="checkboxes-tags-demo"
-                        size='small' sx={{ maxWidth: '330px', mt: 2 }}
-                        options={top100Films}
-                        disableCloseOnSelect
-                        getOptionLabel={(option) => option.title}
-                        renderOption={(props, option, { selected }) => (
-                          <li {...props}>
-                            <Checkbox
-                              icon={icon}
-                              checkedIcon={checkedIcon}
-                              style={{ marginRight: 8 }}
-                              checked={selected}
-                            />
-                            {option.title}
-                          </li>
-                        )}
-                        style={{ width: 500 }}
-                        renderInput={(params) => (
-                          <TextField size='small'{...params} label="Select" />
-                        )}
-                      />
+                      <TextField onChange={(event)=>setApplicationDays(event.target.value)} value={applicationDays} label="" variant="outlined" size="small" fullWidth/>
 
                     </Stack>
                     <Stack direction="row" spacing={5} alignItems={'center'} sx={{ mt: 4, ml: 5, mb: 2 }}>
@@ -260,7 +311,7 @@ export default function AssestDetail() {
                     </Stack>
                   </DialogContent>
                   <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
+                    <Button autoFocus onClick={create}>
                       Submit
                     </Button>
                   </DialogActions>
@@ -268,18 +319,12 @@ export default function AssestDetail() {
               </Grid>
             </Grid>
           </Card>
+          {(statusCode.cond? (statusCode.res===200?
+          <CustomSnackbar message={"Successfully Applied for Asset"} type={'primary'}/>
+          :
+          <CustomSnackbar message={"Error While Applying for Asset"} type={'error'}/>):'')}
         </Paper>
       </Grid>
-      <Grid item xs={0} sm={2}></Grid>
     </Grid>
   )
 }
-const top100Films = [
-  { title: 'Monday' },
-  { title: 'Tuesday' },
-  { title: 'Wednesday' },
-  { title: 'Thursday' },
-  { title: 'Friday' },
-  { title: "Satursday" },
-  { title: 'Sunday' },
-];

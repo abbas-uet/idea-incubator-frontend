@@ -1,37 +1,18 @@
-import React from 'react'
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-
-import Box from '@mui/material/Box';
+import React, {useEffect, useState} from 'react'
 import Stack from '@mui/material/Stack';
-import MobileDateRangePicker from '@mui/lab/MobileDateRangePicker';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Autocomplete from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import {Grid, makeStyles} from '@material-ui/core'
-import {Avatar, Card, Checkbox, Paper} from "@mui/material";
-import PropTypes from 'prop-types';
+import {Avatar, Card, Paper} from "@mui/material";
 import Button from '@mui/material/Button';
-import {styled} from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import TimePicker from '@mui/lab/TimePicker';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import AvatarGroup from '@mui/material/AvatarGroup';
 
 
-
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
-import assest from "../../StaticAssets/assest.png";
+import {getThreeTableAllById} from "../../../ApiServices/getData";
 
 const useStyle = makeStyles({
     container: {
@@ -46,32 +27,33 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default function IdeaDetail() {
+
+    const {id} = useParams()
+
+    const [values, setValues] = useState({
+        idea: '',
+        name: '',
+        email:'',
+        subusers:[]
+    });
+
+    useEffect(async () => {
+        const response = await getThreeTableAllById("user","idea","subuser", id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ["idea"]:response.data.Idea,
+                ["name"]:response.data.fullname,
+                ["email"]:response.data.email,
+                ['subusers']:response.data.SubUsers
+            });
+        } else {
+            console.log(response.data);
+        }
+    }, [])
     const navigate = useNavigate();
     const classes = useStyle()
-    const [open, setOpen] = React.useState(false);
-    const [startTimevalue, setstartTimeValue] = React.useState(null);
-    const [endTimevalue, setendTimeValue] = React.useState(null);
-    const [counter, setcounter] = React.useState(0);
-    const [Datevalue, setDateValue] = React.useState([null, null]);
 
-    const handleIncreaseCounter = () => {
-        if (counter >= 0) {
-            let c = counter;
-            setcounter(++c);
-        }
-    }
-    const handleDecreaseCounter = () => {
-        if (counter > 0) {
-            let c = counter;
-            setcounter(--c);
-        }
-    }
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
     return (
         <Grid container>
             <Grid item xs={0} sm={2}></Grid>
@@ -102,21 +84,21 @@ export default function IdeaDetail() {
                             </Grid>
                             <Grid item xs={7} md={7}  >
                                 <Typography variant='body2'  sx={{ mt: 6, mr: 4 }}>
-                                   <b> Project Name:</b>   Be one's Eye
+                                   <b> Project Name:</b> {values.idea&&values.idea.projectname}
                                 </Typography>
 
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Owner Name:</b> Abbas Ali
+                                    <b>Owner Name:</b> {values.name}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Gmail:</b> ali7895@gmail.coms
+                                    <b>Gmail:</b> {values.email}
                                 </Typography>
 
                                 <Typography variant='body2' sx={{ mr: 9, mt: 1 }}>
-                                    <b>Technology & Tools:</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis fuga natus officia perferendis quibusdam quod rerum soluta tempore? Aliquid aspernatur excepturi facilis illo in iste maxime officia officiis pariatur qui, quibusdam sunt tenetur voluptatum.
+                                    <b>Technology & Tools:</b> {values.idea&&values.idea.technology}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Description:</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis fuga natus officia perferendis quibusdam quod rerum soluta tempore?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae, unde.
+                                    <b>Description:</b> {values.idea&&values.idea.description}
                                 </Typography>
                                 <Stack direction={'row'} >
 
@@ -124,11 +106,13 @@ export default function IdeaDetail() {
                                         <b>Group Members:</b>
                                     </Typography>
                                     <AvatarGroup max={4}>
-                                        <Avatar sx={{width:40 , height:40}} alt="Remy Sharp" src="/broken-image.jpg" />
-                                        <Avatar alt="Travis Howard" src="/broken-image.jpg" />
-                                        <Avatar alt="Cindy Baker" src="/broken-image.jpg" />
-                                        <Avatar alt="Agnes Walker" src="/broken-image.jpg" />
-                                        <Avatar alt="Trevor Henderson" src="/broken-image.jpg" />
+                                        {
+                                            values.subusers&& values.subusers.map(e=>{
+                                                return(
+                                                    <Avatar sx={{width: 40, height: 40}} alt={e.fullname} src="/broken-image.jpg"/>
+                                                )
+                                            })
+                                        }
                                     </AvatarGroup>
                                 </Stack>
                                 <Typography variant='body2' sx={{ mr: 9, mt: 3 }}>
@@ -142,10 +126,6 @@ export default function IdeaDetail() {
                                     >
                                      Read File
                                 </Button>
-
-
-
-
                             </Grid>
                         </Grid>
                     </Card>
@@ -155,12 +135,3 @@ export default function IdeaDetail() {
         </Grid>
     )
 }
-const top100Films = [
-    { title: 'Monday' },
-    { title: 'Tuesday' },
-    { title: 'Wednesday' },
-    { title: 'Thursday' },
-    { title: 'Friday' },
-    { title: "Satursday" },
-    { title: 'Sunday' },
-];

@@ -87,7 +87,7 @@ function UserDetails() {
                 ...values, ["userId"]: response.data.userid, ["userName"]: response.data.username,
                 ["Joindate"]: response.data.joindate, ["email"]: response.data.email,
                 ['subUsers']: response.data.SubUsers,
-                ['projectName']: response.data.Idea.projectname,
+                ['projectName']: response.data.Idea && response.data.Idea.projectname,
             })
         } else {
             console.log(response.data);

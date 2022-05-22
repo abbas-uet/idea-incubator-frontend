@@ -19,6 +19,7 @@ import {useParams} from "react-router-dom";
 const urlParams = new URLSearchParams(window.location.search);
 
 const apiKey = '3pyc8ffapns6';
+const apiSecret='c3m3m7f858wyt36kk95rqhdhb7bntmxwe47gs8pw7852jwgb4asgz4hnk3jrqad2';
 
 
 const targetOrigin = urlParams.get('target_origin') || process.env.REACT_APP_TARGET_ORIGIN;
@@ -39,10 +40,10 @@ const sort = {
 
 export const GiphyContext = React.createContext({});
 
-const ChatApp = () => {
-    const {role,id} = useParams();
-    const filters =  { type: 'messaging', members: { $in: [`${id}`]} };
-    const userToConnect = { id: id, name: id.toString()+"name", image: getRandomImage() };
+const ChatApp = ({role}) => {
+    const {name,id} = useParams();
+    const userToConnect = { id: role+'_'+id, name: name, image: getRandomImage() };
+    const filters =  { type: 'messaging', members: { $in: [`${userToConnect.id}`]} };
 
     if (skipNameImageSet) {
         delete userToConnect.name;
@@ -55,11 +56,13 @@ const ChatApp = () => {
     const [theme, setTheme] = useState('light');
 
     useEffect(() => {
+
         const initChat = async () => {
             const client = StreamChat.getInstance(apiKey, {
                 enableInsights: true,
                 enableWSFallback: true,
             });
+            const token = client.createToken(userToConnect.id);
             await client.connectUser(userToConnect, client.devToken(id));
             setChatClient(client);
         };

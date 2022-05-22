@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Grid} from "@material-ui/core";
 import {Avatar, Card, Checkbox, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -20,7 +20,7 @@ import MobileDateRangePicker from "@mui/lab/MobileDateRangePicker";
 import Box from "@mui/material/Box";
 import DialogActions from "@mui/material/DialogActions";
 import userimg from "../../StaticAssets/userimg.jpg"
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -29,6 +29,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
 import MentorDetails from "./MentorDetails";
+import {getTableSingle} from "../../../ApiServices/getData";
 
 
 const Accordion = styled((props) => (
@@ -90,9 +91,41 @@ const useStyle = makeStyles({
 function TalentDetails(props) {
     const navigate = useNavigate();
     const classes = useStyle()
+    const {id} = useParams()
 
+    const [values, setValues] = useState({
+        id: '',
+        name: '',
+        session:'',
+        email:'',
+        department: '',
+        rollNo: '',
+        languages:'',
+        skills:'',
+        certifications:'',
+        experience:''
+    });
 
-
+    useEffect(async () => {
+        const response = await getTableSingle("talent", id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ["id"]: response.data.id,
+                ['name']:response.data.name,
+                ['session']:response.data.session,
+                ["email"]: response.data.email,
+                ["department"]: response.data.department,
+                ["rollNo"]: response.data.rollNo,
+                ["languages"]: response.data.languages,
+                ["skills"]: response.data.skills,
+                ["certifications"]: response.data.certifications,
+                ["experience"]: response.data.experience,
+            });
+        } else {
+            console.log(response.data);
+        }
+    }, [])
 
 
     const [expanded, setExpanded] = React.useState('panel1');
@@ -120,19 +153,19 @@ function TalentDetails(props) {
                             <Grid item xs={7} md={7}>
 
                                 <Typography variant='body1' sx={{ mr: 4, mt: 9 }}>
-                                    <b>Name:</b> Bisma Asghar
+                                    <b>Name:</b> {values.name}
                                 </Typography>
                                 <Typography variant='body1' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Session:</b> 2018-2022
+                                    <b>Session:</b> {values.session}
                                 </Typography>
                                 <Typography variant='body1' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Department:</b> Computer Science
+                                    <b>Department:</b> {values.department}
                                 </Typography>
                                 <Typography variant='body1' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Roll #:</b> 2018-CS-85
+                                    <b>Roll #:</b> {values.session+'-'+values.department+'-'+values.rollNo}
                                 </Typography>
                                 <Typography variant='body1' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Email:</b> bismaasghar3@gmail.com
+                                    <b>Email:</b> {values.email}
                                 </Typography>
 
 
@@ -145,8 +178,7 @@ function TalentDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.experience}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -156,8 +188,7 @@ function TalentDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.skills}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -167,8 +198,7 @@ function TalentDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.languages}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -180,8 +210,7 @@ function TalentDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.certifications}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>

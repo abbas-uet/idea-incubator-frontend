@@ -1,41 +1,10 @@
 import {useState} from 'react';
-import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField, Typography
-} from '@mui/material';
+import {Grid, TextField, Typography} from '@mui/material';
 import {Create} from "../../../../../ApiServices/create";
 import {useNavigate} from "react-router-dom";
 
 
-export const CreateNewComponent = (props) => {
-    const navigate=useNavigate();
-    const [statusCode,setStatusCode]=useState({cond:false,res:0});
-
-    const [values, setValues] = useState({
-        fullName: '',
-        email: '',
-        password: '',
-        confirm: ''
-    });
-    const create=async ()=>{
-            const response=await Create('admin',values);
-            if(response.status===200){
-                setStatusCode({...statusCode,['cond']:true,["res"]:200})
-                setTimeout(function(){
-                    navigate('/admin/dashboard/user');
-                }, 1500);
-
-            }else{
-                setStatusCode({...statusCode,['cond']:true,["res"]:response.status})
-            }
-    }
-
+export const CreateNewComponent = ({values,setValues}) => {
     const handleChange = (event) => {
         setValues({
             ...values,
@@ -66,7 +35,7 @@ export const CreateNewComponent = (props) => {
                 xs={6}
             >
                 <TextField
-                    name="fullName"
+                    name="fullname"
                     onChange={handleChange}
                     required
                     color={'grey'}

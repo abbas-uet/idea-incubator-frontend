@@ -11,6 +11,7 @@ import IdeaPool from "./UserEnd/components/IdeaPool/IdeaPool";
 import IdeaDetail from "./UserEnd/components/IdeaPool/IdeaDetail"
 import Talent from'./UserEnd/components/Talent/Talent'
 
+
 import Help from "./UserEnd/components/Help/Help";
 import StudentAccountSetting from "./UserEnd/components/Profile Setting/Account Setting/StudentAccountSetting";
 import StudentProfileSetting from "./UserEnd/components/Profile Setting/Profile/StudentProfileSetting";
@@ -18,7 +19,6 @@ import StudentProfileSetting from "./UserEnd/components/Profile Setting/Profile/
 import AdminIndex from './AdminEnd/AdminIndex';
 import DashboardLayout from "./AdminEnd/layouts/dashboard";
 import DashboardApp from "./AdminEnd/pages/DashboardApp";
-import AdminOptions from "./AdminEnd/pages/AdminOptions";
 import Login from './Authentication/Login';
 import Register from './Authentication/Register';
 import GlobalStyles from "./theme/globalStyles";
@@ -29,7 +29,6 @@ import ThemeConfig from "./theme";
 import AssetDetails from './AdminEnd/components/_dashboard/Component Details/Asset Details/AssetDetails';
 
 import UserDetails from './AdminEnd/components/_dashboard/Component Details/User Details/UserDetails';
-import {ListofTableContent} from "./AdminEnd/_mocks_/ListofTableContent";
 import IdeaDetails from "./AdminEnd/components/_dashboard/Component Details/IdeasDetails/IdeaDetails";
 import TalentDetails from "./AdminEnd/components/_dashboard/Component Details/Talent Details/Talent Details";
 import IndustryDetails from "./AdminEnd/components/_dashboard/Component Details/IndustryDetails/IndustryDetails";
@@ -69,7 +68,6 @@ import AdminAssets from "./AdminEnd/pages/AdminAssets";
 import AdminTalent from "./AdminEnd/pages/AdminTalent";
 import AdminIndustry from "./AdminEnd/pages/AdminIndustry";
 import ChatApp from "./Chat/ChatApp";
-import { registerLicense } from '@syncfusion/ej2-base';
 import MentorIndustryIndex from "./Mentor IndustryEnd/mentorIndustryIndex";
 
 
@@ -110,14 +108,11 @@ function App() {
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'register'} element={<Register/>}/>
 
-
-
-
-
                     <Route path={'mentor'} element={<MentorIndustryIndex role={'mentor'}/>}>
                         <Route path="home" element={<Home role={'mentor'}/>}/>
                         <Route path="meetup" element={<Meetups/>}/>
                         <Route path="profileSetting" element={<ForMentors/>}/>
+                        <Route path={'chat/:name/:id'} element={<ChatApp role={'mentor'}/>}/>
                     </Route>
 
 
@@ -125,9 +120,10 @@ function App() {
                         <Route path="home" element={<Home role={'industry'}/>}/>
                         <Route path="webinar" element={<Webinars/>}/>
                         <Route path="profileSetting" element={<ForIndustry/>}/>
+                        <Route path={'chat/:name/:id'} element={<ChatApp role={'industry'}/>}/>
                     </Route>
 
-                    <Route path={'chat/:role/:id'} element={<ChatApp/>}/>
+
 
                     {//
                         //Super Admin Dashboard
@@ -136,9 +132,10 @@ function App() {
                     <Route path={'superadmin'} element={<SuperAdminIndex/>}>
                         <Route path={'dashboard'} element={<SuperAdminDashboardLayout/>}>
                             <Route element={<Navigate to="dashboard/app" replace/>}/>
+
                             <Route path={'app'} element={<SuperAdminDashboardApp/>}/>
 
-
+                            <Route path={'chat/:name/:id'} element={<ChatApp role={'superadmin'}/>}/>
                             <Route path={'admins'}
                                    element={<Admin_SuperAdminEnd/> /*<Products />*/}/>
                             <Route path={'admins/detailsAdmins/:id'} element={<AdminDetails/>}/>
@@ -171,20 +168,21 @@ function App() {
                     <Route path={'user'} element={<UserIndex/>}>
                         <Route path="home" element={<DashBoard/>}/>
                         <Route path="mentors" element={<Mentors/>}/>
-                        <Route path="mentors/viewMentors" element={<MD/>}/>
+                        <Route path="mentors/viewMentors/:id" element={<MD/>}/>
 
                         <Route path="industry" element={<Industry/>}/>
-                        <Route path="industry/viewIndustry" element={<ID/>}/>
+                        <Route path="industry/viewIndustry/:id" element={<ID/>}/>
 
                         <Route path="assest" element={<Assest/>}/>
-                        <Route path="assest/viewAssest" element={<AssestDetail/>}/>
+                        <Route path="assest/viewAssest/:id" element={<AssestDetail/>}/>
                         <Route path="ideaPool" element={<IdeaPool/>}/>
-                        <Route path="ideaPool/viewIdea" element={<IdeaDetail/>}/>
+                        <Route path="ideaPool/viewIdea/:id" element={<IdeaDetail/>}/>
                         <Route path="talentPool" element={<Talent/>}/>
-                        <Route path="talentPool/viewTalent" element={<TD/>}/>
+                        <Route path="talentPool/viewTalent/:id" element={<TD/>}/>
                         <Route path="help" element={<Help/>}/>
+                        <Route path={'chat/:name/:id'} element={<ChatApp role={'user'}/>}/>
 
-                        <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
+                        <Route path="studentProfileSettings/:id" element={<StudentProfileSetting/>}/>
                         <Route path="studentAccountSettings" element={<StudentAccountSetting/>}>
                             <Route path="account_details" element={<AccountDetailsUser/>}/>
                             <Route path="profile_details" element={<StudentProfileSetting/>}/>
@@ -224,6 +222,7 @@ function App() {
                                    element={<AdminMentor cardObj={cardObj[0][0]} />}/>
                             <Route path={'mentors/detailsMentors/:id'} element={<MentorDetails
                                 />}/>
+                            <Route path={'chat/:name/:id'} element={<ChatApp role={'admin'}/>}/>
                         </Route>
                     </Route>
                 </Routes>

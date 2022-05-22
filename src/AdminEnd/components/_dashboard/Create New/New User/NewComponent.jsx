@@ -6,18 +6,16 @@ import InviteNewComponent from "./InviteNewComponent";
 import {CreateNewComponent} from "./CreateNewComponent";
 import {Box} from "@mui/system";
 
-function NewComponent({pageName}) {
-    const [value, setValue] = React.useState('1');
-
+function NewComponent({pageName,values,setValues,refValue,setRefValue}) {
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setRefValue(newValue);
     };
     return (
         <Box sx={{width: 470}}>
-            <TabContext value={value}>
+            <TabContext value={refValue}>
                 <Tabs
                     centered
-                    value={value}
+                    value={refValue}
                     onChange={handleChange}
                     textColor="secondary"
                     indicatorColor="secondary"
@@ -27,8 +25,8 @@ function NewComponent({pageName}) {
                     <Tab value="1" label={"Invite " + pageName}/>
                     <Tab value="2" label={"Create " + pageName}/>
                 </Tabs>
-                <TabPanel value="1"><InviteNewComponent/> </TabPanel>
-                <TabPanel value="2"><CreateNewComponent/></TabPanel>
+                <TabPanel value="1"><InviteNewComponent values={values} setValues={setValues}/></TabPanel>
+                <TabPanel value="2"><CreateNewComponent values={values} setValues={setValues}/></TabPanel>
             </TabContext>
         </Box>
     );

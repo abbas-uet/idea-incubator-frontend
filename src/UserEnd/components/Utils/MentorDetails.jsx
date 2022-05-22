@@ -1,33 +1,18 @@
-import React from 'react';
-import {Grid} from "@material-ui/core";
-import {Avatar, Card, Checkbox, Paper} from "@mui/material";
+import React, {useEffect, useState} from 'react';
+import {Grid, makeStyles} from "@material-ui/core";
+import {Avatar, Card, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import {makeStyles} from '@material-ui/core'
-import DialogContent from "@mui/material/DialogContent";
-import Stack from "@mui/material/Stack";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import TimePicker from "@mui/lab/TimePicker";
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import Autocomplete from "@mui/material/Autocomplete";
-import MobileDateRangePicker from "@mui/lab/MobileDateRangePicker";
 import Box from "@mui/material/Box";
-import DialogActions from "@mui/material/DialogActions";
-import userimg from "../../StaticAssets/userimg.jpg"
-import {useNavigate} from "react-router-dom";
-import { styled } from '@mui/material/styles';
+import {useNavigate, useParams} from "react-router-dom";
+import {styled} from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import CardHeader from "@mui/material/CardHeader";
 import Divider from "@mui/material/Divider";
+import {getTwoTableSingle} from "../../../ApiServices/getData";
 
 
 const Accordion = styled((props) => (
@@ -89,6 +74,55 @@ const useStyle = makeStyles({
 function MentorDetails(props) {
     const navigate = useNavigate();
     const classes = useStyle()
+    const {id} = useParams()
+
+    const [values, setValues] = useState({
+        id: '',
+        name: '',
+        username: '',
+        email: '',
+        field: '',
+        timing: '',
+        MentorProfile: '',
+        MentorEducations: [],
+        MentorHonors: [],
+        MentorLanguages: [],
+        MentorLicenses: [],
+        MentorOrganizations: [],
+        MentorPatents: [],
+        MentorPublications: [],
+        MentorSkills: [],
+        MentorVolunteers: [],
+        MentorWorkExperiences: []
+    });
+
+    useEffect(async () => {
+        const response = await getTwoTableSingle("mentor", 'profile', id);
+        if (response.status === 200) {
+            setValues({
+                ...values,
+                ["id"]: response.data.id,
+                ['name']:response.data.name,
+                ["username"]: response.data.username,
+                ["timing"]: response.data.timing,
+                ["email"]: response.data.email,
+                ['field']: response.data.field,
+                ["MentorProfile"]: response.data.MentorProfile,
+                ["MentorEducations"]: response.data.MentorEducations,
+                ["MentorHonors"]: response.data.MentorHonors,
+                ["MentorLanguages"]: response.data.MentorLanguages,
+                ["MentorLicenses"]: response.data.MentorLicenses,
+                ["MentorOrganizations"]: response.data.MentorOrganizations,
+                ["MentorPatents"]: response.data.MentorPatents,
+                ["MentorPublications"]: response.data.MentorPublications,
+                ["MentorSkills"]: response.data.MentorSkills,
+                ["MentorVolunteers"]: response.data.MentorVolunteers,
+                ["MentorWorkExperiences"]: response.data.MentorWorkExperiences
+            });
+        } else {
+            console.log(response.data);
+        }
+    }, [])
 
 
 
@@ -119,22 +153,22 @@ function MentorDetails(props) {
                             <Grid item xs={7} md={7}>
 
                                 <Typography variant='body2' sx={{ mr: 4, mt: 6 }}>
-                                    <b>Name:</b> Sehar Asghar
+                                    <b>Name:</b> {values.name}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Headline:</b> Assistant Professor At UET,Lahore
+                                    <b>Headline:</b> {values.MentorProfile&& values.MentorProfile.headline}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Office Location:</b> Ground Floor Room #10, CS Department
+                                    <b>Office Location:</b> {values.MentorProfile&& values.MentorProfile.location}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Office Hours:</b> 11am-1pm
+                                    <b>Office Hours:</b> {values.MentorProfile&& values.MentorProfile.timing}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
-                                    <b>Email:</b> seharasghar39@gmail.com
+                                    <b>Email:</b> {values.email}
                                 </Typography>
                                 <Typography variant='body2' sx={{ mr: 8, mt: 1 }}>
-                                 <b>Description:</b>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A cupiditate deleniti dolores magni. Ab ipsa omnis perferendis! A at cum, laborum minima minus odio quos.
+                                 <b>Description:</b>{values.MentorProfile&& values.MentorProfile.description}
                                 </Typography>
 
                             </Grid>
@@ -146,8 +180,15 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorWorkExperiences.map(e=>{
+                                                    return(e.title+" | "
+                                                        +e.employementType+
+                                                        e.companyName+" | "
+                                                        +e.location+" | "
+                                                        +e.startDate+" | "
+                                                        +e.endDate+" | "
+                                                        +e.description+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -157,8 +198,16 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorEducations.map(e=>{
+                                                    return(e.school+" | "
+                                                        +e.degreee+
+                                                        e.field+" | "
+                                                        +e.cgpa+" | "
+                                                        +e.startDate+" | "
+                                                        +e.endDate+" | "
+                                                        +e.description+" | "+
+                                                        e.activities+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -168,8 +217,14 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorLicenses.map(e=>{
+                                                    return(e.name+" | "
+                                                        +e.organization+
+                                                        e.credentialId+" | "
+                                                        +e.credentialUrl+" | "
+                                                        +e.startDate+" | "
+                                                        +e.endDate+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -179,8 +234,14 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorVolunteers.map(e=>{
+                                                    return(e.role+" | "
+                                                        +e.organization+
+                                                        e.cause+" | "
+                                                        +e.startDate+" | "
+                                                        +e.endDate+" | "
+                                                        +e.description+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -190,8 +251,9 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorSkills.map(e=>{
+                                                    return(e.name+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -201,8 +263,10 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorLanguages.map(e=>{
+                                                    return(e.language+" | "
+                                                        +e.proficiency+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -212,8 +276,14 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorOrganizations.map(e=>{
+                                                    return(e.organization+" | "
+                                                        +e.position+
+                                                        e.associated+" | "
+                                                        +e.startDate+" | "
+                                                        +e.endDate+" | "
+                                                        +e.description+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -223,8 +293,15 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorHonors.map(e=>{
+                                                    return(e.title+" | "
+                                                        +e.associated+
+                                                        e.issuer+" | "
+                                                        +e.issueDate+" | "
+                                                        +e.startDate+" | "
+                                                        +e.endDate+" | "
+                                                        +e.description+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -234,8 +311,14 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorPatents.map(e=>{
+                                                    return(e.title+" | "
+                                                        +e.patentId+
+                                                        e.status+" | "
+                                                        +e.url+" | "
+                                                        +e.issueDate+" | "
+                                                        +e.description+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>
@@ -245,8 +328,13 @@ function MentorDetails(props) {
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <Typography>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                                malesuada lacus ex, sit amet blandit leo lobortis eget.
+                                                {values.MentorPublications.map(e=>{
+                                                    return(e.title+" | "
+                                                        +e.publisher+
+                                                        e.url+" | "
+                                                        +e.publicationDate+" | "
+                                                        +e.description+"\n")
+                                                })}
                                             </Typography>
                                         </AccordionDetails>
                                     </Accordion>

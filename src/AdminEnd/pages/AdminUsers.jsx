@@ -223,7 +223,7 @@ export default function AdminUsers({cardObj}) {
                                                     <TableCell align="left">{userid}</TableCell>
                                                     <TableCell align="left">{username}</TableCell>
                                                     <TableCell align="left">{email}</TableCell>
-                                                    <TableCell align="left">{Idea.projectname}</TableCell>
+                                                    <TableCell align="left">{Idea &&Idea.projectname}</TableCell>
                                                     <TableCell align="left">
                                                         <AvatarGroup max={3}>
                                                             {SubUsers && SubUsers.map(e => {

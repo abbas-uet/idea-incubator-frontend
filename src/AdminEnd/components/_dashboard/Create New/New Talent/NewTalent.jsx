@@ -38,7 +38,13 @@ const Input = styled("input")({
   display: "none",
 });
 
-function NewTalent(props) {
+function NewTalent({values,setValues}) {
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+  };
   return (
     <div>
       <Grid
@@ -89,7 +95,9 @@ function NewTalent(props) {
 
           <Grid item md={8}>
             <TextField
-              name="xyz"
+              name="name"
+              onChange={handleChange}
+              value={values.name}
               label=""
               variant="outlined"
               size="small"
@@ -106,7 +114,9 @@ function NewTalent(props) {
 
           <Grid item md={8}>
             <TextField
-              name="xyz"
+                name="rollNo"
+                onChange={handleChange}
+                value={values.rollNo}
               label=""
               variant="outlined"
               size="small"
@@ -123,7 +133,9 @@ function NewTalent(props) {
 
           <Grid item md={8}>
             <TextField
-              name="xyz"
+                name="department"
+                onChange={handleChange}
+                value={values.department}
               label=""
               variant="outlined"
               size="small"
@@ -140,7 +152,9 @@ function NewTalent(props) {
 
           <Grid item md={8}>
             <TextField
-              name="xyz"
+                name="session"
+                onChange={handleChange}
+                value={values.session}
               label=""
               variant="outlined"
               size="small"
@@ -157,7 +171,9 @@ function NewTalent(props) {
 
           <Grid item md={8}>
             <TextField
-              name="xyz"
+                name="email"
+                onChange={handleChange}
+                value={values.email}
               label=""
               variant="outlined"
               size="small"
@@ -165,70 +181,84 @@ function NewTalent(props) {
             />
           </Grid>
         </Grid>
+        <Grid item container justifyContent="space-around" alignItems="center">
+          <Grid item md={3}>
+            <Typography >
+              Skills:
+            </Typography>
+          </Grid>
 
-        <Grid item xs={12} md={12}>
-        <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Skills</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>Language</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Certification</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Experience</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-   
-      </Grid>
+          <Grid item md={8}>
+            <TextField
+                name="skills"
+                onChange={handleChange}
+                value={values.skills}
+                label=""
+                variant="outlined"
+                size="small"
+                fullWidth
+            />
+          </Grid>
+        </Grid>
+
+        <Grid item container justifyContent="space-around" alignItems="center">
+          <Grid item md={3}>
+            <Typography >
+              Languages:
+            </Typography>
+          </Grid>
+
+          <Grid item md={8}>
+            <TextField
+                name="languages"
+                onChange={handleChange}
+                value={values.languages}
+                label=""
+                variant="outlined"
+                size="small"
+                fullWidth
+            />
+          </Grid>
+        </Grid>
+        <Grid item container justifyContent="space-around" alignItems="center">
+          <Grid item md={3}>
+            <Typography >
+              Certifications:
+            </Typography>
+          </Grid>
+
+          <Grid item md={8}>
+            <TextField
+                name="certifications"
+                onChange={handleChange}
+                value={values.certifications}
+                label=""
+                variant="outlined"
+                size="small"
+                fullWidth
+            />
+          </Grid>
+        </Grid>
+        <Grid item container justifyContent="space-around" alignItems="center">
+          <Grid item md={3}>
+            <Typography >
+              Experience:
+            </Typography>
+          </Grid>
+
+          <Grid item md={8}>
+            <TextField
+                name="experience"
+                onChange={handleChange}
+                value={values.experience}
+                label=""
+                variant="outlined"
+                size="small"
+                fullWidth
+            />
+          </Grid>
+        </Grid>
+
       </Grid>
     </div>
   );

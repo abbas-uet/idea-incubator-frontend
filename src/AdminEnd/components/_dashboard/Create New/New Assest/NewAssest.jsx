@@ -67,10 +67,8 @@ const Input = styled("input")({
 const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
 const checkedIcon = <CheckBoxIcon fontSize="small"/>;
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-export default function NewAssest() {
-    const [values, setValues] = useState({
-        emails: "",
-    });
+export default function NewAssest({values,setValues}) {
+
 
     const handleChange = (event) => {
         setValues({
@@ -82,19 +80,24 @@ export default function NewAssest() {
         if (counter >= 0) {
             let c = counter;
             setcounter(++c);
+            setValues({
+                ...values,
+                ['quantity']: counter,
+            });
         }
+
     };
     const handleDecreaseCounter = () => {
         if (counter > 0) {
             let c = counter;
             setcounter(--c);
+            setValues({
+                ...values,
+                ['quantity']: counter,
+            });
         }
     };
-
-    const [startTimevalue, setstartTimeValue] = React.useState(null);
-    const [endTimevalue, setendTimeValue] = React.useState(null);
     const [counter, setcounter] = React.useState(0);
-    const [Datevalue, setDateValue] = React.useState([null, null]);
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     const maxSteps = images.length;
@@ -132,7 +135,7 @@ export default function NewAssest() {
                                 enableMouseEvents
                             >
                                 {images.map((step, index) => (
-                                    <div key={step.label}>
+                                    <div key={index}>
                                         {Math.abs(activeStep - index) <= 2 ? (
                                             <Box
                                                 component="img"
@@ -214,12 +217,27 @@ export default function NewAssest() {
                         variant="body1"
                         fontWeight={"fontWeightBold"}
                     >
+                        Add Name:
+                    </Typography>
+                </Grid>
+
+                <Grid item md={8}>
+                    <TextField name="name" onChange={handleChange} value={values.name} label="" variant="outlined" size="small" fullWidth/>
+                </Grid>
+            </Grid>
+            <Grid item container justifyContent="space-around" alignItems="center">
+                <Grid item md={3}>
+                    <Typography
+
+                        variant="body1"
+                        fontWeight={"fontWeightBold"}
+                    >
                         Add Type:
                     </Typography>
                 </Grid>
 
                 <Grid item md={8}>
-                    <TextField name="fullName" label="" variant="outlined" size="small" fullWidth/>
+                    <TextField name="type" onChange={handleChange} value={values.type} label="" variant="outlined" size="small" fullWidth/>
                 </Grid>
             </Grid>
             <Grid item container justifyContent="space-around" alignItems="center">
@@ -233,7 +251,7 @@ export default function NewAssest() {
                 </Grid>
 
                 <Grid item md={8}>
-                    <TextField name="fullName" label="" variant="outlined" size="small" fullWidth/>
+                    <TextField name="category" value={values.category} onChange={handleChange} label="" variant="outlined" size="small" fullWidth/>
                 </Grid>
             </Grid>
             <Grid item container justifyContent="space-around" alignItems="center">
@@ -248,14 +266,16 @@ export default function NewAssest() {
                             <TimePicker
                                 label="Start"
                                 size="small"
-                                value={startTimevalue}
+                                value={values.time_start}
                                 onChange={(newValue) => {
-                                    setstartTimeValue(newValue);
+                                    setValues({
+                                        ...values,
+                                        ['time_start']: newValue,
+                                    });
                                 }}
                                 renderInput={(params) => (
                                     <TextField size="small" sx={{maxWidth: "170px"}} {...params} />
-                                )}
-                            />
+                                )}/>
                         </LocalizationProvider>
                         <Typography variant="body1" sx={{pt: 1}}>
                             to
@@ -264,14 +284,16 @@ export default function NewAssest() {
                             <TimePicker
                                 label="End"
                                 size="small"
-                                value={endTimevalue}
+                                value={values.time_end}
                                 onChange={(newValue) => {
-                                    setendTimeValue(newValue);
+                                    setValues({
+                                        ...values,
+                                        ['time_end']: newValue,
+                                    });
                                 }}
                                 renderInput={(params) => (
                                     <TextField size="small" sx={{maxWidth: "140px"}} {...params} />
-                                )}
-                            />
+                                )}/>
                         </LocalizationProvider>
                     </Stack>
                 </Grid>
@@ -321,32 +343,7 @@ export default function NewAssest() {
                     </Typography>
                 </Grid>
                 <Grid item md={8}>
-
-                    <Autocomplete
-
-                        multiple
-                        id="checkboxes-tags-demo"
-                        size="small"
-                        sx={{maxWidth: "355px"}}
-                        options={top100Films}
-                        disableCloseOnSelect
-                        getOptionLabel={(option) => option.title}
-                        renderOption={(props, option, {selected}) => (
-                            <li {...props}>
-                                <Checkbox
-                                    icon={icon}
-                                    checkedIcon={checkedIcon}
-                                    style={{marginRight: 8}}
-                                    checked={selected}
-                                />
-                                {option.title}
-                            </li>
-                        )}
-                        style={{width: 500}}
-                        renderInput={(params) => (
-                            <TextField size="small" {...params} label="Select"/>
-                        )}
-                    />
+                    <TextField name="days" value={values.days} onChange={handleChange} label="" variant="outlined" size="small" fullWidth/>
                 </Grid>
             </Grid>
             <Grid item container justifyContent="space-around" alignItems="center">
@@ -364,14 +361,14 @@ export default function NewAssest() {
                     <TextField
                         size="small"
                         fullWidth
-                        name="fullName"
+                        name="description"
                         multiline={true}
                         label="Write Something..."
                         maxRows={3}
                         minRows={3}
                         onChange={handleChange}
                         required
-                        value={values.fullName}
+                        value={values.description}
                         variant="outlined"
                     />
                 </Grid>
@@ -389,7 +386,7 @@ export default function NewAssest() {
                     </Typography>
                 </Grid>
                 <Grid item md={8}>
-                    <TextField size="small" name="fullName" label="" variant="outlined" fullWidth/>
+                    <TextField size="small" name="location" value={values.location} onChange={handleChange} label="" variant="outlined" fullWidth/>
                 </Grid>
             </Grid>
         </Grid>);

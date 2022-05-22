@@ -1,11 +1,7 @@
 import React, {useState} from 'react';
 import {Grid, TextField, Typography} from "@mui/material";
 
-function InviteNewComponent(props) {
-    const [values, setValues] = useState({
-        emails: '',
-    });
-
+function InviteNewComponent({values,setValues}) {
     const handleChange = (event) => {
         setValues({
             ...values,

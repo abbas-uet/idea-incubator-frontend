@@ -22,7 +22,7 @@ function AddNew({open, handleClose, pageName}) {
         departmentname: '',
         admins: '',
         id:'',
-    })
+    });
 
     const handleChange = (event) => {
         setValues({

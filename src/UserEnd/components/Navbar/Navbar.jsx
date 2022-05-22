@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link as RouterLink, Link} from 'react-router-dom';
-import {Divider, Paper} from '@mui/material';
+import {Badge, Divider, Paper} from '@mui/material';
 import NotificationSection from './NotificationSection';
 import Logo from './../../../Utils/static/Logo.png';
 
@@ -25,6 +25,8 @@ import settings2Fill from "@iconify/icons-eva/settings-2-fill";
 import MenuPopover from "../../../SuperAdminEnd/components/MenuPopover";
 import {Icon} from "@iconify/react/dist/iconify";
 import {useRef, useState} from "react";
+import bellFill from "@iconify/icons-eva/bell-fill";
+import message from "@iconify/icons-eva/message-circle-fill";
 
 
 
@@ -50,6 +52,8 @@ const MENU_OPTIONS = [
 ];
 
 const ResponsiveAppBar = (props) => {
+  const id=props.id;
+  const name=props.name;
   const settings = props.settings;
   const pages = props.pages;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -164,7 +168,19 @@ const ResponsiveAppBar = (props) => {
             </Box>
 
 
-            <NotificationSection type='Messages' sx={{mr:1}} />
+            <IconButton
+                size="large"
+                LinkComponent={Link} to={'/user/chat/'+name+'/'+id}
+                sx={{
+                  ...(open && {
+                    bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
+                  })
+                }}
+            >
+              <Badge color="error">
+                     <Icon icon={message} width={23} height={23} />
+              </Badge>
+            </IconButton>
             <NotificationSection type='Notifications' sx={{mr:1}} />
             <Box sx={{ flexGrow: 0,  ml:1}}>
               <Tooltip title="Open settings">

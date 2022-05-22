@@ -1,13 +1,33 @@
-import React from "react";
-import Pagination from '@mui/material/Pagination';
-import {Grid} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {Grid, TablePagination} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from "@mui/material/Button";
 import SearchBar from "../Mentors/SearchBar/SearchBar";
 import IndustryData from "../Utils/IndustryData";
+import {getThreeTableAll} from "../../../ApiServices/getData";
 
 
 export default function IndustryPage() {
+  const [LIST, setLIST] = useState([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  useEffect(async () => {
+    const response = await getThreeTableAll('industry','profile','service');
+    if (response.status === 200) {
+      setLIST(response.data);
+    } else {
+      console.log(response.status);
+    }
+  },[]);
   return (
     <Grid container spacing={7}>
       <Grid item container xs={12} md={12} sx={{ mb: 4 }}>
@@ -30,27 +50,27 @@ export default function IndustryPage() {
         </Grid>
       </Grid>
       <Grid item container spacing={2} xs={12} marginTop={2} marginBottom={2}>
-        <Grid item xs={12} md={4}>
-          <IndustryData />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <IndustryData />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <IndustryData />
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-          <IndustryData />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <IndustryData />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <IndustryData />
-        </Grid>
+        {
+          LIST.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return(
+                    <Grid key={row.id} item xs={12} md={4}>
+                      <IndustryData values={row} />
+                    </Grid>
+                );
+              })
+        }
         <Grid item container xs={12} justifyContent={'flex-end'}>
-          <Pagination count={10} color="secondary" sx={{ margin: 2 }} />
+          <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              size={'medium'}
+              count={LIST.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </Grid>
       </Grid>
     </Grid>
