@@ -1,10 +1,12 @@
 import { Icon } from '@iconify/react';
 import bugFilled from '@iconify/icons-ant-design/bug-filled';
+import ApartmentIcon from '@mui/icons-material/Apartment';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 // utils
 import { fShortenNumber } from '../../../utils/formatNumber';
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 
 // ----------------------------------------------------------------------
 
@@ -40,7 +42,8 @@ export default function AppBugReports() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={bugFilled} width={16} height={16} />
+        <ApartmentIcon sx={{width:20 , height:20}}/>
+
       </IconWrapperStyle>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Department

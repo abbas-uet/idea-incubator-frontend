@@ -38,29 +38,7 @@ export const DashBoardCharts = (props) => (
                     </Avatar>
                 </Grid>
             </Grid>
-            <Box
-                sx={{
-                    alignItems: 'center',
-                    display: 'flex',
-                    pt: 2
-                }}
-            >
-                <ArrowUpwardIcon color="secondary" />
-                <Typography
-                    variant="body2"
-                    sx={{
-                        mr: 1
-                    }}
-                >
-                    16%
-                </Typography>
-                <Typography
-                    color="textSecondary"
-                    variant="caption"
-                >
-                    Since last month
-                </Typography>
-            </Box>
+
         </CardContent>
     </Card>
 );

@@ -172,21 +172,21 @@ function User_SuperAdminEnd(props) {
                                     <DashBoardCharts
                                         title={"TOTAL Users" }
                                         color={"primary"}
-                                        value={'12k'}
+                                        value={'172'}
                                     />
                                 </Grid>
                                 <Grid item lg={4} md={3} xl={6} xs={12}>
                                     <DashBoardCharts
                                         title={"Male"}
                                         color={"warning"}
-                                        value={"6k"}
+                                        value={"109"}
                                     />
                                 </Grid>
                                 <Grid item lg={4} md={3} xl={6} xs={12}>
                                     <DashBoardCharts
                                         title={"Female"}
                                         color={"info"}
-                                        value={"5k"}
+                                        value={"63"}
                                     />
                                 </Grid>
                             </Grid>

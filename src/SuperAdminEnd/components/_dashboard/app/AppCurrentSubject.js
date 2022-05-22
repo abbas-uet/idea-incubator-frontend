@@ -107,7 +107,7 @@ const AppCurrentSubject = (props) => {
                                         </Grid>
                                         <Grid item xs={12}>
                                             <PerfectScrollbar
-                                                style={{ height: '100%', maxHeight: 'calc(100vh - 335px)', overflowX: 'hidden' }}
+                                                style={{ height: '100%', maxHeight: 'calc(100vh - 365px)', overflowX: 'hidden' }}
                                                 >
                                                 <Grid container direction="column" spacing={2}>
                                                     <Grid item xs={12}>

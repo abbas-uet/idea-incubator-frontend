@@ -102,7 +102,7 @@ export default function IdeaDetail() {
                                 </Typography>
                                 <Stack direction={'row'} >
 
-                                    <Typography variant='body2' sx={{ mr: 4, mt: 1 }}>
+                                    <Typography variant='body2' sx={{ mr: 4, mt: 2 }}>
                                         <b>Group Members:</b>
                                     </Typography>
                                     <AvatarGroup max={4}>
@@ -115,7 +115,7 @@ export default function IdeaDetail() {
                                         }
                                     </AvatarGroup>
                                 </Stack>
-                                <Typography variant='body2' sx={{ mr: 9, mt: 3 }}>
+                                <Typography variant='body2' sx={{ mr: 9, mt: 2 }}>
                                     Here is the complete details of the above mentioned project.
                                       </Typography>
                                 <Button

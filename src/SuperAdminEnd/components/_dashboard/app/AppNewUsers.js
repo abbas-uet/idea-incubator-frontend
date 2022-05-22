@@ -1,5 +1,7 @@
 import { Icon } from '@iconify/react';
 import appleFilled from '@iconify/icons-ant-design/apple-filled';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
@@ -35,20 +37,22 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const Total = 1000;
+const Total = 63;
 
 
 export default function AppNewUsers() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={appleFilled} width={20} height={20} />
+        <AdminPanelSettingsIcon sx={{width:20 , height:20}}/>
+
+
       </IconWrapperStyle>
   
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Admins
       </Typography>
-      <Typography variant="h6">{fShortenNumber(Total)}</Typography>
+      <Typography variant="h6">{(Total)}</Typography>
         
      
     </RootStyle>

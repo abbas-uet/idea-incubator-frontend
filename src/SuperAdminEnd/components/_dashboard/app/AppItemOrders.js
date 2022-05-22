@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import windowsFilled from '@iconify/icons-ant-design/windows-filled';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
@@ -35,19 +36,20 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 172334;
+const TOTAL = 172;
 
 export default function AppItemOrders() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={windowsFilled} width={20} height={20} />
+        <PeopleOutlineIcon sx={{width:20 , height:20}}/>
+
       </IconWrapperStyle>
       
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Users
       </Typography>
-      <Typography variant="h5">{fShortenNumber(TOTAL)}</Typography>
+      <Typography variant="h5">{(TOTAL)}</Typography>
       
     </RootStyle>
   );
