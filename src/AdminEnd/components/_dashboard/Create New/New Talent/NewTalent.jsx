@@ -127,6 +127,25 @@ function NewTalent({values,setValues}) {
         <Grid item container justifyContent="space-around" alignItems="center">
           <Grid item md={3}>
             <Typography>
+              Gender:
+            </Typography>
+          </Grid>
+
+          <Grid item md={8}>
+            <TextField
+                name="gender"
+                onChange={handleChange}
+                value={values.gender}
+                label=""
+                variant="outlined"
+                size="small"
+                fullWidth
+            />
+          </Grid>
+        </Grid>
+        <Grid item container justifyContent="space-around" alignItems="center">
+          <Grid item md={3}>
+            <Typography>
               Department:
             </Typography>
           </Grid>

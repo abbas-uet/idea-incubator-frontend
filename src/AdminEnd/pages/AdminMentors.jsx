@@ -141,10 +141,10 @@ export default function AdminMentor({cardObj}) {
 
 
     return (
-        <Page title={"Industry | Idea Incubator"}>
+        <Page title={"Mentor | Idea Incubator"}>
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
-                    <BreadCrumb linkArr={['Dashboard','Industry']}/>
+                    <BreadCrumb linkArr={['Dashboard','Mentor']}/>
                     <Button
                         variant="contained"
                         color={'inherit'}
@@ -162,7 +162,7 @@ export default function AdminMentor({cardObj}) {
                           md={3}
                           xl={6}
                           xs={12}>
-                        <DashBoardCharts title={'TOTAL ' + "Industry"} color={'primary'}
+                        <DashBoardCharts title={'TOTAL ' + "Mentor"} color={'primary'}
                                          value={cardObj.totalLabelValue}/>
                     </Grid>
                     <Grid item lg={4}
@@ -183,7 +183,7 @@ export default function AdminMentor({cardObj}) {
 
                 <Card sx={{mt: 2}}>
                     <UserListToolbar
-                        pageName={"Industry"}
+                        pageName={"Mentor"}
                         numSelected={selected.length}
                         filterName={filterName}
                         onFilterName={handleFilterByName}

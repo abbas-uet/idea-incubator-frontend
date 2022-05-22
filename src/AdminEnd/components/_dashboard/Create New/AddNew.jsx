@@ -121,7 +121,7 @@ function AddNew({open, handleClose, pageName}) {
                     username:values.email,
                     password: values.password
                 }
-                const response=await Create('mentor',data);
+                const response=await Create('mentors',data);
                 if(response.status===200){
                     setStatusCode({...statusCode,['cond']:true,["res"]:200})
                     setTimeout(function(){

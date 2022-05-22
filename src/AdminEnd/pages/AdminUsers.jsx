@@ -157,7 +157,7 @@ export default function AdminUsers({cardObj}) {
                           md={3}
                           xl={6}
                           xs={12}>
-                        <DashBoardCharts title={'TOTAL Ideas'} color={'primary'}
+                        <DashBoardCharts title={'TOTAL Users'} color={'primary'}
                                          value={cardObj.totalLabelValue}/>
                     </Grid>
                     <Grid item lg={4}

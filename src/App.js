@@ -81,18 +81,18 @@ import AdminMentor from "./AdminEnd/pages/AdminMentors";
 
 const cardObj = [
     [{
-        totalLabelValue: '5k',
+        totalLabelValue: '172',
         firstLabel: 'Male',
-        firstLabelValue: '2K',
+        firstLabelValue: '109',
         secondLabel: 'Female',
-        secondLabelValue: '3k',
+        secondLabelValue: '63',
     }],
     [{
-        totalLabelValue: '50',
+        totalLabelValue: '365',
         firstLabel: 'Pending',
-        firstLabelValue: '20',
+        firstLabelValue: '324',
         secondLabel: 'Approved',
-        secondLabelValue: '10'
+        secondLabelValue: '41'
     }]
 ]
 

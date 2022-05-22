@@ -35,8 +35,8 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const Approved = 13528;
-const Pending= 1500;
+const Approved = 41;
+const Pending= 324;
 
 export default function AppNewUsers() {
   return (

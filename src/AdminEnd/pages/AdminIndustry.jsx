@@ -174,20 +174,7 @@ export default function AdminIndustry({ cardObj}) {
                         <DashBoardCharts title={'TOTAL ' + "Industry"} color={'primary'}
                                          value={cardObj.totalLabelValue}/>
                     </Grid>
-                    <Grid item lg={4}
-                          md={3}
-                          xl={6}
-                          xs={12}>
-                        <DashBoardCharts title={cardObj.firstLabel} color={'warning'}
-                                         value={cardObj.firstLabelValue}/>
-                    </Grid>
-                    <Grid item lg={4}
-                          md={3}
-                          xl={6}
-                          xs={12}>
-                        <DashBoardCharts title={cardObj.secondLabel} color={'info'}
-                                         value={cardObj.secondLabelValue}/>
-                    </Grid>
+                   
                 </Grid>
 
                 <Card sx={{mt: 2}}>

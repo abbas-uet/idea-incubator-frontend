@@ -49,6 +49,29 @@ export const CreateNewComponent = ({values,setValues}) => {
                 xs={6}
             >
                 <Typography variant={'body1'} marginTop={2}>
+                    Gender
+                </Typography>
+
+            </Grid>
+            <Grid
+                item
+                md={7}
+                xs={6}
+            >
+                <TextField
+                    color={'grey'}
+                    name="gender"
+                    onChange={handleChange}
+                    value={values.gender}
+                    variant="filled"
+                />
+            </Grid>
+            <Grid
+                item
+                md={5}
+                xs={6}
+            >
+                <Typography variant={'body1'} marginTop={2}>
                     Email
                 </Typography>
 
