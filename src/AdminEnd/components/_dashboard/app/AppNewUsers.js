@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import appleFilled from '@iconify/icons-ant-design/apple-filled';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
@@ -42,7 +43,8 @@ export default function AppNewUsers() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={appleFilled} width={20} height={20} />
+         <TipsAndUpdatesIcon sx={{width:20, height:20}}/>
+
       </IconWrapperStyle>
       <Grid container direction="row" justifyContent="center" alignItems="center" >
       <Grid item md={6}>

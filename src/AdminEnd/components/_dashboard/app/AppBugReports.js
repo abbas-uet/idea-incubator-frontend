@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import bugFilled from '@iconify/icons-ant-design/bug-filled';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
@@ -40,7 +41,8 @@ export default function AppBugReports() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={bugFilled} width={20} height={20} />
+        <WarehouseIcon sx={{width:20, height:20}}/>
+
       </IconWrapperStyle>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
         Industry
