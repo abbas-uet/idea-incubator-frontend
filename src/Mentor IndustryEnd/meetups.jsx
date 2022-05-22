@@ -1,20 +1,12 @@
-import { Card } from "@mui/material";
-import React, {useEffect} from "react";
-import { Grid } from "@mui/material";
-import { TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { Stack, Button, CardContent } from "@mui/material";
+import {Box, Button, Card, CardContent, FormControl, Grid, Stack, TextField, Typography} from "@mui/material";
+import React, {useEffect, useState} from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import {styled, useTheme} from "@mui/material/styles";
-import { Box } from "@mui/material";
-import { FormControl } from "@mui/material";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import {getTableData, getTwoTableAll} from "../ApiServices/getData";
+import {getTableData} from "../ApiServices/getData";
 import CustomSnackbar from ".././Utils/SnakBar";
 import Page from "../AdminEnd/components/Page";
 import {Create} from "../ApiServices/create";
@@ -27,14 +19,10 @@ import DialogActions from '@mui/material/DialogActions';
 
 import TimePicker from "@mui/lab/TimePicker";
 import {DatePicker} from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import {AdapterDateFns} from '@mui/x-date-pickers/AdapterDateFns';
+import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 
 import IconButton from "@mui/material/IconButton";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import Autocomplete from "@mui/material/Autocomplete";
-import MobileDateRangePicker from "@mui/lab/MobileDateRangePicker";
 
 
 import CloseIcon from "@mui/icons-material/Close";
@@ -109,7 +97,7 @@ function Meetups(props) {
 
     const [values, setValues] = useState({
         nameBy: "",
-        type: "",
+        topic: "",
         date:null,
         datetime:null,
         duration:null,
@@ -242,11 +230,11 @@ function Meetups(props) {
                                 <TextField
                                     id="outlined-basic"
                                     label="Ex:Artifical Intelligence"
-                                    name="nameBy"
+                                    name="topic"
                                     variant="outlined"
                                     size="small"
                                     onChange={handleChange}
-                                    value={values.nameBy}
+                                    value={values.topic}
                                     sx={{ minWidth: 340 }}
                                 />
                             </Stack>

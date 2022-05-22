@@ -268,7 +268,7 @@ export default function AdminMentor({cardObj}) {
                     />
                 </Card>
             </Container>
-            <AddNew open={open} handleClose={handleClose} pageName={"Industry"}/>
+            <AddNew open={open} handleClose={handleClose} pageName={"Mentors"}/>
         </Page>
     );
 }

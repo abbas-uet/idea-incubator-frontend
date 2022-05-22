@@ -1,24 +1,26 @@
 import * as Yup from 'yup';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
-import {useFormik, Form, FormikProvider} from 'formik';
+import {Form, FormikProvider, useFormik} from 'formik';
 import {Icon} from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
-import {
-    Link,
-    Stack,
-    Checkbox,
-    TextField,
-    IconButton,
-    InputAdornment,
-    FormControlLabel
-} from '@mui/material';
+import {Checkbox, FormControlLabel, IconButton, InputAdornment, Link, Stack, TextField} from '@mui/material';
 import {LoadingButton} from '@mui/lab';
+import Autocomplete from "@mui/material/Autocomplete";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 
 // ----------------------------------------------------------------------
 
+const allAdmins = [
+    "User", "Admin", "SuperAdmin", "Industry", "Mentor"
+]
+
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small"/>;
+const checkedIcon = <CheckBoxIcon fontSize="small"/>;
 export default function LoginForm() {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -27,15 +29,26 @@ export default function LoginForm() {
         email: Yup.string().email('Email must be a valid email address').required('Email is required'),
         password: Yup.string().required('Password is required')
     });
+    const [role, setRole] = useState('');
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            remember: true
+            remember: true,
+            role: ''
         },
         validationSchema: LoginSchema,
         onSubmit: () => {
+            if(role==='Mentor'){
+
+            }else if(role==='User'){
+
+            }else if(role==='Admin'){
+
+            }else if(role==='SuperAdmin'){
+
+            }
             formik.values.email.toString() === "user123@gmail.com" ? navigate('/user/home', {replace: true}) : formik.values.email.toString() === "admin123@gmail.com" ? navigate('/admin/dashboard/app', {replace: true}) : navigate('/superadmin/dashboard/app', {replace: true});
         }
     });
@@ -77,6 +90,34 @@ export default function LoginForm() {
                         }}
                         error={Boolean(touched.password && errors.password)}
                         helperText={touched.password && errors.password}
+                    />
+                    <Autocomplete
+                        id="checkboxes-tags-demo"
+                        options={allAdmins}
+                        disableCloseOnSelect
+                        value={role}
+                        isOptionEqualToValue={(option, value) => option === value}
+                        onChange={(event, value) => setRole(value)}
+                        getOptionLabel={(option) => option}
+                        renderOption={(props, option, {selected}) => (
+                            <li {...props}>
+                                <Checkbox
+                                    icon={icon}
+                                    checkedIcon={checkedIcon}
+                                    style={{marginRight: 8}}
+                                    checked={selected}
+                                    key={option}
+                                />
+                                {option}
+                            </li>
+                        )}
+                        style={{width: 500}}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Select Role"
+                            />
+                        )}
                     />
                 </Stack>
 

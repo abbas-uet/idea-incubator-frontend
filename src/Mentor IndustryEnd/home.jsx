@@ -17,7 +17,7 @@ function Home({role}) {
             {
                 role === 'mentor' ?
                     <Grid item xs={10} md={7} sx={{mr:3}}><Calender/></Grid> :
-                    <div>Industry Home Here</div>
+                    <Grid item xs={10} md={7} sx={{mr:3}}><Calender/></Grid>
             }
             <Grid item xs={4} md={3} sx={{mt:4,heigth:'100px'}} justifyContent={'center'} justifyItems={'center'} >
                 <Card>

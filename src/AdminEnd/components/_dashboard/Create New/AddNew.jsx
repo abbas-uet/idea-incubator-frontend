@@ -9,8 +9,10 @@ import CustomSnackbar from "../../../../Utils/SnakBar";
 
 
 function DialogContents(pageName,values,setValues,refValue,setRefValue) {
-    return pageName === 'User' ? <NewComponent refValue={refValue} setRefValue={setRefValue} pageName={pageName} values={values} setValues={setValues}/> : pageName === 'Assets' ? <NewAssest values={values} setValues={setValues}/> :
-            pageName === 'Talent' ? <NewTalent values={values} setValues={setValues}/> : pageName === 'Industry' ?
+    return pageName === 'User' ? <NewComponent refValue={refValue} setRefValue={setRefValue} pageName={pageName} values={values} setValues={setValues}/> :
+        pageName === 'Assets' ? <NewAssest values={values} setValues={setValues}/> :
+            pageName === 'Talent' ? <NewTalent values={values} setValues={setValues}/> :
+                pageName === 'Industry' ?
                 <NewComponent refValue={refValue} setRefValue={setRefValue} pageName={pageName} values={values} setValues={setValues}/> :
                 pageName === 'Mentors' ? <NewComponent refValue={refValue} setRefValue={setRefValue} pageName={pageName} values={values} setValues={setValues}/> : ''
 }

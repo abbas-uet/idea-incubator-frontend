@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link as RouterLink, Link} from 'react-router-dom';
-import {Divider, Paper} from '@mui/material';
+import {Badge, Divider, Paper} from '@mui/material';
 import NotificationSection from './../../UserEnd/components/Navbar/NotificationSection';
 import Logo from './../../Utils/static/Logo.png';
 
@@ -25,6 +25,8 @@ import MenuPopover from "./../../SuperAdminEnd/components/MenuPopover";
 import {Icon} from "@iconify/react/dist/iconify";
 import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
+import bellFill from "@iconify/icons-eva/bell-fill";
+import message from "@iconify/icons-eva/message-circle-fill";
 
 
 const ResponsiveAppBar = ({page}) => {
@@ -152,7 +154,20 @@ const ResponsiveAppBar = ({page}) => {
               </Box>
 
 
-              <NotificationSection type='Messages' sx={{mr:1}} />
+              <IconButton
+                size="large"
+                color={open ? 'primary' : 'default'}
+                LinkComponent={Link} to={'/'+page+'/chat/'+'name'+'/'+'id'}
+                sx={{
+                ...(open && {
+                  bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
+                })
+              }}
+                >
+              <Badge color="error">
+                <Icon icon={message} width={23} height={23} />
+              </Badge>
+            </IconButton>
               <NotificationSection type='Notifications' sx={{mr:1}} />
               <Box sx={{ flexGrow: 0,  ml:1}}>
                 <Tooltip title="Open settings">
