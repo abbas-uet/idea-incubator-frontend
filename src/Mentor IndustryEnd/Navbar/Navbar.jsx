@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -27,21 +27,42 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Menu from "@mui/material/Menu";
 import bellFill from "@iconify/icons-eva/bell-fill";
 import message from "@iconify/icons-eva/message-circle-fill";
+import {getTableSingle} from "../../ApiServices/getData";
 
 
-const ResponsiveAppBar = ({page}) => {
+const ResponsiveAppBar = ({page,roleId}) => {
   const MENU_OPTIONS = [
     {
       label: 'Home',
       icon: homeFill,
-      linkTo: '/'+page+'/home'
+      linkTo: '/'+page+'/'+roleId+'/home'
     },
     {
       label: 'Profile',
       icon: personFill,
-      linkTo: '/'+page+'/profileSetting'
+      linkTo: '/'+page+'/'+roleId+'/profileSetting'
     }
   ];
+  const [data,setdata]=useState({});
+  useEffect(async () => {
+
+    if(page==='Industry'){
+      const response = await getTableSingle('industry',roleId);
+      if (response.status === 200) {
+        setdata(response.data);
+      } else {
+        console.log(response.status);
+      }
+    }else{
+      const response = await getTableSingle('mentor',roleId);
+      if (response.status === 200) {
+        setdata(response.data);
+      } else {
+        console.log(response.status);
+      }
+    }
+
+  },[]);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -157,7 +178,7 @@ const ResponsiveAppBar = ({page}) => {
               <IconButton
                 size="large"
                 color={open ? 'primary' : 'default'}
-                LinkComponent={Link} to={'/'+page+'/chat/'+'name'+'/'+'id'}
+                LinkComponent={Link} to={'/'+page+'/'+roleId+'/chat/'+data.name+'/'+data.id}
                 sx={{
                 ...(open && {
                   bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)

@@ -11,42 +11,45 @@ import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
 
 const getIcon = (name) => <Icon icon={name} width={25} height={25}/>;
 
-const sidebarConfig = [
-    {
-        title: 'dashboard',
-        path: '/admin/dashboard/app',
-        icon: getIcon(pieChart2Fill)
-    },
-    {
-        title: 'user',
-        path: '/admin/dashboard/user',
-        icon: getIcon(peopleFill)
-    },
-    {
-        title: 'ideas',
-        path: '/admin/dashboard/ideas',
-        icon: getIcon(shoppingBagFill)
-    },
-    {
-        title: 'assets',
-        path: '/admin/dashboard/assets',
-        icon: getIcon(fileTextFill)
-    },
-    {
-        title: 'talent',
-        path: '/admin/dashboard/talent',
-        icon: getIcon(lockFill)
-    },
-    {
-        title: 'industry',
-        path: '/admin/dashboard/industry',
-        icon: getIcon(personAddFill)
-    },
-    {
-        title: 'mentors',
-        path: '/admin/dashboard/mentors',
-        icon: getIcon(alertTriangleFill)
-    }
-];
+const sidebarConfig =(roleId)=>{
+
+    return ([
+        {
+            title: 'dashboard',
+            path: '/admin/dashboard/'+roleId+'/app',
+            icon: getIcon(pieChart2Fill)
+        },
+        {
+            title: 'user',
+            path: '/admin/dashboard/'+roleId+'/user',
+            icon: getIcon(peopleFill)
+        },
+        {
+            title: 'ideas',
+            path: '/admin/dashboard/'+roleId+'/ideas',
+            icon: getIcon(shoppingBagFill)
+        },
+        {
+            title: 'assets',
+            path: '/admin/dashboard/'+roleId+'/assets',
+            icon: getIcon(fileTextFill)
+        },
+        {
+            title: 'talent',
+            path: '/admin/dashboard/'+roleId+'/talent',
+            icon: getIcon(lockFill)
+        },
+        {
+            title: 'industry',
+            path: '/admin/dashboard/'+roleId+'/industry',
+            icon: getIcon(personAddFill)
+        },
+        {
+            title: 'mentors',
+            path: '/admin/dashboard/'+roleId+'/mentors',
+            icon: getIcon(alertTriangleFill)
+        }
+    ]);
+}
 
 export default sidebarConfig;

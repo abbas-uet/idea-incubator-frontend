@@ -108,7 +108,7 @@ function App() {
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'register'} element={<Register/>}/>
 
-                    <Route path={'mentor'} element={<MentorIndustryIndex role={'mentor'}/>}>
+                    <Route path={'mentor/:roleId'} element={<MentorIndustryIndex role={'mentor'}/>}>
                         <Route path="home" element={<Home role={'mentor'}/>}/>
                         <Route path="meetup" element={<Meetups/>}/>
                         <Route path="profileSetting" element={<ForMentors/>}/>
@@ -116,7 +116,7 @@ function App() {
                     </Route>
 
 
-                    <Route path={'industry'} element={<MentorIndustryIndex role={'industry'}/>}>
+                    <Route path={'industry/:roleId'} element={<MentorIndustryIndex role={'industry'}/>}>
                         <Route path="home" element={<Home role={'industry'}/>}/>
                         <Route path="webinar" element={<Webinars/>}/>
                         <Route path="profileSetting" element={<ForIndustry/>}/>
@@ -130,8 +130,8 @@ function App() {
                         //
                     }
                     <Route path={'superadmin'} element={<SuperAdminIndex/>}>
-                        <Route path={'dashboard'} element={<SuperAdminDashboardLayout/>}>
-                            <Route element={<Navigate to="dashboard/app" replace/>}/>
+                        <Route path={'dashboard/:roleId'} element={<SuperAdminDashboardLayout/>}>
+                            <Route element={<Navigate to="dashboard/:roleId/app" replace/>}/>
 
                             <Route path={'app'} element={<SuperAdminDashboardApp/>}/>
 
@@ -165,7 +165,7 @@ function App() {
                     </Route>
 
 
-                    <Route path={'user'} element={<UserIndex/>}>
+                    <Route path={'user/:roleId'} element={<UserIndex/>}>
                         <Route path="home" element={<DashBoard/>}/>
                         <Route path="mentors" element={<Mentors/>}/>
                         <Route path="mentors/viewMentors/:id" element={<MD/>}/>
@@ -182,7 +182,7 @@ function App() {
                         <Route path="help" element={<Help/>}/>
                         <Route path={'chat/:name/:id'} element={<ChatApp role={'user'}/>}/>
 
-                        <Route path="studentProfileSettings/:id" element={<StudentProfileSetting/>}/>
+                        <Route path="studentProfileSettings" element={<StudentProfileSetting/>}/>
                         <Route path="studentAccountSettings" element={<StudentAccountSetting/>}>
                             <Route path="account_details" element={<AccountDetailsUser/>}/>
                             <Route path="profile_details" element={<StudentProfileSetting/>}/>
@@ -194,8 +194,8 @@ function App() {
 
                     </Route>
                     <Route path={'admin'} element={<AdminIndex/>}>
-                        <Route path={'dashboard'} element={<DashboardLayout/>}>
-                            <Route element={<Navigate to="dashboard/app" replace/>}/>
+                        <Route path={'dashboard/:roleId'} element={<DashboardLayout/>}>
+                            <Route element={<Navigate to="dashboard/:roleId/app" replace/>}/>
                             <Route path={'app'} element={<DashboardApp/>}/>
                             <Route path={'user'}
                                    element={<AdminUsers  cardObj={cardObj[0][0]}/>}/>

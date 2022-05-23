@@ -20,7 +20,7 @@ const user = {
 };
 
 export default function ForStudent() {
-  const {id} = useParams()
+  const {roleId} = useParams()
 
   const [values, setValues] = useState({
     firstName: '',
@@ -36,7 +36,7 @@ export default function ForStudent() {
   });
 
   useEffect(async () => {
-    const response = await getThreeTableAllById("user","idea","profile", id);
+    const response = await getThreeTableAllById("user","idea","profile", roleId);
     if (response.status === 200) {
       const namearr=response.data.fullname.split(' ');
       setValues({
@@ -71,7 +71,7 @@ export default function ForStudent() {
       fullname:values.firstName+' '+values.lastName,
       email:values.email
     }
-    const response=await UpdateSingleTableData('user',id,data);
+    const response=await UpdateSingleTableData('user',roleId,data);
     if(response.status===200){
       const data1={
         location:values.location,

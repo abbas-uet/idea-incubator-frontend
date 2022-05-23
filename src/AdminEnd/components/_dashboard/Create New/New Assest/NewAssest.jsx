@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useTheme} from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Typography from '@mui/material/Typography';
@@ -13,19 +13,17 @@ import {autoPlay} from 'react-swipeable-views-utils';
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import Stack from "@mui/material/Stack";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 import {Grid} from "@material-ui/core";
-import {styled} from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TimePicker from "@mui/lab/TimePicker";
 import IconButton from "@mui/material/IconButton";
 
-import {Avatar, Card, Checkbox} from "@mui/material";
+import {Avatar} from "@mui/material";
 
 
 const SmallAvatar = styled(Avatar)(({theme}) => ({

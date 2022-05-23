@@ -8,9 +8,9 @@ import meet from "./../UserEnd/StaticAssets/meet.jpg";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import {Link} from 'react-router-dom';
+import {Link,useParams} from 'react-router-dom';
 function Home({role}) {
-    let color;
+    const {roleId}=useParams();
     return (
         <Grid container sx={{display: 'flex'}} justifyContent='center'>
 
@@ -32,7 +32,7 @@ function Home({role}) {
 
                     <Typography variant='h5' color={'secondary'}  sx={{ml:14,mb:1}}>Meetup</Typography>
                        <Typography variant='body2' sx={{ml:2,mb:4}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi cum doloremque error et exercitationem illum nisi                                          </Typography>
-                    <Button variant={'contained'} color={'secondary'}sx={{ml:11}} LinkComponent={Link} to={'/mentor/meetup'} >Create Meeting</Button>
+                    <Button variant={'contained'} color={'secondary'}sx={{ml:11}} LinkComponent={Link} to={'/mentor/'+roleId+'/meetup'} >Create Meeting</Button>
                    </CardContent>
                 </Card>
             </Grid>

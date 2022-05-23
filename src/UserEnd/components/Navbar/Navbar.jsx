@@ -33,27 +33,29 @@ import message from "@iconify/icons-eva/message-circle-fill";
 
 
 
-const MENU_OPTIONS = [
-  {
-    label: 'Home',
-    icon: homeFill,
-    linkTo: '/user/home'
-  },
-  {
-    label: 'Profile',
-    icon: personFill,
-    linkTo: 'studentProfileSettings'
-  },
-  {
-    label: 'Settings',
-    icon: settings2Fill,
-    linkTo: 'studentAccountSettings'
-  }
-];
+
 
 const ResponsiveAppBar = (props) => {
   const id=props.id;
+  const roleId=id;
   const name=props.name;
+  const MENU_OPTIONS = [
+    {
+      label: 'Home',
+      icon: homeFill,
+      linkTo: '/user/'+roleId+'/home'
+    },
+    {
+      label: 'Profile',
+      icon: personFill,
+      linkTo: 'studentProfileSettings'
+    },
+    {
+      label: 'Settings',
+      icon: settings2Fill,
+      linkTo: 'studentAccountSettings'
+    }
+  ];
   const settings = props.settings;
   const pages = props.pages;
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -170,7 +172,7 @@ const ResponsiveAppBar = (props) => {
 
             <IconButton
                 size="large"
-                LinkComponent={Link} to={'/user/chat/'+name+'/'+id}
+                LinkComponent={Link} to={'/user/'+roleId+'/chat/'+name+'/'+id}
                 sx={{
                   ...(open && {
                     bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)

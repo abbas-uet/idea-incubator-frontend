@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 import menu2Fill from '@iconify/icons-eva/menu-2-fill';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import {Box, Stack, AppBar, Toolbar, IconButton, Badge} from '@mui/material';
 // components
 import { MHidden } from '../../components/@material-extend';
 //
@@ -11,6 +11,11 @@ import SearchBar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
+import {Link} from "react-router-dom";
+import message from "@iconify/icons-eva/message-circle-fill";
+import * as React from "react";
+import {useEffect, useState} from "react";
+import {getTableSingle} from "../../../ApiServices/getData";
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +47,17 @@ DashboardNavbar.propTypes = {
   onOpenSidebar: PropTypes.func
 };
 
-export default function DashboardNavbar({ onOpenSidebar }) {
+export default function DashboardNavbar({ onOpenSidebar,roleId }) {
+  const [open, setOpen] = useState(false);
+  const [data,setdata]=useState({});
+  useEffect(async () => {
+    const response = await getTableSingle('superadmin',roleId);
+    if (response.status === 200) {
+      setdata(response.data);
+    } else {
+      console.log(response.status);
+    }
+  },[]);
   return (
     <RootStyle>
       <ToolbarStyle>
@@ -56,7 +71,19 @@ export default function DashboardNavbar({ onOpenSidebar }) {
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-          <LanguagePopover />
+          <IconButton
+            size="large"
+            LinkComponent={Link} to={'/superadmin/dashboard/'+roleId+'/chat/'+data.fullname+'/'+roleId}
+            sx={{
+            ...(open && {
+              bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.focusOpacity)
+            })
+          }}
+            >
+          <Badge color="error">
+            <Icon icon={message} width={23} height={23} />
+          </Badge>
+        </IconButton>
           <NotificationsPopover />
           <AccountPopover />
         </Stack>

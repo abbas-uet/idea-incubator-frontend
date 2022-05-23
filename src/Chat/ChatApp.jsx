@@ -123,7 +123,7 @@ const ChatApp = ({role}) => {
     if (!chatClient) return null;
 
     return (
-        <Page >
+        <Page sx={{height:'300px'}}>
             <Chat client={chatClient} theme={`messaging ${theme}`}>
                 <div id='mobile-channel-list' onClick={toggleMobile}>
                     <ChannelList

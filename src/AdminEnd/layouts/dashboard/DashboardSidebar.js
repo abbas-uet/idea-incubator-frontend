@@ -39,8 +39,9 @@ DashboardSidebar.propTypes = {
     onCloseSidebar: PropTypes.func
 };
 
-export default function DashboardSidebar({isOpenSidebar, onCloseSidebar}) {
+export default function DashboardSidebar({isOpenSidebar, onCloseSidebar,roleId}) {
     const {pathname} = useLocation();
+    const config=sidebarConfig(roleId);
 
     useEffect(() => {
         if (isOpenSidebar) {
@@ -79,7 +80,7 @@ export default function DashboardSidebar({isOpenSidebar, onCloseSidebar}) {
                 </Link>
             </Box>
 
-            <NavSection navConfig={sidebarConfig}/>
+            <NavSection navConfig={config}/>
         </Scrollbar>
     );
 

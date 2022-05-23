@@ -11,6 +11,7 @@ import {LoadingButton} from '@mui/lab';
 import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import axios from "axios";
 
 // ----------------------------------------------------------------------
 
@@ -39,17 +40,22 @@ export default function LoginForm() {
             role: ''
         },
         validationSchema: LoginSchema,
-        onSubmit: () => {
-            if(role==='Mentor'){
-
-            }else if(role==='User'){
-
-            }else if(role==='Admin'){
-
-            }else if(role==='SuperAdmin'){
-
+        onSubmit: async () => {
+            const table = role.toLowerCase();
+            const data = {
+                email: formik.values.email.toString(),
+                password: formik.values.password.toString()
             }
-            formik.values.email.toString() === "user123@gmail.com" ? navigate('/user/home', {replace: true}) : formik.values.email.toString() === "admin123@gmail.com" ? navigate('/admin/dashboard/app', {replace: true}) : navigate('/superadmin/dashboard/app', {replace: true});
+            const response = await axios.post('http://localhost:5000/' + table + 's/auth_' + table, data)
+            if (response.status === 200) {
+                role === 'User' ? navigate('/user/' + response.data.userid + '/home', {replace: true}) :
+                    role === "Mentor" ? navigate('/mentor/' + response.data.id + '/home', {replace: true}) :
+                        role === 'Industry' ? navigate('/industry/' + response.data.id + '/home', {replace: true}) :
+                            role === 'Admin' ? navigate('/admin/dashboard/' + response.data.id + '/app', {replace: true}) :
+                                navigate('/superadmin/dashboard/' + response.data.id + '/app', {replace: true})
+            }else{
+                console.log(response);
+            }
         }
     });
 

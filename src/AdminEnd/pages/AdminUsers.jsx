@@ -32,6 +32,7 @@ import AddNew from "../components/_dashboard/Create New/AddNew";
 import {applySortFilter, getComparator} from "../../Utils/SortUtilityFunctions";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import {getThreeTableAll} from "../../ApiServices/getData";
+import {useParams} from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +45,6 @@ const TABLE_HEAD = [
     {id: ''}];
 
 export default function AdminUsers({cardObj}) {
-
     const SEARCH_BY_OPTIONS = [{id: 'id', label: 'ID'},
         {id: 'projectname', label: 'Project Name'},];
     //LIST OF TABLE CONTENT

@@ -1,4 +1,15 @@
-import {Box, Button, Card, CardContent, FormControl, Grid, Stack, TextField, Typography} from "@mui/material";
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    FormControl,
+    Grid,
+    InputAdornment,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -9,6 +20,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import {getTableData} from "../ApiServices/getData";
 import CustomSnackbar from ".././Utils/SnakBar";
 import Page from "../AdminEnd/components/Page";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {Create} from "../ApiServices/create";
 
 import Divider from "@mui/material/Divider";
@@ -27,6 +39,8 @@ import IconButton from "@mui/material/IconButton";
 
 import CloseIcon from "@mui/icons-material/Close";
 import PropTypes from "prop-types";
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -94,13 +108,14 @@ function getStyles(name, nameBy, theme) {
 function Meetups(props) {
     const theme = useTheme();
     const [open,setOpen]=useState(false);
+    const [urls,SetUrls]=useState({start_url:'',join_url:''});
 
     const [values, setValues] = useState({
         nameBy: "",
         topic: "",
-        date:null,
-        datetime:null,
-        duration:null,
+        start_time:null,
+        time_zone:'Asia/Tashkent',
+        duration:'',
     });
 
     const handleChange = (event) => {
@@ -139,37 +154,55 @@ function Meetups(props) {
 
 
 
-    const [status,setStatus]=useState({'promoCode':null,'status':0,'subscription':null,'subStatus':0});
+    const [status,setStatus]=useState({'condition':false,'status':0});
     const [startTimevalue, setstartTimeValue] = React.useState(null);
     const [endTimevalue, setendTimeValue] = React.useState(null);
 
-    const startLink="https://us04web.zoom.us/s/75180912284?zak=eyJ0eXAiOiJKV1QiLCJzdiI6IjAwMDAwMSIsInptX3NrbSI6InptX28ybSIsImFsZyI6IkhTMjU2In0.eyJhdWQiOiJjbGllbnRzbSIsInVpZCI6Ii0tdE9XZGVPUnlldDBJdTRtcGhRV1EiLCJpc3MiOiJ3ZWIiLCJzayI6IjAiLCJzdHkiOjEwMCwid2NkIjoidXMwNCIsImNsdCI6MCwibW51bSI6Ijc1MTgwOTEyMjg0IiwiZXhwIjoxNjUyMzY3NzIwLCJpYXQiOjE2NTIzNjA1MjAsImFpZCI6IlpqSFJYY3BWUnEyZl9fVFBhUUdlemciLCJjaWQiOiIifQ.fwFR-TKzMwRS7PlZK_v9LOTF7Thycexo-tWZJbyBGWs";
-    const joinLink="https://us04web.zoom.us/j/75180912284?pwd=1-qM8YTo-ZhC7YuYwUhW-DM1EBgMg3.1";
-    useEffect(async() => {
-        const response = await getTableData('currency_unit');
-        if(response.status===200) {
-            setValues({...values,["currency"]:response.data});
-        }else{
-            console.log(response.status);
+    const handleClickOpen = async () => {
+        const data = {
+            start_time: startTimevalue.toISOString(),
+            topic: values.topic,
+            time_zone: "Asia/Tashkent",
+            duration: (values.duration.getHours() * 60) + (values.duration.getMinutes()),
+            type: meetingType[0]
         }
-    }, [])
+        if (data.type === 'Meeting') {
+            const response = await axios.post('http://localhost:5000/zoom/createMeetingScheduled',data);
+            console.log(response);
+            if(response.status===200){
+                SetUrls({
+                    ...urls,['start_url']:response.data.body.start_url,
+                    ['join_url']:response.data.body.join_url
+                });
+                setStatus({
+                    ...status,['condition']:true,
+                ['status']:response.status
+                });
+            }else{
+                setStatus({
+                    ...status,['condition']:true,
+                    ['status']:response.status
+                });
+            }
 
-
-    const handleSaveSubscription=async()=>{
-        const data={
-            nameBy: values.nameBy,
-            type:meetingType[0],
-            ammount:values.totalAmmount,
-       };
-        const response=await Create('subscription',data);
-        if(response.status===200){
-            setStatus({...status,["subscription"]:true,['subStatus']:response.data});
         }else{
-            setStatus({...status,["subscription"]:true,['subStatus']:response.data});
-
+            const response = await axios.post('http://localhost:5000/zoom/createWebinarScheduled',data);
+            if(response.status===200){
+                SetUrls({
+                    ...urls,['start_url']:response.data.body.start_url,
+                    ['join_url']:response.data.body.join_url
+                });
+                setStatus({
+                    ...status,['condition']:true,
+                    ['status']:response.status
+                });
+            }else{
+                setStatus({
+                    ...status,['condition']:true,
+                    ['status']:response.status
+                });
+            }
         }
-    }
-    const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
@@ -252,12 +285,11 @@ function Meetups(props) {
 
 
                                 <DatePicker
-                                    label="Basic example"
+                                    label="Date"
                                     value={values.date}
                                     onChange={(newValue) => {
                                         setValues({...values,['date']:newValue});
                                     }}
-
                                     renderInput={(params) => <TextField size='small' sx={{ minWidth: 340 }}{...params} />}
                                 />
                                 </LocalizationProvider>
@@ -438,8 +470,17 @@ function Meetups(props) {
                                             variant="outlined"
                                             size="small"
                                             disabled
-                                            value={startLink}
+                                            value={urls.start_url}
                                             sx={{ minWidth: 400 }}
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position={"end"}>
+                                                        <IconButton onClick={()=>navigator.clipboard.writeText(urls.start_url)}>
+                                                            <ContentCopyIcon />
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
                                         />
                                         </Stack>
                                     <Stack spacing={3} direction={"row"} sx={{ mt: 2, ml: 5 }} alignItems={'center'}>
@@ -453,9 +494,17 @@ function Meetups(props) {
                                             variant="outlined"
                                             size="small"
                                             disabled
-                                            value={joinLink}
+                                            value={urls.join_url}
                                             sx={{ minWidth: 400 }}
-                                            end
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <InputAdornment position={"end"}>
+                                                        <IconButton onClick={()=>navigator.clipboard.writeText(urls.join_url)}>
+                                                            <ContentCopyIcon />
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                )
+                                            }}
                                         />
                                     </Stack>
 
@@ -473,14 +522,13 @@ function Meetups(props) {
                     </Grid>
                 </CardContent>
             </Card>
-            {status.promoCode&&(status.status===200?
-                <CustomSnackbar message={"Successfully Created the PromoCode"} type={'primary'}/>
+            {status.condition&&(status.status===200?
+                <CustomSnackbar message={"Successfully Created the Meeting"} type={'primary'}/>
                 :
-                <CustomSnackbar message={"Error While Creating the PromoCode"} type={'error'}/>)}
+                <CustomSnackbar message={"Error While Creating the Meeting"} type={'error'}/>)}
         </Page>
 
 );
-
 }
 
 export default Meetups;

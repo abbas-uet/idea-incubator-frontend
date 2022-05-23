@@ -43,12 +43,6 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function Register() {
     return (
         <RootStyle title="Register | Idea Incubator">
-            <AuthLayout>
-                Already have an account? &nbsp;
-                <Link underline="none" variant="subtitle2" component={RouterLink} to="/login">
-                    Login
-                </Link>
-            </AuthLayout>
 
             <MHidden width="mdDown">
                 <SectionStyle>
@@ -64,37 +58,15 @@ export default function Register() {
                 <ContentStyle>
                     <Box sx={{ mb: 5 }}>
                         <Typography variant="h4" gutterBottom>
-                            Get started absolutely free.
+                            Get started Incubate your Idea.
                         </Typography>
                         <Typography sx={{ color: 'text.secondary' }}>
-                            Free forever. No credit card needed.
+                            Submit Your Idea Information Here.
                         </Typography>
                     </Box>
 
-                    <AuthSocial />
-
                     <RegisterForm />
 
-                    <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-                        By registering, I agree to Minimal&nbsp;
-                        <Link underline="always" sx={{ color: 'text.primary' }}>
-                            Terms of Service
-                        </Link>
-                        &nbsp;and&nbsp;
-                        <Link underline="always" sx={{ color: 'text.primary' }}>
-                            Privacy Policy
-                        </Link>
-                        .
-                    </Typography>
-
-                    <MHidden width="smUp">
-                        <Typography variant="subtitle2" sx={{ mt: 3, textAlign: 'center' }}>
-                            Already have an account?&nbsp;
-                            <Link to="/login" component={RouterLink}>
-                                Login
-                            </Link>
-                        </Typography>
-                    </MHidden>
                 </ContentStyle>
             </Container>
         </RootStyle>
